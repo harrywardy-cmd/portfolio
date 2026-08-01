@@ -16,11 +16,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button
-        variant="ghost"
-        size="icon"
-        className="hidden h-10 w-10 rounded-full md:flex"
-      />
+      <div className="hidden h-10 w-10 md:block" />
     );
   }
 
@@ -31,8 +27,8 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       aria-label="Toggle Theme"
-      className="group hidden h-10 w-10 rounded-full text-zinc-400 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/5 hover:text-white md:flex"
       onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="group hidden h-10 w-10 rounded-full border border-transparent text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:bg-accent hover:text-foreground md:flex"
     >
       <div
         className={`transition-transform duration-500 ${
@@ -42,7 +38,7 @@ export function ThemeToggle() {
         {isDark ? (
           <Moon className="h-4 w-4" />
         ) : (
-          <Sun className="h-4 w-4" />
+          <Sun className="h-4 w-4 text-yellow-500" />
         )}
       </div>
     </Button>
