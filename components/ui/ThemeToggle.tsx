@@ -2,11 +2,18 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useIsClient } from "usehooks-ts";
 
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
+  const isClient = useIsClient();
   const { resolvedTheme, setTheme } = useTheme();
+
+  // Prevent hydration mismatch
+  if (!isClient) {
+    return <div className="hidden h-10 w-10 md:block" />;
+  }
 
   const isDark = resolvedTheme === "dark";
 
