@@ -6,6 +6,7 @@ import type {
 import { siteConfig } from "./site";
 
 const GITHUB_API = "https://api.github.com";
+const USERNAME = siteConfig.github.username;
 
 const REVALIDATE_TIME = 300;
 
@@ -27,14 +28,25 @@ const fetchOptions: RequestInit & {
   },
 };
 
-const USERNAME = siteConfig.github.username;
+/**
+ * Repository names that should appear in the featured
+ * projects section.
+ */
+const FEATURED_PROJECTS = [
+  "portfolio",
+  "calorie-compass",
+  "crud-app",
+  "lazuli-web",
+];
 
 /**
- * Returns the user's most recently updated public repository.
+ * Fetches every public repository for the configured user.
  */
-export async function getLatestRepository(): Promise<GitHubRepository> {
+export async function getRepositories(): Promise<
+  GitHubRepository[]
+> {
   const response = await fetch(
-    `${GITHUB_API}/users/${USERNAME}/repos?sort=updated&per_page=1`,
+    `${GITHUB_API}/users/${USERNAME}/repos?sort=updated&per_page=100`,
     fetchOptions
   );
 
@@ -44,13 +56,89 @@ export async function getLatestRepository(): Promise<GitHubRepository> {
     );
   }
 
-  const repos: GitHubRepository[] = await response.json();
+  const repositories: GitHubRepository[] =
+    await response.json();
 
-  if (repos.length === 0) {
+  return repositories;
+}
+
+/**
+ * Returns repositories suitable for displaying as projects.
+ */
+export async function getProjects(): Promise<
+  GitHubRepository[]
+> {
+  const repositories = await getRepositories();
+
+  return repositories
+    .filter((repository) => !repository.fork)
+    .filter((repository) => !repository.archived)
+    .sort(
+      (a, b) =>
+        new Date(b.updated_at).getTime() -
+        new Date(a.updated_at).getTime()
+    );
+}
+
+/**
+ * Returns the repositories marked as featured.
+ */
+export async function getFeaturedProjects(): Promise<
+  GitHubRepository[]
+> {
+  const projects = await getProjects();
+
+  return projects.filter((repository) =>
+    FEATURED_PROJECTS.includes(
+      repository.name.toLowerCase()
+    )
+  );
+}
+
+/**
+ * Returns a single repository by slug.
+ */
+export async function getProject(
+  slug: string
+): Promise<GitHubRepository | undefined> {
+  const projects = await getProjects();
+
+  return projects.find(
+    (repository) =>
+      repository.name.toLowerCase() ===
+      slug.toLowerCase()
+  );
+}
+
+/**
+ * Returns the total number of projects.
+ */
+export async function getProjectCount(): Promise<number> {
+  const projects = await getProjects();
+
+  return projects.length;
+}
+
+/**
+ * Returns the total number of public repositories.
+ */
+export async function getRepositoryCount(): Promise<number> {
+  const repositories = await getRepositories();
+
+  return repositories.length;
+}
+
+/**
+ * Returns the most recently updated repository.
+ */
+export async function getLatestRepository(): Promise<GitHubRepository> {
+  const projects = await getProjects();
+
+  if (projects.length === 0) {
     throw new Error("No public repositories found.");
   }
 
-  return repos[0];
+  return projects[0];
 }
 
 /**
@@ -71,19 +159,11 @@ export async function getRecentCommits(
     );
   }
 
-  const commits: GitHubCommit[] = await response.json();
-
-  if (commits.length === 0) {
-    throw new Error(
-      `Repository "${repository}" has no commits.`
-    );
-  }
-
-  return commits;
+  return response.json();
 }
 
 /**
- * Converts a GitHub commit date into a human-readable relative time.
+ * Converts a GitHub commit date into a readable relative time.
  */
 export function getRelativeTime(date: string): string {
   const now = Date.now();

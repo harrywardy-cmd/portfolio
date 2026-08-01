@@ -10,6 +10,7 @@ export interface GitHubRepository {
   homepage: string | null;
 
   language: string | null;
+  topics: string[];
 
   stargazers_count: number;
   forks_count: number;
@@ -19,10 +20,13 @@ export interface GitHubRepository {
   default_branch: string;
 
   visibility: "public" | "private";
+  private: boolean;
+  fork: boolean;
+  archived: boolean;
 
+  created_at: string;
   updated_at: string;
   pushed_at: string;
-  created_at: string;
 
   owner: {
     login: string;
@@ -30,7 +34,10 @@ export interface GitHubRepository {
     html_url: string;
   };
 
-  topics: string[];
+  license: {
+    key: string;
+    name: string;
+  } | null;
 }
 
 export interface GitHubCommit {
@@ -68,6 +75,7 @@ export interface GitHubActivity {
   date: string;
 
   /**
+   * Human-readable relative time
    * e.g. "2 hours ago", "Yesterday"
    */
   relativeTime: string;
