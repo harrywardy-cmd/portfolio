@@ -54,13 +54,14 @@ export async function getLatestRepository(): Promise<GitHubRepository> {
 }
 
 /**
- * Returns the latest commit for a repository.
+ * Returns the most recent commits for a repository.
  */
-export async function getLatestCommit(
-  repository: string
-): Promise<GitHubCommit> {
+export async function getRecentCommits(
+  repository: string,
+  limit = 5
+): Promise<GitHubCommit[]> {
   const response = await fetch(
-    `${GITHUB_API}/repos/${USERNAME}/${repository}/commits?per_page=1`,
+    `${GITHUB_API}/repos/${USERNAME}/${repository}/commits?per_page=${limit}`,
     fetchOptions
   );
 
@@ -78,5 +79,47 @@ export async function getLatestCommit(
     );
   }
 
-  return commits[0];
+  return commits;
+}
+
+/**
+ * Converts a GitHub commit date into a human-readable relative time.
+ */
+export function getRelativeTime(date: string): string {
+  const now = Date.now();
+  const then = new Date(date).getTime();
+
+  const seconds = Math.floor((now - then) / 1000);
+
+  if (seconds < 60) {
+    return "Just now";
+  }
+
+  const minutes = Math.floor(seconds / 60);
+
+  if (minutes < 60) {
+    return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+
+  if (hours < 24) {
+    return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  }
+
+  const days = Math.floor(hours / 24);
+
+  if (days === 1) {
+    return "Yesterday";
+  }
+
+  if (days < 7) {
+    return `${days} days ago`;
+  }
+
+  return new Date(date).toLocaleDateString("en-AU", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 }
