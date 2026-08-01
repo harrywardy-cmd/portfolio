@@ -19,6 +19,8 @@ if (process.env.GITHUB_TOKEN) {
   headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 }
 
+
+
 const fetchOptions: RequestInit & {
   next: { revalidate: number };
 } = {
@@ -83,16 +85,19 @@ export async function getProjects(): Promise<
 /**
  * Returns the repositories marked as featured.
  */
-export async function getFeaturedProjects(): Promise<
-  GitHubRepository[]
-> {
+export async function getFeaturedProjects(): Promise<GitHubRepository[]> {
   const projects = await getProjects();
 
-  return projects.filter((repository) =>
-    FEATURED_PROJECTS.includes(
-      repository.name.toLowerCase()
+  return FEATURED_PROJECTS
+    .map((name) =>
+      projects.find(
+        (project) => project.name.toLowerCase() === name
+      )
     )
-  );
+    .filter(
+      (project): project is GitHubRepository =>
+        project !== undefined
+    );
 }
 
 /**
@@ -197,9 +202,14 @@ export function getRelativeTime(date: string): string {
     return `${days} days ago`;
   }
 
+  
+
   return new Date(date).toLocaleDateString("en-AU", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
+
+  
 }
+
