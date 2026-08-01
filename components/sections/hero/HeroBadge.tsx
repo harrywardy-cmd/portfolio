@@ -6,7 +6,7 @@ export function HeroBadge() {
       <Sparkles className="h-4 w-4 text-primary" />
 
       <span className="text-sm font-medium text-muted-foreground">
-        Hi, I'm Harry
+        Hi, I&#39;m Harry
       </span>
     </div>
   );
