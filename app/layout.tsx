@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
@@ -8,7 +8,7 @@ import { Navbar } from "@/components/layout/navbar/Navbar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://harryward.dev"), // Update once your domain is live
+  metadataBase: new URL("https://harryward.dev"), // Update when your domain is live
 
   title: {
     default: "Harry Ward | Software Engineer",
@@ -46,11 +46,6 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
 
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#030712" },
-  ],
-
   openGraph: {
     type: "website",
     locale: "en_AU",
@@ -78,6 +73,19 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    {
+      media: "(prefers-color-scheme: light)",
+      color: "#ffffff",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "#030712",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -92,7 +100,6 @@ export default function RootLayout({
       <body className="min-h-screen bg-background font-sans text-foreground antialiased selection:bg-primary/20 selection:text-primary">
         <ThemeProvider>
           <Navbar />
-
           <main>{children}</main>
         </ThemeProvider>
       </body>
