@@ -5,11 +5,19 @@ import { ProjectsHeader } from "./ProjectsHeader";
 
 export function FeaturedProjects() {
   return (
-    <section className="py-24">
+    <section
+      id="projects"
+      className="relative py-20 lg:py-24"
+    >
       <Container>
-        <ProjectsHeader />
+        <div className="space-y-12">
+          <ProjectsHeader />
 
-        <ProjectsGrid />
+          <ProjectsGrid />
+        </div>
+
+        {/* Bottom Divider */}
+        <div className="mt-20 border-t border-border/60" />
       </Container>
     </section>
   );

@@ -33,7 +33,7 @@ export const projects: Project[] = [
       "Full-stack CRUD application demonstrating database operations.",
     technologies: ["React", "Node.js"],
     githubUrl: "https://github.com/harrywardy-cmd/CRUD-App",
-    featured: true,
+    featured: false,
   },
   {
     slug: "lazuli-web",
@@ -42,7 +42,7 @@ export const projects: Project[] = [
       "Modern responsive web application.",
     technologies: ["React", "JavaScript"],
     githubUrl: "https://github.com/harrywardy-cmd/lazuli-web",
-    featured: true,
+    featured: false,
   },
   {
     slug: "portfolio-website",
@@ -77,7 +77,8 @@ export const projects: Project[] = [
     description:
       "Automated web scraping application using Python.",
     technologies: ["Python", "BeautifulSoup"],
-    githubUrl: "https://github.com/harrywardy-cmd/Python-Web-Scraping-Tool",
+    githubUrl:
+      "https://github.com/harrywardy-cmd/Python-Web-Scraping-Tool",
     featured: false,
   },
   {
@@ -86,7 +87,8 @@ export const projects: Project[] = [
     description:
       "Snake game featuring AI gameplay.",
     technologies: ["Python"],
-    githubUrl: "https://github.com/harrywardy-cmd/AI-PYTHON-SNAKE-GAME",
+    githubUrl:
+      "https://github.com/harrywardy-cmd/AI-PYTHON-SNAKE-GAME",
     featured: false,
   },
   {
@@ -95,17 +97,19 @@ export const projects: Project[] = [
     description:
       "Command-line application demonstrating terminal interactions.",
     technologies: ["Python"],
-    githubUrl: "https://github.com/harrywardy-cmd/command-line-interface",
+    githubUrl:
+      "https://github.com/harrywardy-cmd/command-line-interface",
     featured: false,
   },
   {
     slug: "algorithms-datastructures",
     title: "Algorithms & Data Structures",
     description:
-      "Collection of algorithms and data structure implementations.",
-    technologies: ["Python"],
-    githubUrl: "https://github.com/harrywardy-cmd/algorithms-datastructures",
-    featured: false,
+      "Collection of algorithms and data structure implementations with 1,100+ LeetCode and NeetCode solutions covering arrays, trees, graphs, dynamic programming, and system design fundamentals.",
+    technologies: ["Python", "Algorithms", "Data Structures"],
+    githubUrl:
+      "https://github.com/harrywardy-cmd/algorithms-datastructures",
+    featured: true,
   },
   {
     slug: "neetcode-submissions-s5rzyvb1",
@@ -113,7 +117,8 @@ export const projects: Project[] = [
     description:
       "Solutions to NeetCode and LeetCode problems.",
     technologies: ["Python"],
-    githubUrl: "https://github.com/harrywardy-cmd/neetcode-submissions-s5rzyvb1",
+    githubUrl:
+      "https://github.com/harrywardy-cmd/neetcode-submissions-s5rzyvb1",
     featured: false,
   },
   {
@@ -122,7 +127,8 @@ export const projects: Project[] = [
     description:
       "Additional NeetCode and LeetCode solutions.",
     technologies: ["Python"],
-    githubUrl: "https://github.com/harrywardy-cmd/neetcode-submissions-h7zt2hks",
+    githubUrl:
+      "https://github.com/harrywardy-cmd/neetcode-submissions-h7zt2hks",
     featured: false,
   },
 ];

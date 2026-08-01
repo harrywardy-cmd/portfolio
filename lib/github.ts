@@ -34,11 +34,10 @@ const fetchOptions: RequestInit & {
  * Repository names that should appear in the featured
  * projects section.
  */
-const FEATURED_PROJECTS = [
-  "portfolio",
-  "calorie-compass",
-  "crud-app",
+export const FEATURED_PROJECTS = [
   "lazuli-web",
+  "calorie-compass",
+  "algorithms-datastructures",
 ];
 
 /**
