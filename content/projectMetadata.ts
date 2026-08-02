@@ -105,7 +105,7 @@ export const projectMetadata: Record<
   "portfolio-website": {
     title: "Portfolio Website",
     featured: false,
-    demo: "https://portfolio-harry-wards-projects.vercel.app/",
+    demo: "https://harry-ward-portfolio.vercel.app/",
     image: "/images/projects/portfolio-img.png",
     technologies: [
       "HTML",
