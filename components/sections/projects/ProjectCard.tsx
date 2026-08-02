@@ -1,23 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import {
+  ArrowUpRight,
+  FileText,
+  Sparkles,
+} from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 import { Badge } from "@/components/ui/badge";
 import { projectMetadata } from "@/content/projectMetadata";
-import type { GitHubRepository } from "@/types/github";
+import type { PortfolioProject } from "@/types/projects";
 
 interface ProjectCardProps {
-  project: GitHubRepository;
+  project: PortfolioProject;
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
-  const metadata = projectMetadata[project.name.toLowerCase()];
+export function ProjectCard({
+  project,
+}: ProjectCardProps) {
+  const metadata = projectMetadata[project.slug];
 
-  const image = metadata?.image ?? "/images/projects/project-placeholder.png";
-  const liveDemo = metadata?.demo || project.homepage || null;
+  const image =
+    metadata?.image ??
+    project.image ??
+    "/images/projects/project-placeholder.png";
 
-  const slug = project.name.toLowerCase();
+  const liveDemo =
+    project.demo ??
+    metadata?.demo ??
+    null;
 
   return (
     <article
@@ -25,6 +36,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
         group
         flex
         h-full
+        w-full
+        min-h-[580px]
         flex-col
         overflow-hidden
         rounded-2xl
@@ -40,19 +53,37 @@ export function ProjectCard({ project }: ProjectCardProps) {
     >
       {/* Image */}
       <div className="p-3">
-        <Link href={`/projects/${slug}`} className="block">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-muted">
+        <Link
+          href={`/projects/${project.slug}`}
+          className="block"
+        >
+          <div
+            className="
+              relative
+              h-56
+              w-full
+              overflow-hidden
+              rounded-xl
+              bg-muted
+            "
+          >
             <Image
               src={image}
-              alt={project.name}
+              alt={project.title}
               fill
               sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 33vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="
+                object-cover
+                object-center
+                transition-transform
+                duration-500
+                group-hover:scale-105
+              "
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
 
-            {metadata?.featured && (
+            {project.featured && (
               <Badge
                 className="
                   absolute
@@ -78,36 +109,58 @@ export function ProjectCard({ project }: ProjectCardProps) {
       {/* Content */}
       <div className="flex flex-1 flex-col px-5 pb-5">
         <div>
-          <Link href={`/projects/${slug}`} className="inline-block">
-            <h3 className="text-lg font-semibold transition-colors duration-300 hover:text-primary">
-              {metadata?.title ?? project.name}
+          <Link
+            href={`/projects/${project.slug}`}
+            className="inline-block"
+          >
+            <h3 className="text-xl font-semibold transition-colors duration-300 hover:text-primary">
+              {project.title}
             </h3>
           </Link>
 
-          <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
-            {project.description ??
-              "No description available for this project."}
+          <p
+            className="
+              mt-2
+              min-h-[4.75rem]
+              line-clamp-3
+              text-sm
+              leading-6
+              text-muted-foreground
+            "
+          >
+            {project.description}
           </p>
         </div>
 
         {/* Technologies */}
         {metadata?.technologies && (
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {metadata.technologies.slice(0, 4).map((tech) => (
-              <Badge
-                key={tech}
-                variant="secondary"
-                className="h-5 rounded-md px-2 text-[10px] font-medium"
-              >
-                {tech}
-              </Badge>
-            ))}
+          <div
+            className="
+              mt-5
+              min-h-[3.5rem]
+              flex
+              flex-wrap
+              gap-1.5
+              overflow-hidden
+            "
+          >
+            {metadata.technologies
+              .slice(0, 4)
+              .map((tech) => (
+                <Badge
+                  key={tech}
+                  variant="secondary"
+                  className="h-5 rounded-md px-2 text-[10px] font-medium"
+                >
+                  {tech}
+                </Badge>
+              ))}
           </div>
         )}
 
         {/* Footer */}
-        <div className="mt-auto pt-5">
-          <div className="border-t border-border/60 pt-4">
+        <div className="mt-auto pt-6">
+          <div className="border-t border-border/60 pt-5">
             <div className="flex items-center justify-between">
               {liveDemo ? (
                 <Link
@@ -119,20 +172,34 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   Live Demo
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
                 </Link>
+              ) : project.pdf ? (
+                <Link
+                  href={project.pdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/link inline-flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
+                >
+                  <FileText className="h-4 w-4" />
+                  View Report
+                </Link>
               ) : (
-                <span className="text-sm text-muted-foreground">Private</span>
+                <span className="text-sm text-muted-foreground">
+                  Private
+                </span>
               )}
 
-              <Link
-                href={project.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link inline-flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
-              >
-                <FaGithub className="h-4 w-4" />
-                GitHub
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
-              </Link>
+              {project.githubUrl && (
+                <Link
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/link inline-flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
+                >
+                  <FaGithub className="h-4 w-4" />
+                  GitHub
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                </Link>
+              )}
             </div>
           </div>
         </div>

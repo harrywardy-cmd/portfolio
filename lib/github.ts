@@ -5,6 +5,9 @@ import type {
 
 import { siteConfig } from "./site";
 
+import { projects } from "@/content/projects";
+import type { PortfolioProject } from "@/types/projects";
+
 const GITHUB_API = "https://api.github.com";
 const USERNAME = siteConfig.github.username;
 
@@ -84,19 +87,8 @@ export async function getProjects(): Promise<
 /**
  * Returns the repositories marked as featured.
  */
-export async function getFeaturedProjects(): Promise<GitHubRepository[]> {
-  const projects = await getProjects();
-
-  return FEATURED_PROJECTS
-    .map((name) =>
-      projects.find(
-        (project) => project.name.toLowerCase() === name
-      )
-    )
-    .filter(
-      (project): project is GitHubRepository =>
-        project !== undefined
-    );
+export async function getFeaturedProjects(): Promise<PortfolioProject[]> {
+  return projects.filter((project) => project.featured);
 }
 
 /**

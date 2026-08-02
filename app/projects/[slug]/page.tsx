@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  FileText,
+} from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 import { Container } from "@/components/layout/Container";
@@ -31,6 +34,14 @@ export default async function ProjectPage({
 
   const metadata = projectMetadata[slug];
 
+  if (!metadata) {
+    notFound();
+  }
+
+  const image =
+    metadata.image ??
+    "/images/projects/project-placeholder.png";
+
   return (
     <main className="py-20 lg:py-24">
       <Container>
@@ -46,12 +57,12 @@ export default async function ProjectPage({
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              {project.description}
+              {metadata.overview}
             </p>
 
             {/* Tech Stack */}
             <div className="mt-8 flex flex-wrap gap-2">
-              {project.technologies.map((technology) => (
+              {metadata.technologies.map((technology) => (
                 <Badge
                   key={technology}
                   variant="secondary"
@@ -63,7 +74,7 @@ export default async function ProjectPage({
 
             {/* Actions */}
             <div className="mt-10 flex flex-wrap gap-4">
-              {metadata?.demo && (
+              {metadata.demo && (
                 <Link
                   href={metadata.demo}
                   target="_blank"
@@ -76,48 +87,60 @@ export default async function ProjectPage({
                 </Link>
               )}
 
-              <Link
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-border px-5 py-3 font-medium transition hover:border-primary hover:text-primary"
-              >
-                <FaGithub />
+              {project.githubUrl && (
+                <Link
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-border px-5 py-3 font-medium transition hover:border-primary hover:text-primary"
+                >
+                  <FaGithub />
 
-                GitHub
+                  GitHub
 
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              )}
+
+              {metadata.pdf && (
+                <Link
+                  href={metadata.pdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-border px-5 py-3 font-medium transition hover:border-primary hover:text-primary"
+                >
+                  <FileText className="h-4 w-4" />
+
+                  View Report
+
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              )}
             </div>
           </div>
 
           {/* Screenshot */}
-          {metadata?.image && (
-            <div className="mt-16 overflow-hidden rounded-3xl border border-border bg-card shadow-lg">
-              <div className="relative aspect-[16/9]">
-                <Image
-                  src={metadata.image}
-                  alt={project.title}
-                  fill
-                  priority
-                  className="object-cover"
-                />
-              </div>
+          <div className="mt-16 overflow-hidden rounded-3xl border border-border bg-card shadow-lg">
+            <div className="relative aspect-[16/9]">
+              <Image
+                src={image}
+                alt={project.title}
+                fill
+                priority
+                className="object-cover"
+              />
             </div>
-          )}
+          </div>
 
-          {/* Placeholder */}
-          <div className="mt-20 space-y-12">
+          {/* Overview */}
+          <div className="mt-20 space-y-16">
             <section>
               <h2 className="text-2xl font-semibold">
                 Overview
               </h2>
 
               <p className="mt-4 leading-8 text-muted-foreground">
-                This section will include a detailed overview
-                of the project, the motivation behind building
-                it, the challenges encountered, and the
-                solutions implemented.
+                {metadata.overview}
               </p>
             </section>
 
@@ -126,9 +149,23 @@ export default async function ProjectPage({
                 Key Features
               </h2>
 
-              <p className="mt-4 leading-8 text-muted-foreground">
-                Coming soon...
-              </p>
+              <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
+                {metadata.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold">
+                Challenges
+              </h2>
+
+              <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
+                {metadata.challenges.map((challenge) => (
+                  <li key={challenge}>{challenge}</li>
+                ))}
+              </ul>
             </section>
 
             <section>
@@ -136,9 +173,11 @@ export default async function ProjectPage({
                 What I Learned
               </h2>
 
-              <p className="mt-4 leading-8 text-muted-foreground">
-                Coming soon...
-              </p>
+              <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
+                {metadata.lessons.map((lesson) => (
+                  <li key={lesson}>{lesson}</li>
+                ))}
+              </ul>
             </section>
           </div>
         </div>

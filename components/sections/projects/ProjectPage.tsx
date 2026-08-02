@@ -10,25 +10,20 @@ import { ProjectOverview } from "./ProjectOverview";
 import { ProjectTechStack } from "./ProjectTechStack";
 
 import { projectMetadata } from "@/content/projectMetadata";
-import type { GitHubRepository } from "@/types/github";
+import type { PortfolioProject } from "@/types/projects";
 
 interface ProjectPageProps {
-  project: GitHubRepository;
+  project: PortfolioProject;
 }
 
-export function ProjectPage({
-  project,
-}: ProjectPageProps) {
-  const slug = project.name.toLowerCase();
-  const metadata = projectMetadata[slug];
+export function ProjectPage({ project }: ProjectPageProps) {
+  const metadata = projectMetadata[project.slug];
 
   if (!metadata) {
     return (
       <Container className="py-20">
         <div className="mx-auto max-w-5xl">
-          <h1 className="text-3xl font-bold">
-            Project not found
-          </h1>
+          <h1 className="text-3xl font-bold">Project not found</h1>
 
           <p className="mt-4 text-muted-foreground">
             No metadata has been configured for this project yet.
@@ -63,18 +58,20 @@ export function ProjectPage({
           <ProjectHero project={project} />
 
           {/* Overview */}
-          <ProjectOverview slug={slug} />
+          <ProjectOverview slug={project.slug} />
 
           {/* Features */}
-          <ProjectFeatures slug={slug} />
+          <ProjectFeatures slug={project.slug} />
 
           {/* Technology Stack */}
-          <ProjectTechStack slug={slug} />
+          <ProjectTechStack slug={project.slug} />
 
           {/* Actions */}
           <ProjectButtons
-            slug={slug}
-            githubUrl={project.html_url}
+            githubUrl={project.githubUrl}
+            demoUrl={project.demo}
+            pdfUrl={project.pdf}
+            source={project.source}
           />
         </div>
       </Container>

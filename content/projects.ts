@@ -1,12 +1,24 @@
 export interface Project {
   slug: string;
-  title: string;
-  description: string;
-  technologies: string[];
-  githubUrl: string;
-  featured: boolean;
-}
 
+  title: string;
+
+  description: string;
+
+  technologies: string[];
+
+  githubUrl?: string;
+
+  demo?: string;
+
+  pdf?: string;
+
+  image?: string;
+
+  featured: boolean;
+
+  source: "github" | "local";
+}
 export const projects: Project[] = [
   {
     slug: "portfolio",
@@ -16,7 +28,9 @@ export const projects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
     githubUrl: "https://github.com/harrywardy-cmd/portfolio",
     featured: true,
+    source: "github",
   },
+
   {
     slug: "calorie-compass",
     title: "Calorie Compass",
@@ -25,6 +39,7 @@ export const projects: Project[] = [
     technologies: ["React", "TypeScript"],
     githubUrl: "https://github.com/harrywardy-cmd/calorie-compass",
     featured: true,
+    source: "github",
   },
   {
     slug: "crud-app",
@@ -34,6 +49,7 @@ export const projects: Project[] = [
     technologies: ["React", "Node.js"],
     githubUrl: "https://github.com/harrywardy-cmd/CRUD-App",
     featured: false,
+    source: "github",
   },
   {
     slug: "lazuli-web",
@@ -43,6 +59,7 @@ export const projects: Project[] = [
     technologies: ["React", "JavaScript"],
     githubUrl: "https://github.com/harrywardy-cmd/lazuli-web",
     featured: false,
+    source: "github",
   },
   {
     slug: "portfolio-website",
@@ -52,6 +69,7 @@ export const projects: Project[] = [
     technologies: ["HTML", "CSS", "JavaScript"],
     githubUrl: "https://github.com/harrywardy-cmd/Portfolio-Website",
     featured: false,
+    source: "github",
   },
   {
     slug: "python-calculator",
@@ -61,6 +79,7 @@ export const projects: Project[] = [
     technologies: ["Python"],
     githubUrl: "https://github.com/harrywardy-cmd/Python-Calculator",
     featured: false,
+    source: "github",
   },
   {
     slug: "python-api",
@@ -70,6 +89,7 @@ export const projects: Project[] = [
     technologies: ["Python"],
     githubUrl: "https://github.com/harrywardy-cmd/Python-API",
     featured: false,
+    source: "github",
   },
   {
     slug: "python-web-scraping-tool",
@@ -80,6 +100,7 @@ export const projects: Project[] = [
     githubUrl:
       "https://github.com/harrywardy-cmd/Python-Web-Scraping-Tool",
     featured: false,
+    source: "github",
   },
   {
     slug: "ai-python-snake-game",
@@ -90,6 +111,7 @@ export const projects: Project[] = [
     githubUrl:
       "https://github.com/harrywardy-cmd/AI-PYTHON-SNAKE-GAME",
     featured: false,
+    source: "github",
   },
   {
     slug: "command-line-interface",
@@ -100,6 +122,7 @@ export const projects: Project[] = [
     githubUrl:
       "https://github.com/harrywardy-cmd/command-line-interface",
     featured: false,
+    source: "github",
   },
   {
     slug: "algorithms-datastructures",
@@ -110,6 +133,7 @@ export const projects: Project[] = [
     githubUrl:
       "https://github.com/harrywardy-cmd/algorithms-datastructures",
     featured: true,
+    source: "github",
   },
   {
     slug: "neetcode-submissions-s5rzyvb1",
@@ -120,6 +144,7 @@ export const projects: Project[] = [
     githubUrl:
       "https://github.com/harrywardy-cmd/neetcode-submissions-s5rzyvb1",
     featured: false,
+    source: "github",
   },
   {
     slug: "neetcode-submissions-h7zt2hks",
@@ -130,5 +155,54 @@ export const projects: Project[] = [
     githubUrl:
       "https://github.com/harrywardy-cmd/neetcode-submissions-h7zt2hks",
     featured: false,
+    source: "github",
   },
+
+  {
+    slug: "serverless-event-driven-architecture",
+    title: "Serverless Event-Driven Architecture",
+    description:
+      "Designed a production-ready serverless architecture for a cloud-based photo album application using AWS managed services.",
+    technologies: [
+      "AWS",
+      "AWS Lambda",
+      "API Gateway",
+      "Amazon S3",
+      "DynamoDB",
+      "CloudFront",
+    ],
+    pdf: "/documents/Serverless_Event-driven Architectural Design Report.pdf",
+    featured: false,
+    source: "local",
+  },
+  {
+    slug: "inference-engine",
+    title: "AI Inference Engine",
+    description:
+      "An artificial intelligence inference engine implementing multiple propositional logic algorithms.",
+    technologies: [
+      "Python",
+      "Artificial Intelligence",
+      "Propositional Logic",
+    ],
+    source: "local",
+    pdf: "/documents/Assignment 2 – Inference Engine for Propositional Logicnt.pdf",
+    featured: false,
+  },
+
+  {
+  slug: "apollos-gamble",
+  title: "Apollo's Gamble",
+  description:
+    "A strategy tabletop card game inspired by Greek mythology, featuring prediction-based gameplay, dynamic narratives, and competitive multiplayer mechanics.",
+  technologies: [
+    "Game Design",
+    "Systems Design",
+    "Prototyping",
+  ],
+  source: "local",
+  pdf: "/documents/Apollo's Gamble Game Design Document.pdf",
+  featured: false,
+},
+
 ];

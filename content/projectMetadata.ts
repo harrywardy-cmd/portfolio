@@ -1,10 +1,15 @@
 export interface ProjectMetadata {
   title: string;
+
   image?: string;
 
   technologies: string[];
 
   demo?: string;
+
+  github?: string;
+
+  pdf?: string;
 
   featured: boolean;
 
@@ -357,138 +362,265 @@ export const projectMetadata: Record<
   },
 
   portfolio: {
-  title: "Developer Portfolio",
-  image: "/images/projects/portfolio.png",
-  featured: true,
-  demo: "https://your-domain.com",
-  technologies: [
-    "Next.js",
-    "TypeScript",
-    "Tailwind CSS",
-    "GitHub REST API",
-    "GitHub GraphQL API",
-    "shadcn/ui",
-  ],
-  overview:
-    "A modern developer portfolio built with Next.js 16, TypeScript, and Tailwind CSS to showcase my software engineering projects, technical skills, and continuous learning. The application integrates live GitHub and LeetCode data, providing a dynamic portfolio that automatically updates as I build new projects and solve coding challenges.",
+    title: "Developer Portfolio",
+    image: "/images/projects/portfolio.png",
+    featured: true,
+    demo: "https://your-domain.com",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "GitHub REST API",
+      "GitHub GraphQL API",
+      "shadcn/ui",
+    ],
+    overview:
+      "A modern developer portfolio built with Next.js 16, TypeScript, and Tailwind CSS to showcase my software engineering projects, technical skills, and continuous learning. The application integrates live GitHub and LeetCode data, providing a dynamic portfolio that automatically updates as I build new projects and solve coding challenges.",
 
-  features: [
-    "Dynamic Featured Projects powered by the GitHub API",
-    "Live GitHub repository and recent commit activity",
-    "Real-time developer statistics and contribution tracking",
-    "Responsive design for desktop, tablet, and mobile",
-    "Dark and light mode support",
-    "Dynamic project pages with reusable metadata",
-    "Modern component-based architecture using Server Components",
-    "Reusable UI built with shadcn/ui and Tailwind CSS",
-  ],
+    features: [
+      "Dynamic Featured Projects powered by the GitHub API",
+      "Live GitHub repository and recent commit activity",
+      "Real-time developer statistics and contribution tracking",
+      "Responsive design for desktop, tablet, and mobile",
+      "Dark and light mode support",
+      "Dynamic project pages with reusable metadata",
+      "Modern component-based architecture using Server Components",
+      "Reusable UI built with shadcn/ui and Tailwind CSS",
+    ],
 
-  challenges: [
-    "Designing a scalable and reusable component architecture",
-    "Integrating GitHub REST and GraphQL APIs",
-    "Creating a dynamic metadata system for projects",
-    "Building responsive layouts that work across all screen sizes",
-    "Managing server-side data fetching with Next.js App Router",
-  ],
+    challenges: [
+      "Designing a scalable and reusable component architecture",
+      "Integrating GitHub REST and GraphQL APIs",
+      "Creating a dynamic metadata system for projects",
+      "Building responsive layouts that work across all screen sizes",
+      "Managing server-side data fetching with Next.js App Router",
+    ],
 
-  lessons: [
-    "Building scalable Next.js applications",
-    "Working with REST and GraphQL APIs",
-    "Designing reusable React components",
-    "Structuring large TypeScript projects",
-    "Improving UI/UX through iterative design",
-    "Managing dynamic content with Server Components",
-  ],
-},
+    lessons: [
+      "Building scalable Next.js applications",
+      "Working with REST and GraphQL APIs",
+      "Designing reusable React components",
+      "Structuring large TypeScript projects",
+      "Improving UI/UX through iterative design",
+      "Managing dynamic content with Server Components",
+    ],
+  },
 
-"unity-visual-novel": {
-  title: "Unity Visual Novel",
-  featured: false,
-  image: "/images/projects/unity.png",
-  technologies: [
-    "Unity",
-    "C#",
-    "Visual Novel",
-    "Game Development",
-  ],
-  overview:
-    "A narrative-driven visual novel built with Unity, featuring interactive dialogue, branching story paths, and immersive storytelling to explore game development and player-driven experiences.",
-  features: [
-    "Interactive dialogue system",
-    "Branching narrative paths",
-    "Scene management",
-    "Player choice mechanics",
-  ],
-  challenges: [
-    "Designing branching story logic",
-    "Managing scene transitions",
-    "Building reusable dialogue systems",
-  ],
-  lessons: [
-    "Unity development",
-    "C# scripting",
-    "Narrative game design",
-    "State management",
-  ],
-},
+  "unity-visual-novel": {
+    title: "Unity Visual Novel",
+    featured: false,
+    image: "/images/projects/unity.png",
+    technologies: [
+      "Unity",
+      "C#",
+      "Visual Novel",
+      "Game Development",
+    ],
+    overview:
+      "A narrative-driven visual novel built with Unity, featuring interactive dialogue, branching story paths, and immersive storytelling to explore game development and player-driven experiences.",
+    features: [
+      "Interactive dialogue system",
+      "Branching narrative paths",
+      "Scene management",
+      "Player choice mechanics",
+    ],
+    challenges: [
+      "Designing branching story logic",
+      "Managing scene transitions",
+      "Building reusable dialogue systems",
+    ],
+    lessons: [
+      "Unity development",
+      "C# scripting",
+      "Narrative game design",
+      "State management",
+    ],
+  },
 
-"music-app": {
-  title: "Music App",
-  featured: false,
-  technologies: [
-    "React",
-    "TypeScript",
-    "Music API",
-    "Tailwind CSS",
-  ],
-  overview:
-    "A modern music streaming application built to deliver an intuitive listening experience through responsive design, music discovery, and interactive user interfaces.",
-  features: [
-    "Music browsing and discovery",
-    "Responsive user interface",
-    "Playlist management",
-    "Modern audio player interface",
-  ],
-  challenges: [
-    "Managing application state",
-    "Integrating external music APIs",
-    "Building a responsive media interface",
-  ],
-  lessons: [
-    "API integration",
-    "React component architecture",
-    "State management",
-    "User experience design",
-  ],
-},
+  "music-app": {
+    title: "Music App",
+    featured: false,
+    technologies: [
+      "React",
+      "TypeScript",
+      "Music API",
+      "Tailwind CSS",
+    ],
+    overview:
+      "A modern music streaming application built to deliver an intuitive listening experience through responsive design, music discovery, and interactive user interfaces.",
+    features: [
+      "Music browsing and discovery",
+      "Responsive user interface",
+      "Playlist management",
+      "Modern audio player interface",
+    ],
+    challenges: [
+      "Managing application state",
+      "Integrating external music APIs",
+      "Building a responsive media interface",
+    ],
+    lessons: [
+      "API integration",
+      "React component architecture",
+      "State management",
+      "User experience design",
+    ],
+  },
 
-"jeffls-connect": {
-  title: "JeffLS Connect",
-  featured: false,
-  technologies: [
-    "React",
-    "Node.js",
-    "MongoDB",
-    "Express",
-  ],
-  overview:
-    "A full-stack social media platform built to connect users through posts, profiles, and real-time interactions while exploring modern web application development and scalable full-stack architecture.",
-  features: [
-    "User authentication and profiles",
-    "Create, edit, and delete posts",
-    "Like and comment functionality",
-    "Responsive social media interface",
-  ],
-  challenges: [
-    "Designing secure authentication",
-    "Managing user relationships and data",
-    "Building a scalable full-stack architecture",
-  ],
-  lessons: [
-    "Full-stack application development",
-    "REST API integration",
-    "Database design with MongoDB",
-    "Authentication and user management",
-  ],
-},
+
+  "jeffls-connect": {
+    title: "JeffLS Connect",
+    featured: false,
+    technologies: [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "Express",
+    ],
+    overview:
+      "A full-stack social media platform built to connect users through posts, profiles, and real-time interactions while exploring modern web application development and scalable full-stack architecture.",
+    features: [
+      "User authentication and profiles",
+      "Create, edit, and delete posts",
+      "Like and comment functionality",
+      "Responsive social media interface",
+    ],
+    challenges: [
+      "Designing secure authentication",
+      "Managing user relationships and data",
+      "Building a scalable full-stack architecture",
+    ],
+    lessons: [
+      "Full-stack application development",
+      "REST API integration",
+      "Database design with MongoDB",
+      "Authentication and user management",
+    ],
+  },
+
+  "serverless-event-driven-architecture": {
+    title: "Serverless Event-Driven Architecture",
+    featured: false,
+    technologies: [
+      "AWS",
+      "AWS Lambda",
+      "API Gateway",
+      "Amazon S3",
+      "DynamoDB",
+      "CloudFront",
+      "AWS Step Functions",
+      "SNS",
+      "SQS",
+    ],
+    overview:
+      "Designed a production-ready serverless architecture for a cloud-based photo album application using AWS managed services. The solution demonstrates event-driven workflows, automated media processing, global content delivery, security best practices, scalable infrastructure, and cloud cost optimisation.",
+
+    features: [
+      "Serverless event-driven architecture",
+      "Automated image and video processing pipelines",
+      "Global content delivery with Amazon CloudFront",
+      "Media storage using Amazon S3 and DynamoDB",
+      "AWS Step Functions workflow orchestration",
+      "Detailed cloud cost estimation and budgeting",
+    ],
+
+    challenges: [
+      "Designing scalable cloud-native workflows",
+      "Coordinating asynchronous services with SNS and SQS",
+      "Balancing scalability, performance, and operational costs",
+      "Designing secure authentication and access control",
+    ],
+
+    lessons: [
+      "Cloud architecture design",
+      "Serverless application development",
+      "Event-driven system design",
+      "AWS managed services",
+      "Cloud security best practices",
+      "Cloud cost optimisation",
+    ],
+  },
+
+  "inference-engine": {
+    title: "AI Inference Engine",
+    featured: false,
+    image: "/images/projects/project-placeholder.png",
+    technologies: [
+      "Python",
+      "Artificial Intelligence",
+      "Propositional Logic",
+      "Forward Chaining",
+      "Backward Chaining",
+      "Truth Tables",
+      "Resolution",
+    ],
+    overview:
+      "Developed an inference engine for propositional logic capable of determining logical entailment using multiple reasoning algorithms. The application supports Truth Table, Forward Chaining, Backward Chaining, and Resolution-based theorem proving, providing a flexible framework for knowledge representation and automated reasoning.",
+
+    features: [
+      "Truth Table inference algorithm",
+      "Forward Chaining reasoning",
+      "Backward Chaining reasoning",
+      "Resolution-based theorem proving",
+      "Horn-form knowledge base parsing",
+      "Command-line interface supporting multiple inference methods",
+    ],
+
+    challenges: [
+      "Implementing multiple logical inference algorithms",
+      "Parsing and representing Horn-form knowledge bases",
+      "Managing recursive reasoning and rule evaluation",
+      "Designing a modular architecture for multiple inference strategies",
+    ],
+
+    lessons: [
+      "Knowledge representation",
+      "Automated reasoning",
+      "Artificial intelligence fundamentals",
+      "Algorithm design",
+      "Recursive problem solving",
+      "Modular software architecture",
+    ],
+  },
+
+  "apollos-gamble": {
+    title: "Apollo's Gamble",
+    featured: false,
+    image: "/images/projects/project-placeholder.png",
+    technologies: [
+      "Game Design",
+      "Tabletop Games",
+      "Systems Design",
+      "Prototyping",
+      "Game Balancing",
+    ],
+    overview:
+      "Designed and developed a tabletop strategy card game inspired by Greek mythology, where players compete to become Apollo's next Oracle by predicting the outcomes of heroic quests. The project focused on creating engaging gameplay mechanics, strategic decision-making, and replayability through dynamic event combinations.",
+
+    features: [
+      "Original strategy card game mechanics",
+      "Greek mythology-inspired setting and narrative",
+      "Success and failure prediction system",
+      "Dynamic hero and event combinations",
+      "Collaborative and competitive gameplay",
+      "Unique boon and curse card mechanics",
+    ],
+
+    challenges: [
+      "Balancing game mechanics for fairness",
+      "Designing strategic yet accessible gameplay",
+      "Creating replayability through card combinations",
+      "Integrating narrative with player decision-making",
+    ],
+
+    lessons: [
+      "Game systems design",
+      "Gameplay balancing",
+      "Player experience design",
+      "Iterative prototyping",
+      "Collaborative design and development",
+    ],
+  },
+
 };
+

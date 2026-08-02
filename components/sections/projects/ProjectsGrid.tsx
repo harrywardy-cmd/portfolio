@@ -1,7 +1,7 @@
 import {
-  getFeaturedProjects,
-  getProjects,
-} from "@/lib/github";
+  getFeaturedPortfolioProjects,
+  getPortfolioProjects,
+} from "@/lib/projects";
 
 import { ProjectCard } from "./ProjectCard";
 
@@ -13,8 +13,8 @@ export async function ProjectsGrid({
   featuredOnly = true,
 }: ProjectsGridProps) {
   const projects = featuredOnly
-    ? await getFeaturedProjects()
-    : await getProjects();
+    ? await getFeaturedPortfolioProjects()
+    : await getPortfolioProjects();
 
   return (
     <div className="mt-12">
@@ -31,7 +31,7 @@ export async function ProjectsGrid({
       >
         {projects.map((project) => (
           <div
-            key={project.id}
+            key={project.slug}
             className="flex h-full"
           >
             <ProjectCard project={project} />
