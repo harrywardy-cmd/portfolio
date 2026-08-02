@@ -9,11 +9,8 @@ import { Button } from "@/components/ui/button";
 
 interface Props {
   githubUrl?: string;
-
   demoUrl?: string;
-
   pdfUrl?: string;
-
   source: "github" | "local";
 }
 
@@ -24,17 +21,21 @@ export function ProjectButtons({
   source,
 }: Props) {
   return (
-    <section className="flex flex-wrap gap-4">
+    <section className="mt-8 flex flex-wrap gap-3">
       {/* Live Demo */}
       {demoUrl && (
-        <Button size="lg">
+        <Button
+          size="lg"
+          className="h-12"
+        >
           <Link
             href={demoUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="inline-flex items-center gap-2"
           >
             Live Demo
-            <ArrowUpRight className="ml-2 h-4 w-4" />
+            <ArrowUpRight className="h-4 w-4" />
           </Link>
         </Button>
       )}
@@ -44,31 +45,37 @@ export function ProjectButtons({
         <Button
           size="lg"
           variant="outline"
+          className="h-12"
         >
           <Link
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="inline-flex items-center gap-2"
           >
-            <FaGithub className="mr-2 h-4 w-4" />
+            <FaGithub className="h-4 w-4" />
             GitHub
+            <ArrowUpRight className="h-4 w-4" />
           </Link>
         </Button>
       )}
 
-      {/* PDF Report */}
+      {/* PDF */}
       {source === "local" && pdfUrl && (
         <Button
           size="lg"
           variant="outline"
+          className="h-12"
         >
           <Link
             href={pdfUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="inline-flex items-center gap-2"
           >
-            <FileText className="mr-2 h-4 w-4" />
+            <FileText className="h-4 w-4" />
             View Report
+            <ArrowUpRight className="h-4 w-4" />
           </Link>
         </Button>
       )}

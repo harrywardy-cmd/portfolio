@@ -1,25 +1,30 @@
-export interface ProjectMetadata {
+interface ProjectMetadata {
   title: string;
-
   image?: string;
 
   technologies: string[];
 
-  demo?: string;
-
-  github?: string;
-
-  pdf?: string;
-
   featured: boolean;
 
   overview: string;
+
+  problem?: string;
+
+  solution?: string;
+
+  architecture?: string;
+
+  gallery?: string[];
 
   features: string[];
 
   challenges: string[];
 
   lessons: string[];
+
+  demo?: string;
+
+  pdf?: string;
 }
 
 export const projectMetadata: Record<
@@ -67,22 +72,32 @@ export const projectMetadata: Record<
       "Tailwind CSS",
     ],
     overview:
-      "A modern responsive website focused on clean design, accessibility, and performance using contemporary frontend technologies.",
+      "A modern, responsive website designed with a strong focus on performance, accessibility, and user experience while showcasing contemporary frontend development practices.",
+
+    problem:
+      "The project aimed to create a fast, visually appealing, and fully responsive website that provided an intuitive browsing experience across desktop and mobile devices while maintaining clean, maintainable code.",
+
+    solution:
+      "I developed the application using React, Next.js, and Tailwind CSS, building reusable components, responsive layouts, and an optimized frontend architecture that prioritised accessibility, performance, and scalability.",
+
     features: [
-      "Responsive layouts",
-      "Reusable UI components",
-      "Modern styling",
-      "Optimised user experience",
+      "Responsive layouts for desktop, tablet, and mobile",
+      "Reusable component-based architecture",
+      "Modern UI built with Tailwind CSS",
+      "Optimised performance and accessibility",
     ],
+
     challenges: [
-      "Creating reusable layouts",
-      "Responsive design",
-      "Performance optimisation",
+      "Designing reusable layouts across multiple pages",
+      "Maintaining consistent responsive behaviour",
+      "Balancing visual design with performance optimisation",
     ],
+
     lessons: [
-      "Component composition",
-      "Responsive design principles",
-      "UI consistency",
+      "Building scalable component architectures",
+      "Applying responsive design best practices",
+      "Improving accessibility and frontend performance",
+      "Creating maintainable Next.js applications",
     ],
   },
 
@@ -97,15 +112,24 @@ export const projectMetadata: Record<
     ],
     overview:
       "The first version of my personal portfolio that introduced me to responsive web development and personal branding.",
+
+    problem:
+      "I wanted a dedicated space to showcase my software development projects, technical skills, and experience while learning the fundamentals of frontend web development and responsive design.",
+
+    solution:
+      "I designed and developed a responsive portfolio website using HTML, CSS, and JavaScript. The project focused on creating a clean user interface, intuitive navigation, and a professional online presence while applying best practices for semantic HTML and responsive layouts.",
+
     features: [
       "Responsive design",
       "Project showcase",
       "Contact information",
     ],
+
     challenges: [
       "Learning frontend fundamentals",
       "Building responsive layouts",
     ],
+
     lessons: [
       "HTML semantics",
       "CSS layouts",
@@ -312,17 +336,26 @@ export const projectMetadata: Record<
     ],
     overview:
       "A comprehensive collection of algorithm and data structure solutions developed through consistent LeetCode practice, covering a wide range of coding interview topics and computer science fundamentals.",
+
+    problem:
+      "Technical interviews require strong problem-solving skills and a deep understanding of algorithms and data structures. I wanted to build long-term consistency while strengthening my ability to analyse problems, optimise solutions, and communicate technical reasoning.",
+
+    solution:
+      "I created a structured repository containing more than 1,100 algorithm and data structure solutions, organised by topic and difficulty. Each solution focuses on writing clean, efficient code while applying optimal time and space complexity techniques across a broad range of interview-style problems.",
+
     features: [
       "1,100+ algorithm solutions",
       "Multiple data structure implementations",
       "Topic-based organisation",
       "Well-documented problem solutions",
     ],
+
     challenges: [
       "Optimising time and space complexity",
       "Solving advanced algorithmic problems",
       "Maintaining long-term consistency",
     ],
+
     lessons: [
       "Advanced problem-solving techniques",
       "Algorithm optimisation",
@@ -337,22 +370,29 @@ export const projectMetadata: Record<
     technologies: [
       "React",
       "TypeScript",
-      "Firebase",
-      "Vite",
     ],
     overview:
       "A nutrition and calorie tracking application designed to help users monitor their daily food intake, manage calorie goals, and build healthier eating habits through a clean and intuitive user experience.",
+
+    problem:
+      "Many nutrition tracking applications can feel cluttered or difficult to use, making it harder for users to consistently monitor their calorie intake and eating habits. I wanted to create a simple, responsive application that focused on usability and fast data entry.",
+
+    solution:
+      "I developed Calorie Compass using React, TypeScript, and Firebase, providing a responsive interface for logging meals, tracking calorie goals, and securely storing user data in real time. The application emphasises clean design, maintainable code, and an intuitive user experience.",
+
     features: [
       "Daily calorie tracking",
       "Food logging and management",
       "Responsive user interface",
       "Real-time data storage with Firebase",
     ],
+
     challenges: [
       "Managing application state",
       "Designing a scalable data model",
       "Integrating Firebase services",
     ],
+
     lessons: [
       "React state management",
       "Building with TypeScript",
@@ -374,8 +414,15 @@ export const projectMetadata: Record<
       "GitHub GraphQL API",
       "shadcn/ui",
     ],
+
     overview:
       "A modern developer portfolio built with Next.js 16, TypeScript, and Tailwind CSS to showcase my software engineering projects, technical skills, and continuous learning. The application integrates live GitHub and LeetCode data, providing a dynamic portfolio that automatically updates as I build new projects and solve coding challenges.",
+
+    problem:
+      "Traditional portfolio websites quickly become outdated because they rely on manually updated content. I wanted to build a portfolio that could automatically showcase my latest projects, coding activity, and technical growth while also demonstrating modern frontend architecture.",
+
+    solution:
+      "I designed and developed a dynamic portfolio using Next.js App Router, TypeScript, and Tailwind CSS. The application integrates GitHub APIs, reusable project metadata, local projects, and responsive component architecture to create a maintainable portfolio that evolves alongside my software engineering journey.",
 
     features: [
       "Dynamic Featured Projects powered by the GitHub API",
@@ -512,8 +559,15 @@ export const projectMetadata: Record<
       "SNS",
       "SQS",
     ],
+
     overview:
       "Designed a production-ready serverless architecture for a cloud-based photo album application using AWS managed services. The solution demonstrates event-driven workflows, automated media processing, global content delivery, security best practices, scalable infrastructure, and cloud cost optimisation.",
+
+    problem:
+      "Design a highly scalable and cost-effective cloud architecture capable of storing, processing, and delivering user-uploaded photos while maintaining strong security, high availability, and minimal operational overhead.",
+
+    solution:
+      "Designed an event-driven serverless architecture using AWS managed services including API Gateway, AWS Lambda, Amazon S3, DynamoDB, SNS, SQS, CloudFront, and Step Functions. The architecture automates media processing, orchestrates asynchronous workflows, scales automatically based on demand, and optimises operational costs by eliminating server management.",
 
     features: [
       "Serverless event-driven architecture",
@@ -545,6 +599,7 @@ export const projectMetadata: Record<
     title: "AI Inference Engine",
     featured: false,
     image: "/images/projects/project-placeholder.png",
+
     technologies: [
       "Python",
       "Artificial Intelligence",
@@ -554,8 +609,15 @@ export const projectMetadata: Record<
       "Truth Tables",
       "Resolution",
     ],
+
     overview:
       "Developed an inference engine for propositional logic capable of determining logical entailment using multiple reasoning algorithms. The application supports Truth Table, Forward Chaining, Backward Chaining, and Resolution-based theorem proving, providing a flexible framework for knowledge representation and automated reasoning.",
+
+    problem:
+      "Build an inference engine capable of determining whether a query can be logically inferred from a Horn-form knowledge base using multiple reasoning strategies while providing a consistent interface for comparing different inference algorithms.",
+
+    solution:
+      "Implemented a modular Python application supporting Truth Table evaluation, Forward Chaining, Backward Chaining, and Resolution-based theorem proving. Each algorithm was developed independently, allowing logical queries to be processed using different reasoning techniques while sharing a common knowledge base and command-line interface.",
 
     features: [
       "Truth Table inference algorithm",
@@ -594,8 +656,15 @@ export const projectMetadata: Record<
       "Prototyping",
       "Game Balancing",
     ],
+
     overview:
       "Designed and developed a tabletop strategy card game inspired by Greek mythology, where players compete to become Apollo's next Oracle by predicting the outcomes of heroic quests. The project focused on creating engaging gameplay mechanics, strategic decision-making, and replayability through dynamic event combinations.",
+
+    problem:
+      "The goal was to design an original tabletop game that encouraged strategic thinking, replayability, and player interaction while remaining easy to learn. The challenge was balancing competitive gameplay with narrative storytelling inspired by Greek mythology.",
+
+    solution:
+      "Apollo's Gamble combines prediction-based mechanics with hero, monster, and event cards to create unique scenarios every round. Players commit to success or failure predictions using dedicated cards, while boon and curse mechanics introduce additional strategy and opportunities to influence the outcome of each quest.",
 
     features: [
       "Original strategy card game mechanics",

@@ -18,6 +18,21 @@ export function ProjectsGrid({
           project.categories.includes(filter)
         );
 
+  // Empty state
+  if (filteredProjects.length === 0) {
+    return (
+      <div className="py-20 text-center">
+        <h3 className="text-2xl font-semibold">
+          No projects found
+        </h3>
+
+        <p className="mt-3 text-muted-foreground">
+          Try selecting another category.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-12">
       <div
@@ -33,10 +48,16 @@ export function ProjectsGrid({
         "
       >
         {filteredProjects.map((project) => (
-          <ProjectCard
+          <div
             key={project.slug}
-            project={project}
-          />
+            className="
+              animate-in
+              fade-in
+              duration-500
+            "
+          >
+            <ProjectCard project={project} />
+          </div>
         ))}
       </div>
     </div>

@@ -1,13 +1,17 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
 import { Container } from "@/components/layout/Container";
+import { Button } from "@/components/ui/button";
 
 import { ProjectCard } from "./ProjectCard";
+import { ProjectsHeader } from "./ProjectsHeader";
 
 import { getFeaturedPortfolioProjects } from "@/lib/projects";
 
-import { ProjectsHeader } from "./ProjectsHeader";
-
 export async function FeaturedProjects() {
-  const projects = await getFeaturedPortfolioProjects();
+  const projects =
+    await getFeaturedPortfolioProjects();
 
   return (
     <section
@@ -35,6 +39,31 @@ export async function FeaturedProjects() {
                 project={project}
               />
             ))}
+          </div>
+
+          {/* View All Projects */}
+          <div className="flex justify-center pt-6">
+            <Button
+              size="lg"
+              className="group"
+            >
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2"
+              >
+                View All Projects
+
+                <ArrowRight
+                  className="
+                    h-4
+                    w-4
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-1
+                  "
+                />
+              </Link>
+            </Button>
           </div>
         </div>
 
