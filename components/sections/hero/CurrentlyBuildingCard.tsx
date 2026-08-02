@@ -12,13 +12,13 @@ export async function CurrentlyBuildingCard() {
   const commits = await getRecentCommits(repo.name);
 
   return (
-    <div className="group w-full overflow-hidden rounded-3xl border border-border/60 bg-card p-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-2xl sm:p-7">
+    <div className="group w-full overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-2xl lg:p-8">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <span className="h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-emerald-500" />
 
-          <h3 className="font-semibold text-foreground">
+          <h3 className="text-lg font-semibold text-foreground">
             Currently Building
           </h3>
         </div>
@@ -30,35 +30,25 @@ export async function CurrentlyBuildingCard() {
           className="flex w-fit items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-primary"
         >
           <span>Live from GitHub</span>
+
           <FaGithub className="text-sm" />
         </Link>
       </div>
 
       {/* Repository */}
-      <div className="mt-7 grid gap-6 lg:grid-cols-[1fr_180px]">
-        {/* Preview */}
-        <div className="order-first overflow-hidden rounded-xl border border-border bg-muted lg:order-last">
-          <Image
-            src="/images/projects/portfolio-preview.png"
-            alt={repo.name}
-            width={320}
-            height={180}
-            className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-
+      <div className="mt-8 grid items-stretch gap-8 lg:grid-cols-[1fr_240px]">
         {/* Content */}
         <div className="min-w-0">
-          <h2 className="break-words text-2xl font-bold tracking-tight text-primary">
+          <h2 className="break-words text-3xl font-bold tracking-tight text-primary">
             {repo.name}
           </h2>
 
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">
+          <p className="mt-4 text-base leading-8 text-muted-foreground">
             {repo.description ??
               "Building modern software with Next.js, TypeScript and Tailwind CSS."}
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap gap-2">
             {repo.language && <Badge>{repo.language}</Badge>}
 
             <Badge variant="secondary">GitHub API</Badge>
@@ -66,15 +56,26 @@ export async function CurrentlyBuildingCard() {
             <Badge variant="secondary">Live Data</Badge>
           </div>
         </div>
+
+        {/* Preview */}
+        <div className="relative order-first min-h-64 overflow-hidden rounded-2xl border border-border/60 bg-muted lg:order-last lg:min-h-full">
+          <Image
+            src="/images/projects/portfolio-preview.png"
+            alt={repo.name}
+            fill
+            sizes="(max-width: 1024px) 100vw, 240px"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
       </div>
 
       {/* Divider */}
-      <div className="my-7 border-t border-border/60" />
+      <div className="my-8 border-t border-border/60" />
 
       {/* Recent Activity */}
       <div>
-        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <h4 className="font-medium text-foreground">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h4 className="text-lg font-semibold text-foreground">
             Recent Activity
           </h4>
 
@@ -90,16 +91,16 @@ export async function CurrentlyBuildingCard() {
           </Link>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           {commits.map((commit) => (
             <div
               key={commit.sha}
               className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
             >
               <div className="flex min-w-0 items-start gap-3">
-                <GitCommitHorizontal className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
+                <GitCommitHorizontal className="mt-1 h-4 w-4 shrink-0 text-emerald-500" />
 
-                <p className="break-words text-sm text-foreground">
+                <p className="break-words text-sm leading-6 text-foreground">
                   {commit.commit.message}
                 </p>
               </div>

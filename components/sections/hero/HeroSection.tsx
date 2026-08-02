@@ -32,7 +32,7 @@ export function HeroSection() {
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-background" />
 
       <Container>
-        <div className="grid items-start gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
+        <div className="grid items-start gap-12 xl:grid-cols-[0.95fr_1.05fr] xl:gap-20">
           {/* Left */}
           <div className="max-w-3xl pt-2 lg:pt-6">
             <HeroBadge />
@@ -46,12 +46,11 @@ export function HeroSection() {
             </div>
 
             {/* Hero Actions */}
-            <div className="mt-8 flex flex-row flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <HeroButtons />
             </div>
 
-            <div className="mt-8 flex flex-row flex-wrap items-center gap-3">
-
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <HeroSocials />
             </div>
 
@@ -61,7 +60,7 @@ export function HeroSection() {
           </div>
 
           {/* Right */}
-          <div className="relative pt-2">
+          <div className="relative mx-auto w-full max-w-2xl pt-2 xl:max-w-none">
             <CurrentlyBuildingCard />
           </div>
         </div>
