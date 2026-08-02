@@ -1,9 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Sparkles,
-} from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 import { Badge } from "@/components/ui/badge";
@@ -14,18 +11,13 @@ interface ProjectCardProps {
   project: GitHubRepository;
 }
 
-export function ProjectCard({
-  project,
-}: ProjectCardProps) {
-  const metadata =
-    projectMetadata[project.name.toLowerCase()];
+export function ProjectCard({ project }: ProjectCardProps) {
+  const metadata = projectMetadata[project.name.toLowerCase()];
 
-  const image =
-    metadata?.image ??
-    `/images/projects/${project.name}.png`;
+  const image = metadata?.image ?? "/images/projects/project-placeholder.png";
+  const liveDemo = metadata?.demo || project.homepage || null;
 
-  const liveDemo =
-    metadata?.demo || project.homepage || null;
+  const slug = project.name.toLowerCase();
 
   return (
     <article
@@ -48,47 +40,49 @@ export function ProjectCard({
     >
       {/* Image */}
       <div className="p-3">
-        <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-muted">
-          <Image
-            src={image}
-            alt={project.name}
-            fill
-            sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+        <Link href={`/projects/${slug}`} className="block">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-muted">
+            <Image
+              src={image}
+              alt={project.name}
+              fill
+              sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 33vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
 
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
 
-          {/* Featured */}
-          {metadata?.featured && (
-            <Badge
-              className="
-                absolute
-                right-3
-                top-3
-                rounded-full
-                bg-primary
-                px-2.5
-                py-1
-                text-[10px]
-                font-semibold
-                shadow-md
-              "
-            >
-              <Sparkles className="mr-1 h-3 w-3" />
-              Featured
-            </Badge>
-          )}
-        </div>
+            {metadata?.featured && (
+              <Badge
+                className="
+                  absolute
+                  right-3
+                  top-3
+                  rounded-full
+                  bg-primary
+                  px-2.5
+                  py-1
+                  text-[10px]
+                  font-semibold
+                  shadow-md
+                "
+              >
+                <Sparkles className="mr-1 h-3 w-3" />
+                Featured
+              </Badge>
+            )}
+          </div>
+        </Link>
       </div>
 
       {/* Content */}
       <div className="flex flex-1 flex-col px-5 pb-5">
         <div>
-          <h3 className="text-lg font-semibold transition-colors duration-300 group-hover:text-primary">
-            {project.name}
-          </h3>
+          <Link href={`/projects/${slug}`} className="inline-block">
+            <h3 className="text-lg font-semibold transition-colors duration-300 hover:text-primary">
+              {metadata?.title ?? project.name}
+            </h3>
+          </Link>
 
           <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
             {project.description ??
@@ -99,17 +93,15 @@ export function ProjectCard({
         {/* Technologies */}
         {metadata?.technologies && (
           <div className="mt-4 flex flex-wrap gap-1.5">
-            {metadata.technologies
-              .slice(0, 4)
-              .map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="secondary"
-                  className="h-5 rounded-md px-2 text-[10px] font-medium"
-                >
-                  {tech}
-                </Badge>
-              ))}
+            {metadata.technologies.slice(0, 4).map((tech) => (
+              <Badge
+                key={tech}
+                variant="secondary"
+                className="h-5 rounded-md px-2 text-[10px] font-medium"
+              >
+                {tech}
+              </Badge>
+            ))}
           </div>
         )}
 
@@ -125,13 +117,10 @@ export function ProjectCard({
                   className="group/link inline-flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
                 >
                   Live Demo
-
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
                 </Link>
               ) : (
-                <span className="text-sm text-muted-foreground">
-                  Private
-                </span>
+                <span className="text-sm text-muted-foreground">Private</span>
               )}
 
               <Link
@@ -141,9 +130,7 @@ export function ProjectCard({
                 className="group/link inline-flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
               >
                 <FaGithub className="h-4 w-4" />
-
                 GitHub
-
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
               </Link>
             </div>

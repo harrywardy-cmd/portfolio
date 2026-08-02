@@ -1,10 +1,20 @@
-import { getFeaturedProjects } from "@/lib/github";
+import {
+  getFeaturedProjects,
+  getProjects,
+} from "@/lib/github";
 
 import { ProjectCard } from "./ProjectCard";
 
-export async function ProjectsGrid() {
-  // Only display the first 3 featured projects
-  const projects = (await getFeaturedProjects()).slice(0, 3);
+interface ProjectsGridProps {
+  featuredOnly?: boolean;
+}
+
+export async function ProjectsGrid({
+  featuredOnly = true,
+}: ProjectsGridProps) {
+  const projects = featuredOnly
+    ? await getFeaturedProjects()
+    : await getProjects();
 
   return (
     <div className="mt-12">
@@ -15,7 +25,8 @@ export async function ProjectsGrid() {
           max-w-7xl
           grid-cols-1
           gap-6
-          lg:grid-cols-3
+          md:grid-cols-2
+          xl:grid-cols-3
         "
       >
         {projects.map((project) => (
