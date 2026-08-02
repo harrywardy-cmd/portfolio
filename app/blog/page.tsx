@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Construction } from "lucide-react";
+import { ArrowLeft, ArrowRight, Construction } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
@@ -19,23 +19,36 @@ export default function BlogPage() {
 
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
             I'm currently working on a technical blog where I'll share
-            software engineering projects, algorithms, system design,
-            and lessons learned throughout my development journey.
+            software engineering projects, algorithms, system design, and
+            lessons learned throughout my development journey.
           </p>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button>
-              <Link href="/projects">
-                View Projects
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <Button
+
+              className="group rounded-xl px-6"
+            >
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 whitespace-nowrap"
+              >
+                <span>View Projects</span>
+
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
 
             <Button
               variant="outline"
+              className="group rounded-xl px-6"
             >
-              <Link href="/">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back Home
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 whitespace-nowrap"
+              >
+                <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+
+                <span>Back Home</span>
               </Link>
             </Button>
           </div>

@@ -56,22 +56,10 @@ export function Navbar() {
             {/* Resume */}
             <Button className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5">
               <Link
-                href="app\resume\Harry_Ward_Updated_Resume(2026).pdf"
-                target="_blank"
-                download
+                href="/resume"
                 className="inline-flex items-center gap-2 whitespace-nowrap"
               >
                 <span>Resume</span>
-
-                <FaDownload
-                  className="
-        text-[12px]
-        opacity-90
-        transition-transform
-        duration-300
-        group-hover:translate-y-0.5
-      "
-                />
               </Link>
             </Button>
 
