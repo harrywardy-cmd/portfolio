@@ -193,15 +193,28 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
 
   html {
     @apply scroll-smooth font-sans;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   body {
     @apply min-h-screen bg-background text-foreground antialiased;
+    width: 100%;
+    overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+    height: auto;
   }
 
   ::selection {
