@@ -27,9 +27,8 @@ export function HeroButtons() {
         className="group h-11 rounded-xl border-border bg-card px-6 font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent"
       >
         <Link
-          href="app\resume\Harry_Ward_Updated_Resume(2026).pdf"
-          target="_blank"
-          download
+          href="/documents/Harry_Ward_Updated_Resume2026.pdf"
+          download="Harry_Ward_Updated_Resume2026.pdf"
           className="inline-flex items-center gap-2 whitespace-nowrap"
         >
           <span>Download Resume</span>

@@ -66,6 +66,7 @@ export const projectMetadata: Record<
     title: "Lazuli Web",
     image: "/images/projects/lazuli-web.png",
     featured: true,
+    demo: "https://lazuli-web.vercel.app/",
     technologies: [
       "Next.js",
       "React",
@@ -104,6 +105,7 @@ export const projectMetadata: Record<
   "portfolio-website": {
     title: "Portfolio Website",
     featured: false,
+    demo: "https://portfolio-harry-wards-projects.vercel.app/",
     image: "/images/projects/portfolio-img.png",
     technologies: [
       "HTML",
@@ -367,6 +369,7 @@ export const projectMetadata: Record<
     title: "Calorie Compass",
     image: "/images/projects/calorie-compass.png",
     featured: true,
+    demo: "https://calorie-compass-kappa.vercel.app/",
     technologies: [
       "React",
       "TypeScript",
@@ -405,7 +408,7 @@ export const projectMetadata: Record<
     title: "Developer Portfolio",
     image: "/images/projects/portfolio.png",
     featured: true,
-    demo: "https://your-domain.com",
+    demo: "https://portfolio-harry-wards-projects.vercel.app/",
     technologies: [
       "Next.js",
       "TypeScript",

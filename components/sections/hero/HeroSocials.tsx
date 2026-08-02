@@ -18,7 +18,7 @@ const socials = [
     label: "LinkedIn",
   },
   {
-    href: "mailto:your@email.com",
+    href: "mailto:harrywardy303@gmail.com",
     icon: FaEnvelope,
     label: "Email",
   },
