@@ -343,10 +343,10 @@ export const projectMetadata: Record<
       "Technical interviews require strong problem-solving skills and a deep understanding of algorithms and data structures. I wanted to build long-term consistency while strengthening my ability to analyse problems, optimise solutions, and communicate technical reasoning.",
 
     solution:
-      "I created a structured repository containing more than 1,100 algorithm and data structure solutions, organised by topic and difficulty. Each solution focuses on writing clean, efficient code while applying optimal time and space complexity techniques across a broad range of interview-style problems.",
+      "I created a structured repository containing more than 75+ algorithm and data structure solutions, organised by topic and difficulty. Each solution focuses on writing clean, efficient code while applying optimal time and space complexity techniques across a broad range of interview-style problems.",
 
     features: [
-      "1,100+ algorithm solutions",
+      "75+ algorithm solutions",
       "Multiple data structure implementations",
       "Topic-based organisation",
       "Well-documented problem solutions",

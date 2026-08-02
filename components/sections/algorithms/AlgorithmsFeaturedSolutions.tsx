@@ -134,7 +134,7 @@ export function AlgorithmsFeaturedSolutions() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Explore All 1,100+ Solutions
+            Explore All 75+ Solutions
 
             <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>

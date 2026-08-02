@@ -57,7 +57,7 @@ export function AlgorithmsHero() {
       {/* Left */}
       <div>
         <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-          🚀 1,172+ Problems Solved
+          🚀 75+ Problems Solved
         </div>
 
         <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">

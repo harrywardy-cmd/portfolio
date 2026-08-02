@@ -163,7 +163,7 @@ export function ResumeHero() {
             <h3 className="font-semibold">Continuous Learning</h3>
 
             <p className="mt-2 leading-7 text-muted-foreground">
-              Solved over <strong>1,172+</strong> algorithm and data structure
+              Solved over <strong>75+</strong> algorithm and data structure
               problems while continuously expanding my software engineering
               knowledge through projects, technical learning, and hands-on
               development.

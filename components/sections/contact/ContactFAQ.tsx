@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "Can I view your projects and GitHub?",
     answer:
-      "Absolutely. My portfolio includes detailed project case studies, and my GitHub showcases full-stack applications, over 1,172 algorithm solutions, and ongoing software engineering projects.",
+      "Absolutely. My portfolio includes detailed project case studies, and my GitHub showcases full-stack applications, over 75 algorithm solutions, and ongoing software engineering projects.",
   },
   {
     question: "How quickly do you usually respond?",

@@ -59,7 +59,7 @@ export function AlgorithmsCTA() {
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            Browse over <strong>1,100+</strong> solutions covering arrays,
+            Browse over <strong>75+</strong> solutions covering arrays,
             trees, graphs, dynamic programming, greedy algorithms, binary
             search, and many more interview-focused topics. Every solution is
             written in Python and organised for easy navigation and continuous

@@ -172,7 +172,7 @@ export const projects: Project[] = [
     slug: "algorithms-datastructures",
     title: "Algorithms & Data Structures",
     description:
-      "Collection of algorithms and data structure implementations with 1,100+ LeetCode and NeetCode solutions covering arrays, trees, graphs, dynamic programming, and system design fundamentals.",
+      "Collection of algorithms and data structure implementations with 75+ LeetCode and NeetCode solutions covering arrays, trees, graphs, dynamic programming, and system design fundamentals.",
     technologies: ["Python", "Algorithms", "Data Structures"],
     githubUrl:
       "https://github.com/harrywardy-cmd/algorithms-datastructures",
