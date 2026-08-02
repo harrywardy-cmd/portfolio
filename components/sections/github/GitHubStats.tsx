@@ -30,7 +30,7 @@ export function GitHubStats() {
 
       <GitHubStatCard
         title="Algorithms Solved"
-        value="1172"
+        value="75+"
         description="LeetCode + NeetCode"
         href="/projects/algorithms-datastructures"
         linkLabel="View Repository"

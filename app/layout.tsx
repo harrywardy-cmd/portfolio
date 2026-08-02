@@ -6,6 +6,7 @@ import "./globals.css";
 
 import { Navbar } from "@/components/layout/navbar/Navbar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://harryward.dev"), // Update when your domain is live
@@ -102,6 +103,7 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
         </ThemeProvider>
+        <Footer />
       </body>
     </html>
   );
