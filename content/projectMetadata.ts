@@ -408,7 +408,7 @@ export const projectMetadata: Record<
     title: "Developer Portfolio",
     image: "/images/projects/portfolio.png",
     featured: true,
-    demo: "https://portfolio-harry-wards-projects.vercel.app/",
+    demo: "https://portfolio-eight-flax-t0uyc3r3ew.vercel.app/",
     technologies: [
       "Next.js",
       "TypeScript",
