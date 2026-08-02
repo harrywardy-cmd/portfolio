@@ -1,10 +1,16 @@
 export interface PortfolioProject {
   slug: string;
+
   title: string;
+
   description: string;
 
+  technologies: string[];
+
   githubUrl?: string;
+
   demo?: string;
+
   pdf?: string;
 
   image?: string;
@@ -12,4 +18,6 @@ export interface PortfolioProject {
   featured: boolean;
 
   source: "github" | "local";
+
+  categories: string[];
 }

@@ -1,17 +1,19 @@
 import { Container } from "@/components/layout/Container";
 
-import { ProjectsGrid } from "./ProjectsGrid";
-import { ProjectsHeader } from "./ProjectsHeader";
+import { ProjectsView } from "./ProjectsView";
 
-export function ProjectsPage() {
+import { getPortfolioProjects } from "@/lib/projects";
+
+export async function ProjectsPage() {
+  const projects =
+    await getPortfolioProjects();
+
   return (
     <section className="py-20">
       <Container>
-        <div className="space-y-12">
-          <ProjectsHeader />
-
-          <ProjectsGrid featuredOnly={false} />
-        </div>
+        <ProjectsView
+          projects={projects}
+        />
       </Container>
     </section>
   );

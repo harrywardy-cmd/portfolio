@@ -16,22 +16,7 @@ export async function CurrentlyBuildingCard() {
   const commits = await getRecentCommits(repo.name);
 
   return (
-    <div
-      className="
-        group
-        rounded-3xl
-        border
-        border-border/60
-        bg-card
-        p-7
-        shadow-xl
-        transition-all
-        duration-300
-        hover:-translate-y-1
-        hover:border-primary/20
-        hover:shadow-2xl
-      "
-    >
+    <div className="group rounded-3xl border border-border/60 bg-card p-7 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-2xl">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">

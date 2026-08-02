@@ -18,6 +18,8 @@ export interface Project {
   featured: boolean;
 
   source: "github" | "local";
+
+  categories: string[];
 }
 export const projects: Project[] = [
   {
@@ -29,17 +31,26 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/harrywardy-cmd/portfolio",
     featured: true,
     source: "github",
+    categories: [
+      "Web",
+      "Frontend",
+    ],
   },
 
   {
     slug: "calorie-compass",
     title: "Calorie Compass",
     description:
-      "Nutrition and calorie tracking application.",
+      "A responsive calorie counting application designed to simplify nutrition tracking with an intuitive interface and real-time calorie calculations.",
     technologies: ["React", "TypeScript"],
     githubUrl: "https://github.com/harrywardy-cmd/calorie-compass",
     featured: true,
     source: "github",
+    categories: [
+      "Web",
+      "Frontend",
+      "React",
+    ],
   },
   {
     slug: "crud-app",
@@ -50,79 +61,112 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/harrywardy-cmd/CRUD-App",
     featured: false,
     source: "github",
+    categories: [
+      "Web",
+      "Full Stack",
+    ],
   },
   {
     slug: "lazuli-web",
     title: "Lazuli Web",
     description:
-      "Modern responsive web application.",
+      "A responsive eCommerce website developed for Lazuli, providing an intuitive shopping experience with modern web technologies.",
     technologies: ["React", "JavaScript"],
     githubUrl: "https://github.com/harrywardy-cmd/lazuli-web",
     featured: false,
     source: "github",
+    categories: [
+      "Web",
+      "Frontend",
+    ],
   },
   {
     slug: "portfolio-website",
     title: "Portfolio Website",
     description:
-      "Previous generation personal portfolio website.",
+      "A responsive personal portfolio website built with HTML, CSS, and JavaScript to showcase my projects, technical skills, and software development journey.",
     technologies: ["HTML", "CSS", "JavaScript"],
     githubUrl: "https://github.com/harrywardy-cmd/Portfolio-Website",
     featured: false,
     source: "github",
+    categories: [
+      "Web",
+      "Frontend",
+    ],
   },
   {
     slug: "python-calculator",
     title: "Python Calculator",
     description:
-      "Desktop calculator built using Python.",
+      "A desktop calculator application built with Python, demonstrating GUI development, event-driven programming, and arithmetic operations through an intuitive user interface.",
     technologies: ["Python"],
     githubUrl: "https://github.com/harrywardy-cmd/Python-Calculator",
     featured: false,
     source: "github",
+    categories: [
+      "Python",
+      "Desktop",
+    ],
   },
   {
     slug: "python-api",
     title: "Python API",
     description:
-      "REST API built with Python.",
+      "A RESTful API built with Python, demonstrating backend development, HTTP request handling, and structured API design for modern web applications.",
     technologies: ["Python"],
     githubUrl: "https://github.com/harrywardy-cmd/Python-API",
     featured: false,
     source: "github",
+    categories: [
+      "Python",
+      "Backend",
+    ],
   },
   {
     slug: "python-web-scraping-tool",
     title: "Python Web Scraping Tool",
     description:
-      "Automated web scraping application using Python.",
+      "A Python web scraping application that automates data extraction from websites using BeautifulSoup and Requests, demonstrating data collection, HTML parsing, and automation.",
     technologies: ["Python", "BeautifulSoup"],
     githubUrl:
       "https://github.com/harrywardy-cmd/Python-Web-Scraping-Tool",
     featured: false,
     source: "github",
+    categories: [
+      "Python",
+      "Automation",
+    ],
   },
   {
     slug: "ai-python-snake-game",
     title: "AI Python Snake Game",
     description:
-      "Snake game featuring AI gameplay.",
+      "A Python-based Snake game featuring AI-controlled gameplay, demonstrating game development, pathfinding, and algorithmic decision-making using Pygame.",
     technologies: ["Python"],
     githubUrl:
       "https://github.com/harrywardy-cmd/AI-PYTHON-SNAKE-GAME",
     featured: false,
     source: "github",
+    categories: [
+      "Python",
+      "AI",
+      "Game",
+    ],
   },
   {
     slug: "command-line-interface",
     title: "Command Line Interface",
     description:
-      "Command-line application demonstrating terminal interactions.",
+      "A command-line application developed as part of the BrightSpark Labs Software Engineering Assessment, showcasing clean code, user interaction, and problem-solving through a terminal-based interface.",
     technologies: ["Python"],
     githubUrl:
       "https://github.com/harrywardy-cmd/command-line-interface",
     featured: false,
     source: "github",
+    categories: [
+      "Python",
+      "CLI",
+    ],
   },
   {
     slug: "algorithms-datastructures",
@@ -134,28 +178,27 @@ export const projects: Project[] = [
       "https://github.com/harrywardy-cmd/algorithms-datastructures",
     featured: true,
     source: "github",
+    categories: [
+      "Algorithms",
+      "Python",
+      "Interview Prep",
+    ],
   },
   {
     slug: "neetcode-submissions-s5rzyvb1",
-    title: "NeetCode Submissions (1)",
+    title: "NeetCode Submissions",
     description:
-      "Solutions to NeetCode and LeetCode problems.",
+      "A curated collection of NeetCode and LeetCode solutions in Python, documenting my journey through coding interview preparation, data structures, algorithms, and problem-solving.",
     technologies: ["Python"],
     githubUrl:
       "https://github.com/harrywardy-cmd/neetcode-submissions-s5rzyvb1",
     featured: false,
     source: "github",
-  },
-  {
-    slug: "neetcode-submissions-h7zt2hks",
-    title: "NeetCode Submissions (2)",
-    description:
-      "Additional NeetCode and LeetCode solutions.",
-    technologies: ["Python"],
-    githubUrl:
-      "https://github.com/harrywardy-cmd/neetcode-submissions-h7zt2hks",
-    featured: false,
-    source: "github",
+    categories: [
+      "Algorithms",
+      "Python",
+      "Interview Prep",
+    ],
   },
 
   {
@@ -174,6 +217,13 @@ export const projects: Project[] = [
     pdf: "/documents/Serverless_Event-driven Architectural Design Report.pdf",
     featured: false,
     source: "local",
+    categories: [
+      "Cloud",
+      "AWS",
+      "Architecture",
+      "University",
+    ],
+
   },
   {
     slug: "inference-engine",
@@ -188,21 +238,31 @@ export const projects: Project[] = [
     source: "local",
     pdf: "/documents/Assignment 2 – Inference Engine for Propositional Logicnt.pdf",
     featured: false,
+    categories: [
+      "AI",
+      "Python",
+      "University",
+    ],
   },
 
   {
-  slug: "apollos-gamble",
-  title: "Apollo's Gamble",
-  description:
-    "A strategy tabletop card game inspired by Greek mythology, featuring prediction-based gameplay, dynamic narratives, and competitive multiplayer mechanics.",
-  technologies: [
-    "Game Design",
-    "Systems Design",
-    "Prototyping",
-  ],
-  source: "local",
-  pdf: "/documents/Apollo's Gamble Game Design Document.pdf",
-  featured: false,
-},
+    slug: "apollos-gamble",
+    title: "Apollo's Gamble",
+    description:
+      "A strategy tabletop card game inspired by Greek mythology, featuring prediction-based gameplay, dynamic narratives, and competitive multiplayer mechanics.",
+    technologies: [
+      "Game Design",
+      "Systems Design",
+      "Prototyping",
+    ],
+    source: "local",
+    pdf: "/documents/Apollo's Gamble Game Design Document.pdf",
+    featured: false,
+    categories: [
+      "Game Design",
+      "University",
+    ],
+  },
+
 
 ];

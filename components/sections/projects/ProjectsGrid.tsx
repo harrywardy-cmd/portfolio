@@ -1,20 +1,22 @@
-import {
-  getFeaturedPortfolioProjects,
-  getPortfolioProjects,
-} from "@/lib/projects";
-
 import { ProjectCard } from "./ProjectCard";
 
+import type { PortfolioProject } from "@/types/projects";
+
 interface ProjectsGridProps {
-  featuredOnly?: boolean;
+  projects: PortfolioProject[];
+  filter: string;
 }
 
-export async function ProjectsGrid({
-  featuredOnly = true,
+export function ProjectsGrid({
+  projects,
+  filter,
 }: ProjectsGridProps) {
-  const projects = featuredOnly
-    ? await getFeaturedPortfolioProjects()
-    : await getPortfolioProjects();
+  const filteredProjects =
+    filter === "All"
+      ? projects
+      : projects.filter((project) =>
+          project.categories.includes(filter)
+        );
 
   return (
     <div className="mt-12">
@@ -24,18 +26,17 @@ export async function ProjectsGrid({
           grid
           max-w-7xl
           grid-cols-1
-          gap-6
+          gap-8
           md:grid-cols-2
           xl:grid-cols-3
+          items-stretch
         "
       >
-        {projects.map((project) => (
-          <div
+        {filteredProjects.map((project) => (
+          <ProjectCard
             key={project.slug}
-            className="flex h-full"
-          >
-            <ProjectCard project={project} />
-          </div>
+            project={project}
+          />
         ))}
       </div>
     </div>
