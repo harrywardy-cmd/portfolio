@@ -7,6 +7,12 @@ import {
   MapPin,
 } from "lucide-react";
 
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+} from "@/lib/dashboard";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -28,7 +34,12 @@ const stats = [
   },
 ];
 
-export function ResumeHero() {
+export async function ResumeHero() {
+  const solved = formatCount(
+    (await getAlgorithmStats())?.solved,
+    MIN_ALGORITHMS_SOLVED
+  );
+
   return (
     <section className="grid gap-16 lg:grid-cols-2 lg:items-center">
       {/* Left */}
@@ -168,7 +179,7 @@ export function ResumeHero() {
             <h3 className="font-semibold">Continuous Learning</h3>
 
             <p className="mt-2 leading-7 text-muted-foreground">
-              Solved over <strong>75+</strong> algorithm and data structure
+              Solved <strong>{solved}</strong> algorithm and data structure
               problems while continuously expanding my software engineering
               knowledge through projects, technical learning, and hands-on
               development.

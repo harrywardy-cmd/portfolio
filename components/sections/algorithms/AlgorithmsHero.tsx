@@ -11,22 +11,29 @@ import { FaGithub } from "react-icons/fa";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+} from "@/lib/dashboard";
+import type { LeetCodeStats } from "@/lib/leetcode";
+import { siteConfig } from "@/lib/site";
 
-const stats = [
+const getStats = (algorithms: LeetCodeStats | null) => [
   {
     icon: <Code2 className="h-5 w-5 text-primary" />,
-    value: "75+",
+    value: formatCount(algorithms?.solved),
     label: "Problems Solved",
   },
   {
     icon: <Flame className="h-5 w-5 text-orange-500" />,
-    value: "120+",
-    label: "Day Streak",
+    value: formatCount(algorithms?.activeDays),
+    label: "Active Days",
   },
   {
     icon: <Trophy className="h-5 w-5 text-green-500" />,
-    value: "25+",
-    label: "Topics Mastered",
+    value: formatCount(algorithms?.topics),
+    label: "Topics Covered",
   },
 ];
 
@@ -51,13 +58,18 @@ const highlights = [
   },
 ];
 
-export function AlgorithmsHero() {
+export async function AlgorithmsHero() {
+  const algorithms = await getAlgorithmStats();
+
+  const stats = getStats(algorithms);
+
   return (
     <section className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
       {/* Left */}
       <div>
         <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-          🚀 75+ Problems Solved
+          🚀 {formatCount(algorithms?.solved, MIN_ALGORITHMS_SOLVED)} Problems
+          Solved
         </div>
 
         <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
@@ -132,7 +144,7 @@ export function AlgorithmsHero() {
             nativeButton={false}
             render={
               <Link
-                href="https://github.com/harrywardy-cmd/algorithms-datastructures"
+                href={siteConfig.repos.algorithms}
                 target="_blank"
                 rel="noopener noreferrer"
               />

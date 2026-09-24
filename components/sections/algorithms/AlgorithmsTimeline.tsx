@@ -5,7 +5,13 @@ import {
   Trophy,
 } from "lucide-react";
 
-const milestones = [
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+} from "@/lib/dashboard";
+
+const getMilestones = (solved: string) => [
   {
     title: "Started the Journey",
     description:
@@ -25,14 +31,21 @@ const milestones = [
     icon: <CheckCircle2 className="h-5 w-5" />,
   },
   {
-    title: "100+ Problems Solved",
+    title: `${solved} Problems Solved`,
     description:
       "Continued refining algorithmic thinking, writing clean solutions, and preparing for software engineering interviews through consistent practice.",
     icon: <Trophy className="h-5 w-5" />,
   },
 ];
 
-export function AlgorithmsTimeline() {
+export async function AlgorithmsTimeline() {
+  const solved = formatCount(
+    (await getAlgorithmStats())?.solved,
+    MIN_ALGORITHMS_SOLVED
+  );
+
+  const milestones = getMilestones(solved);
+
   return (
     <section className="space-y-10">
       {/* Header */}

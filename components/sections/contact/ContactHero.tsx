@@ -6,6 +6,7 @@ import { Briefcase, Mail, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 import { Badge } from "@/components/ui/badge";
+import { siteConfig } from "@/lib/site";
 
 const stats = [
   {
@@ -29,7 +30,7 @@ export function ContactHero() {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText("harrywardy303@gmail.com");
+    await navigator.clipboard.writeText(siteConfig.email);
 
     setCopied(true);
 
@@ -147,12 +148,12 @@ export function ContactHero() {
     hover:underline
   "
             >
-              {copied ? "Copied to clipboard! ✓" : "harrywardy303@gmail.com"}
+              {copied ? "Copied to clipboard! ✓" : siteConfig.email}
             </p>
           </div>
 
           <Link
-            href="https://www.linkedin.com/in/harry-ward-b2b9b4319"
+            href={siteConfig.links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="group block rounded-2xl border border-border/60 p-5 transition-all duration-300 hover:border-primary/40 hover:shadow-md"
@@ -164,12 +165,12 @@ export function ContactHero() {
             </div>
 
             <p className="mt-3 text-muted-foreground">
-              linkedin.com/in/harry-ward-b2b9b4319
+              linkedin.com/in/{siteConfig.linkedin.handle}
             </p>
           </Link>
 
           <Link
-            href="https://github.com/harrywardy-cmd"
+            href={siteConfig.links.github}
             target="_blank"
             rel="noopener noreferrer"
             className="group block rounded-2xl border border-border/60 p-5 transition-all duration-300 hover:border-primary/40 hover:shadow-md"
@@ -181,7 +182,7 @@ export function ContactHero() {
             </div>
 
             <p className="mt-3 text-muted-foreground">
-              github.com/harrywardy-cmd
+              github.com/{siteConfig.github.username}
             </p>
           </Link>
 

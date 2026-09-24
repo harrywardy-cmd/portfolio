@@ -4,10 +4,16 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+} from "@/lib/dashboard";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-const projects = [
+const getProjects = (solved: string) => [
   {
     title: "Developer Portfolio",
     description:
@@ -23,7 +29,7 @@ const projects = [
   {
     title: "Algorithms & Data Structures",
     description:
-      "Over 75+ algorithm and data structure solutions covering interview preparation, computer science fundamentals, and advanced problem solving.",
+      `${solved} algorithm and data structure solutions covering interview preparation, computer science fundamentals, and advanced problem solving.`,
     technologies: [
       "Python",
       "Algorithms",
@@ -46,7 +52,14 @@ const projects = [
   },
 ];
 
-export function ResumeProjects() {
+export async function ResumeProjects() {
+  const solved = formatCount(
+    (await getAlgorithmStats())?.solved,
+    MIN_ALGORITHMS_SOLVED
+  );
+
+  const projects = getProjects(solved);
+
   return (
     <section className="space-y-10">
       {/* Header */}

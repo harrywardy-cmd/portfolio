@@ -4,7 +4,13 @@ import {
   Wrench,
 } from "lucide-react";
 
-const experiences = [
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+} from "@/lib/dashboard";
+
+const getExperiences = (solved: string) => [
   {
     company: "Grill'd",
     role: "IT Service Desk Analyst",
@@ -24,14 +30,21 @@ const experiences = [
     icon: <Wrench className="h-5 w-5 text-green-500" />,
     highlights: [
       "Built multiple full-stack applications using Next.js, React, TypeScript, Tailwind CSS, Firebase, and REST APIs.",
-      "Solved 75+ algorithm and data structure problems through consistent LeetCode and NeetCode practice.",
+      `Solved ${solved} algorithm and data structure problems through consistent LeetCode and NeetCode practice.`,
       "Developed a modern portfolio integrating GitHub APIs, dynamic content, reusable components, and responsive design.",
       "Continuously study software architecture, clean code principles, and modern frontend development.",
     ],
   },
 ];
 
-export function ResumeExperience() {
+export async function ResumeExperience() {
+  const solved = formatCount(
+    (await getAlgorithmStats())?.solved,
+    MIN_ALGORITHMS_SOLVED
+  );
+
+  const experiences = getExperiences(solved);
+
   return (
     <section className="space-y-10">
       {/* Header */}

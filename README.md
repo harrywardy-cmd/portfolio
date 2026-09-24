@@ -63,7 +63,7 @@ public/               # Static assets
 
 ### Prerequisites
 
-Make sure you have **Node.js** and **npm** installed on your machine.
+Make sure you have **Node.js** and **pnpm** installed on your machine (`corepack enable` sets up the pinned pnpm version).
 
 ### 1. Clone the repository
 
@@ -80,16 +80,30 @@ cd portfolio
 ### 3. Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
-### 4. Start the development server
+### 4. Configure environment variables
 
 ```bash
-npm run dev
+cp .env.example .env.local
 ```
 
-### 5. Open the application
+Then fill in the values:
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `GITHUB_TOKEN` | Recommended | Live GitHub stats. Without it the contributions count shows "—" and the GitHub API is limited to 60 requests/hour. |
+| `RESEND_API_KEY` | For the contact form | Sends contact form emails via [Resend](https://resend.com). |
+| `NEXT_PUBLIC_SITE_URL` | Once a custom domain is live | Canonical URL for metadata, sitemap and robots.txt. Falls back to the Vercel production URL. |
+
+### 5. Start the development server
+
+```bash
+pnpm dev
+```
+
+### 6. Open the application
 
 Visit:
 
@@ -104,7 +118,7 @@ http://localhost:3000
 ### Development
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Starts the Next.js development server.
@@ -112,7 +126,7 @@ Starts the Next.js development server.
 ### Production Build
 
 ```bash
-npm run build
+pnpm build
 ```
 
 Creates an optimized production build.
@@ -120,7 +134,7 @@ Creates an optimized production build.
 ### Production Server
 
 ```bash
-npm run start
+pnpm start
 ```
 
 Runs the production build locally.
@@ -128,10 +142,18 @@ Runs the production build locally.
 ### Linting
 
 ```bash
-npm run lint
+pnpm lint
 ```
 
 Runs ESLint to identify code quality and style issues.
+
+---
+
+## ☁️ Deployment
+
+The site is built for [Vercel](https://vercel.com). Import the repository, then add `GITHUB_TOKEN`, `RESEND_API_KEY` and (once the domain is live) `NEXT_PUBLIC_SITE_URL` under **Project → Settings → Environment Variables**. Vercel detects pnpm from `pnpm-lock.yaml`.
+
+If GitHub or LeetCode are unreachable, the homepage falls back gracefully instead of failing the build.
 
 ---
 

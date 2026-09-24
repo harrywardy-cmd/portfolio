@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { siteConfig } from "@/lib/site";
 
 export function Navbar() {
   return (
@@ -31,7 +32,7 @@ export function Navbar() {
               nativeButton={false}
               render={
                 <Link
-                  href="https://github.com/harrywardy-cmd"
+                  href={siteConfig.links.github}
                   target="_blank"
                   aria-label="GitHub"
                 />
@@ -48,7 +49,7 @@ export function Navbar() {
               nativeButton={false}
               render={
                 <Link
-                  href="https://www.linkedin.com/in/harry-ward-b2b9b4319"
+                  href={siteConfig.links.linkedin}
                   target="_blank"
                   aria-label="LinkedIn"
                 />

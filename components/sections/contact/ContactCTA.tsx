@@ -7,6 +7,7 @@ import {
 import { FaGithub } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/lib/site";
 
 export function ContactCTA() {
   return (
@@ -55,7 +56,7 @@ export function ContactCTA() {
             size="lg"
             className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
             nativeButton={false}
-            render={<a href="mailto:harrywardy303@gmail.com" />}
+            render={<a href={siteConfig.links.email} />}
           >
             <Mail className="h-4 w-4" />
 
@@ -92,7 +93,7 @@ export function ContactCTA() {
             nativeButton={false}
             render={
               <Link
-                href="https://github.com/harrywardy-cmd"
+                href={siteConfig.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
               />

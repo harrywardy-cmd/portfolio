@@ -7,8 +7,19 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { FaGithub } from "react-icons/fa";
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+} from "@/lib/dashboard";
+import { siteConfig } from "@/lib/site";
 
-export function AlgorithmsCTA() {
+export async function AlgorithmsCTA() {
+  const solved = formatCount(
+    (await getAlgorithmStats())?.solved,
+    MIN_ALGORITHMS_SOLVED
+  );
+
   return (
     <section
       className="
@@ -59,7 +70,7 @@ export function AlgorithmsCTA() {
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            Browse over <strong>75+</strong> solutions covering arrays,
+            Browse over <strong>{solved}</strong> solutions covering arrays,
             trees, graphs, dynamic programming, greedy algorithms, binary
             search, and many more interview-focused topics. Every solution is
             written in Python and organised for easy navigation and continuous
@@ -75,7 +86,7 @@ export function AlgorithmsCTA() {
             nativeButton={false}
             render={
               <Link
-                href="https://github.com/harrywardy-cmd/algorithms-datastructures"
+                href={siteConfig.repos.algorithms}
                 target="_blank"
                 rel="noopener noreferrer"
               />

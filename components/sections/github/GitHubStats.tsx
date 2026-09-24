@@ -6,8 +6,19 @@ import {
 } from "lucide-react";
 
 import { GitHubStatCard } from "./GitHubStatCard";
+import {
+  formatCount,
+  getAlgorithmStats,
+  getGitHubStats,
+} from "@/lib/dashboard";
+import { siteConfig } from "@/lib/site";
 
-export function GitHubStats() {
+export async function GitHubStats() {
+  const [github, algorithms] = await Promise.all([
+    getGitHubStats(),
+    getAlgorithmStats(),
+  ]);
+
   return (
     <div className="grid gap-5 md:grid-cols-2">
       <GitHubStatCard
@@ -20,17 +31,17 @@ export function GitHubStats() {
       />
 
       <GitHubStatCard
-        title="GitHub Streak"
-        value="128 Days"
-        description="Keep going!"
-        href="https://github.com/harrywardy-cmd"
+        title="Longest Streak"
+        value={github ? `${github.longestStreak} Days` : "—"}
+        description="Consecutive days of GitHub contributions in the past year."
+        href={siteConfig.links.github}
         linkLabel="View GitHub"
         icon={<Flame className="h-5 w-5 text-orange-500" />}
       />
 
       <GitHubStatCard
         title="Algorithms Solved"
-        value="75+"
+        value={formatCount(algorithms?.solved)}
         description="LeetCode + NeetCode"
         href="/projects/algorithms-datastructures"
         linkLabel="View Repository"

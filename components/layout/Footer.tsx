@@ -3,6 +3,7 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 import { Container } from "./Container";
+import { siteConfig } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -67,7 +68,7 @@ export function Footer() {
 
               <nav className="mt-5 flex flex-col gap-3">
                 <Link
-                  href="https://github.com/harrywardy-cmd"
+                  href={siteConfig.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground transition-colors hover:text-primary"
@@ -76,7 +77,7 @@ export function Footer() {
                 </Link>
 
                 <Link
-                  href="https://www.linkedin.com/in/harry-ward-b2b9b4319"
+                  href={siteConfig.links.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground transition-colors hover:text-primary"
@@ -106,15 +107,15 @@ export function Footer() {
               <div className="mt-5 flex gap-3">
                 {[
                   {
-                    href: "https://github.com/harrywardy-cmd",
+                    href: siteConfig.links.github,
                     icon: <FaGithub className="h-5 w-5" />,
                   },
                   {
-                    href: "https://www.linkedin.com/in/harry-ward-b2b9b4319",
+                    href: siteConfig.links.linkedin,
                     icon: <FaLinkedinIn className="h-5 w-5" />,
                   },
                   {
-                    href: "mailto:harrywardy303@gmail.com",
+                    href: siteConfig.links.email,
                     icon: <Mail className="h-5 w-5" />,
                   },
                 ].map(({ href, icon }) => (
@@ -165,7 +166,7 @@ export function Footer() {
             </p>
 
             <Link
-              href="https://github.com/harrywardy-cmd/portfolio"
+              href={siteConfig.repos.portfolio}
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 transition-colors hover:text-primary"

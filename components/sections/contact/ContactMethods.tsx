@@ -2,14 +2,15 @@ import Link from "next/link";
 import { ArrowUpRight, Mail, MapPin } from "lucide-react";
 
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { siteConfig } from "@/lib/site";
 
 const contactMethods = [
   {
     title: "Email",
-    value: "harrywardy303@gmail.com",
+    value: siteConfig.email,
     description:
       "The best way to reach me for opportunities, collaborations, or general enquiries.",
-    href: "mailto:harrywardy303@gmail.com",
+    href: siteConfig.links.email,
     icon: <Mail className="h-6 w-6 text-primary" />,
   },
   {
@@ -17,15 +18,15 @@ const contactMethods = [
     value: "Harry Ward",
     description:
       "Connect with me professionally and follow my software engineering journey.",
-    href: "https://www.linkedin.com/in/harry-ward-b2b9b4319",
+    href: siteConfig.links.linkedin,
     icon: <FaLinkedinIn className="h-6 w-6 text-blue-500" />,
   },
   {
     title: "GitHub",
-    value: "harrywardy-cmd",
+    value: siteConfig.github.username,
     description:
       "Explore my projects, algorithms, and open-source contributions.",
-    href: "https://github.com/harrywardy-cmd",
+    href: siteConfig.links.github,
     icon: <FaGithub className="h-6 w-6 text-foreground" />,
   },
   {

@@ -5,20 +5,21 @@ import {
   FaGithub,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { siteConfig } from "@/lib/site";
 
 const socials = [
   {
-    href: "https://github.com/harrywardy-cmd",
+    href: siteConfig.links.github,
     icon: FaGithub,
     label: "GitHub",
   },
   {
-    href: "https://www.linkedin.com/in/harry-ward-b2b9b4319",
+    href: siteConfig.links.linkedin,
     icon: FaLinkedinIn,
     label: "LinkedIn",
   },
   {
-    href: "mailto:harrywardy303@gmail.com",
+    href: siteConfig.links.email,
     icon: FaEnvelope,
     label: "Email",
   },

@@ -5,34 +5,46 @@ import {
   Trophy,
 } from "lucide-react";
 
-const stats = [
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+  nextMilestone,
+} from "@/lib/dashboard";
+import type { LeetCodeStats } from "@/lib/leetcode";
+
+const getStats = (algorithms: LeetCodeStats | null) => [
   {
     title: "Problems Solved",
-    value: "75+",
+    value: formatCount(algorithms?.solved),
     description: "Completed across LeetCode and NeetCode.",
     icon: <Code2 className="h-6 w-6 text-blue-500" />,
   },
   {
-    title: "Daily Streak",
-    value: "120+",
-    description: "Days of consistent coding practice.",
+    title: "Active Days",
+    value: formatCount(algorithms?.activeDays),
+    description: "Days of consistent LeetCode practice.",
     icon: <Flame className="h-6 w-6 text-orange-500" />,
   },
   {
     title: "Topics Covered",
-    value: "25+",
+    value: formatCount(algorithms?.topics),
     description: "Core algorithms and data structures.",
     icon: <Brain className="h-6 w-6 text-purple-500" />,
   },
   {
     title: "Goal",
-    value: "100+",
+    value: `${nextMilestone(
+      algorithms?.solved ?? MIN_ALGORITHMS_SOLVED
+    )}`,
     description: "Working towards mastering interview preparation.",
     icon: <Trophy className="h-6 w-6 text-green-500" />,
   },
 ];
 
-export function AlgorithmsStats() {
+export async function AlgorithmsStats() {
+  const stats = getStats(await getAlgorithmStats());
+
   return (
     <section className="space-y-10">
       {/* Section Header */}

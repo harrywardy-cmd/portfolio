@@ -6,47 +6,58 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+} from "@/lib/dashboard";
+import { siteConfig } from "@/lib/site";
 
 const featuredSolutions = [
   {
     title: "Jump Game",
     difficulty: "Medium",
     topic: "Greedy",
-    href: "https://github.com/harrywardy-cmd/algorithms-datastructures",
+    href: siteConfig.repos.algorithms,
   },
   {
     title: "House Robber",
     difficulty: "Medium",
     topic: "Dynamic Programming",
-    href: "https://github.com/harrywardy-cmd/algorithms-datastructures",
+    href: siteConfig.repos.algorithms,
   },
   {
     title: "Decode Ways",
     difficulty: "Medium",
     topic: "Dynamic Programming",
-    href: "https://github.com/harrywardy-cmd/algorithms-datastructures",
+    href: siteConfig.repos.algorithms,
   },
   {
     title: "Product of Array Except Self",
     difficulty: "Medium",
     topic: "Arrays",
-    href: "https://github.com/harrywardy-cmd/algorithms-datastructures",
+    href: siteConfig.repos.algorithms,
   },
   {
     title: "Rotate Image",
     difficulty: "Medium",
     topic: "Matrix",
-    href: "https://github.com/harrywardy-cmd/algorithms-datastructures",
+    href: siteConfig.repos.algorithms,
   },
   {
     title: "Gas Station",
     difficulty: "Medium",
     topic: "Greedy",
-    href: "https://github.com/harrywardy-cmd/algorithms-datastructures",
+    href: siteConfig.repos.algorithms,
   },
 ];
 
-export function AlgorithmsFeaturedSolutions() {
+export async function AlgorithmsFeaturedSolutions() {
+  const solved = formatCount(
+    (await getAlgorithmStats())?.solved,
+    MIN_ALGORITHMS_SOLVED
+  );
+
   return (
     <section className="space-y-8">
       <div className="max-w-3xl">
@@ -131,13 +142,13 @@ export function AlgorithmsFeaturedSolutions() {
           nativeButton={false}
           render={
             <Link
-              href="https://github.com/harrywardy-cmd/algorithms-datastructures"
+              href={siteConfig.repos.algorithms}
               target="_blank"
               rel="noopener noreferrer"
             />
           }
         >
-          Explore All 75+ Solutions
+          Explore All {solved} Solutions
 
           <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </Button>

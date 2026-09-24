@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { siteConfig } from "@/lib/site";
 
 export function GitHubContributionGraph() {
   return (
@@ -26,7 +27,7 @@ export function GitHubContributionGraph() {
         </div>
 
         <Link
-          href="https://github.com/harrywardy-cmd"
+          href={siteConfig.links.github}
           target="_blank"
           rel="noopener noreferrer"
           className="
@@ -50,7 +51,7 @@ export function GitHubContributionGraph() {
       {/* Graph */}
       <div className="overflow-x-auto">
         <Image
-          src="https://ghchart.rshah.org/2563eb/harrywardy-cmd"
+          src={`https://ghchart.rshah.org/2563eb/${siteConfig.github.username}`}
           alt="GitHub Contribution Graph"
           width={1800}
           height={240}

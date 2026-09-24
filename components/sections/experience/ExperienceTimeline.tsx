@@ -5,7 +5,13 @@ import {
   Laptop,
 } from "lucide-react";
 
-const timeline = [
+import {
+  formatCount,
+  getAlgorithmStats,
+  MIN_ALGORITHMS_SOLVED,
+} from "@/lib/dashboard";
+
+const getTimeline = (solved: string) => [
   {
     title: "Bachelor of Computer Science",
     period: "Education",
@@ -31,12 +37,19 @@ const timeline = [
     title: "Algorithms & Interview Preparation",
     period: "Ongoing",
     description:
-      "Solved more than 75+ LeetCode and NeetCode problems, strengthening problem-solving skills and mastering data structures, algorithms, and technical interview concepts.",
+      `Solved ${solved} LeetCode and NeetCode problems, strengthening problem-solving skills and mastering data structures, algorithms, and technical interview concepts.`,
     icon: <Code2 className="h-5 w-5" />,
   },
 ];
 
-export function ExperienceTimeline() {
+export async function ExperienceTimeline() {
+  const solved = formatCount(
+    (await getAlgorithmStats())?.solved,
+    MIN_ALGORITHMS_SOLVED
+  );
+
+  const timeline = getTimeline(solved);
+
   return (
     <section className="space-y-10">
       {/* Header */}

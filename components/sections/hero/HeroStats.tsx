@@ -5,10 +5,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 
-import { getHeroStats } from "@/lib/dashboard";
-
-const formatCount = (value: number | null) =>
-  value === null ? "—" : `${value}+`;
+import { formatCount, getHeroStats } from "@/lib/dashboard";
 
 export async function HeroStats() {
   const dashboard = await getHeroStats();

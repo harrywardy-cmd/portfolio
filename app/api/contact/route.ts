@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const CONTACT_EMAIL = "harrywardy303@gmail.com";
+import { siteConfig } from "@/lib/site";
 
 const MAX_LENGTHS = {
   name: 100,
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
 
   const { error } = await resend.emails.send({
     from: "Portfolio Contact <onboarding@resend.dev>",
-    to: CONTACT_EMAIL,
+    to: siteConfig.email,
     replyTo: email,
     // Strip newlines so the subject can't inject extra headers.
     subject: `[Portfolio] ${subject.replace(/[\r\n]+/g, " ")}`,
