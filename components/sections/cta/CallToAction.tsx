@@ -6,7 +6,8 @@ import {
 } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function CallToAction() {
   return (
@@ -67,28 +68,30 @@ export function CallToAction() {
 
             {/* Right */}
             <div className="flex flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row">
-              <Button
-                size="lg"
-                className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
-                nativeButton={false}
-                render={<Link href="/contact" />}
+              <Link
+                href="/contact"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
+                )}
               >
                 Get In Touch
 
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Button>
+              </Link>
 
-              <Button
-                size="lg"
-                variant="outline"
-                className="group h-12 rounded-xl border-border bg-background/80 px-7 font-semibold backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 gap-2"
-                nativeButton={false}
-                render={<Link href="/resume" />}
+              <Link
+                href="/documents/Harry_Ward_Updated_Resume2026.pdf"
+                download="Harry_Ward_Updated_Resume2026.pdf"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "group h-12 rounded-xl border-border bg-background/80 px-7 font-semibold backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 gap-2"
+                )}
               >
                 Download Resume
 
                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
-              </Button>
+              </Link>
             </div>
           </div>
         </div>

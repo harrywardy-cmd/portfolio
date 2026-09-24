@@ -20,7 +20,7 @@ export function ProjectsView({
 
   return (
     <div className="space-y-12">
-      <ProjectsHeader />
+      <ProjectsHeader headingLevel="h1" />
 
       <ProjectsFilter
         selectedFilter={selectedFilter}

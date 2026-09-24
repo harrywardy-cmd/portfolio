@@ -28,6 +28,8 @@ export function ProjectsFilter({
         return (
           <button
             key={filter}
+            type="button"
+            aria-pressed={active}
             onClick={() => onFilterChange(filter)}
             className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300 ${
               active

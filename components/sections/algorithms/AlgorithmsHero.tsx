@@ -10,7 +10,8 @@ import {
 import { FaGithub } from "react-icons/fa";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   formatCount,
   getAlgorithmStats,
@@ -138,36 +139,33 @@ export async function AlgorithmsHero() {
 
         {/* Buttons */}
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <Button
-            size="lg"
-            className="group rounded-xl px-6 gap-2"
-            nativeButton={false}
-            render={
-              <Link
-                href={siteConfig.repos.algorithms}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
+          <Link
+            href={siteConfig.repos.algorithms}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "group rounded-xl px-6 gap-2"
+            )}
           >
             <FaGithub className="h-4 w-4" />
 
             <span>View Repository</span>
 
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </Button>
+          </Link>
 
-          <Button
-            variant="outline"
-            size="lg"
-            className="group rounded-xl px-6 gap-2"
-            nativeButton={false}
-            render={<Link href="/projects/algorithms-datastructures" />}
+          <Link
+            href="/projects/algorithms-datastructures"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "group rounded-xl px-6 gap-2"
+            )}
           >
             <span>View Case Study</span>
 
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </Button>
+          </Link>
         </div>
       </div>
 

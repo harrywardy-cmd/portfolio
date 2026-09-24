@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function NotFound() {
   return (
@@ -22,15 +23,17 @@ export default function NotFound() {
             moved.
           </p>
 
-          <Button
-            className="group mt-10 rounded-xl px-6 gap-2"
-            nativeButton={false}
-            render={<Link href="/" />}
+          <Link
+            href="/"
+            className={cn(
+              buttonVariants(),
+              "group mt-10 rounded-xl px-6 gap-2"
+            )}
           >
             <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
 
             <span>Back Home</span>
-          </Button>
+          </Link>
         </div>
       </Container>
     </div>

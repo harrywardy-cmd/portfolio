@@ -3,7 +3,10 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Construction } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { LinkedInPosts } from "@/components/sections/blog/LinkedInPosts";
+import { linkedInPosts } from "@/content/linkedin-posts";
 import { formatPostDate, getPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
@@ -15,7 +18,7 @@ export const metadata: Metadata = {
 export default async function BlogPage() {
   const posts = await getPosts();
 
-  if (posts.length === 0) {
+  if (posts.length === 0 && linkedInPosts.length === 0) {
     return <BlogComingSoon />;
   }
 
@@ -68,6 +71,8 @@ export default async function BlogPage() {
               </Link>
             ))}
           </div>
+
+          <LinkedInPosts />
         </div>
       </Container>
     </div>
@@ -94,26 +99,29 @@ function BlogComingSoon() {
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button
-              className="group rounded-xl px-6 gap-2"
-              nativeButton={false}
-              render={<Link href="/projects" />}
+            <Link
+              href="/projects"
+              className={cn(
+                buttonVariants(),
+                "group rounded-xl px-6 gap-2"
+              )}
             >
               <span>View Projects</span>
 
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Button>
+            </Link>
 
-            <Button
-              variant="outline"
-              className="group rounded-xl px-6 gap-2"
-              nativeButton={false}
-              render={<Link href="/" />}
+            <Link
+              href="/"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "group rounded-xl px-6 gap-2"
+              )}
             >
               <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
 
               <span>Back Home</span>
-            </Button>
+            </Link>
           </div>
         </div>
       </Container>

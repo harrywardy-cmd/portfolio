@@ -20,15 +20,15 @@ export const projects: PortfolioProject[] = [
     slug: "calorie-compass",
     title: "Calorie Compass",
     description:
-      "A responsive calorie counting application designed to simplify nutrition tracking with an intuitive interface and real-time calorie calculations.",
-    technologies: ["React", "TypeScript"],
+      "A full-stack calorie and macro tracker with AI meal estimation, logging streaks and weight tracking, built with Next.js, Prisma and PostgreSQL.",
+    technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
     githubUrl: "https://github.com/harrywardy-cmd/calorie-compass",
     featured: true,
     source: "github",
     categories: [
       "Web",
-      "Frontend",
-      "React",
+      "Full Stack",
+      "AI",
     ],
   },
   {
@@ -151,7 +151,7 @@ export const projects: PortfolioProject[] = [
     slug: "algorithms-datastructures",
     title: "Algorithms & Data Structures",
     description:
-      "Collection of algorithms and data structure implementations with 75+ LeetCode and NeetCode solutions covering arrays, trees, graphs, dynamic programming, and system design fundamentals.",
+      "90+ commented Python solutions to LeetCode and NeetCode problems, organised by technique and data structure — from two pointers and binary search to dynamic programming and linked lists.",
     technologies: ["Python", "Algorithms", "Data Structures"],
     githubUrl:
       "https://github.com/harrywardy-cmd/algorithms-datastructures",

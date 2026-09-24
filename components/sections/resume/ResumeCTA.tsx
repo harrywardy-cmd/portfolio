@@ -6,7 +6,8 @@ import {
   Mail,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function ResumeCTA() {
   return (
@@ -51,53 +52,50 @@ export function ResumeCTA() {
         {/* Buttons */}
         <div className="flex flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row">
           {/* Resume */}
-          <Button
-            size="lg"
-            className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
-            nativeButton={false}
-            render={
-              <a
-                href="/documents/Harry_Ward_Updated_Resume2026.pdf"
-                download
-              />
-            }
+          <a
+            href="/documents/Harry_Ward_Updated_Resume2026.pdf"
+            download
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
+            )}
           >
             <Download className="h-4 w-4" />
 
             <span>Download Resume</span>
 
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Button>
+          </a>
 
           {/* Contact */}
-          <Button
-            variant="outline"
-            size="lg"
-            className="group h-12 rounded-xl border-border px-7 font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 gap-2"
-            nativeButton={false}
-            render={<Link href="/contact" />}
+          <Link
+            href="/contact"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "group h-12 rounded-xl border-border px-7 font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 gap-2"
+            )}
           >
             <Mail className="h-4 w-4" />
 
             <span>Get In Touch</span>
 
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Button>
+          </Link>
 
           {/* Projects */}
-          <Button
-            variant="secondary"
-            size="lg"
-            className="group h-12 rounded-xl px-7 font-semibold transition-all duration-300 hover:-translate-y-0.5 gap-2"
-            nativeButton={false}
-            render={<Link href="/projects" />}
+          <Link
+            href="/projects"
+            className={cn(
+              buttonVariants({ variant: "secondary", size: "lg" }),
+              "group h-12 rounded-xl px-7 font-semibold transition-all duration-300 hover:-translate-y-0.5 gap-2"
+            )}
           >
             <FolderOpen className="h-4 w-4" />
 
             <span>View Projects</span>
 
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Button>
+          </Link>
         </div>
       </div>
     </section>

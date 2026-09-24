@@ -10,7 +10,8 @@ import {
   MIN_ALGORITHMS_SOLVED,
 } from "@/lib/dashboard";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 const getProjects = (solved: string) => [
@@ -136,32 +137,34 @@ export async function ResumeProjects() {
               ))}
             </div>
 
-            <Button
-              variant="ghost"
-              className="mt-8 w-fit px-0 hover:bg-transparent gap-2"
-              nativeButton={false}
-              render={<Link href={project.href} />}
+            <Link
+              href={project.href}
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                "mt-8 w-fit px-0 hover:bg-transparent gap-2"
+              )}
             >
               View Project
 
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Button>
+            </Link>
           </article>
         ))}
       </div>
 
       {/* Bottom CTA */}
       <div className="flex justify-center pt-4">
-        <Button
-          size="lg"
-          className="group rounded-xl px-8 gap-2"
-          nativeButton={false}
-          render={<Link href="/projects" />}
+        <Link
+          href="/projects"
+          className={cn(
+            buttonVariants({ size: "lg" }),
+            "group rounded-xl px-8 gap-2"
+          )}
         >
           View All Projects
 
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </Button>
+        </Link>
       </div>
     </section>
   );

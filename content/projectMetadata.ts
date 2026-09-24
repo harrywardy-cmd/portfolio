@@ -1,4 +1,10 @@
-interface ProjectMetadata {
+export interface ArchitectureLayer {
+  name: string;
+  description?: string;
+  items: string[];
+}
+
+export interface ProjectMetadata {
   title: string;
   image?: string;
 
@@ -12,15 +18,27 @@ interface ProjectMetadata {
 
   solution?: string;
 
-  architecture?: string;
+  /** Rendered as a layered diagram on the project page. */
+  architecture?: {
+    title?: string;
+    summary: string;
+    layers: ArchitectureLayer[];
+  };
 
-  gallery?: string[];
+  /** Key technical decisions and the reasoning behind them. */
+  decisions?: {
+    title: string;
+    detail: string;
+  }[];
 
   features: string[];
 
   challenges: string[];
 
   lessons: string[];
+
+  /** Shown as "What I'd Do Differently". */
+  improvements?: string[];
 
   demo?: string;
 
@@ -142,10 +160,10 @@ export const projectMetadata: Record<
   "python-api": {
     title: "Python REST API",
     featured: false,
-    image: "/images/projects/python.png",
+    image: "/images/projects/python-api-code.png",
     technologies: [
       "Python",
-      "FastAPI",
+      "Flask",
       "REST API",
     ],
     overview:
@@ -170,7 +188,7 @@ export const projectMetadata: Record<
   "python-web-scraping-tool": {
     title: "Python Web Scraping Tool",
     featured: false,
-    image: "/images/projects/python.png",
+    image: "/images/projects/python-web-scraping-tool-code.png",
     technologies: [
       "Python",
       "BeautifulSoup",
@@ -251,7 +269,7 @@ export const projectMetadata: Record<
   "command-line-interface": {
     title: "Command Line Interface",
     featured: false,
-    image: "/images/projects/python.png",
+    image: "/images/projects/command-line-interface-code.png",
     technologies: [
       "Python",
       "CLI",
@@ -337,32 +355,99 @@ export const projectMetadata: Record<
       "LeetCode",
     ],
     overview:
-      "A comprehensive collection of algorithm and data structure solutions developed through consistent LeetCode practice, covering a wide range of coding interview topics and computer science fundamentals.",
+      "A collection of 90+ Python solutions to LeetCode and NeetCode problems, organised by technique and data structure. Every solution is commented step by step, so the repository doubles as a set of revision notes for technical interviews.",
 
     problem:
       "Technical interviews require strong problem-solving skills and a deep understanding of algorithms and data structures. I wanted to build long-term consistency while strengthening my ability to analyse problems, optimise solutions, and communicate technical reasoning.",
 
     solution:
-      "I created a structured repository containing more than 75+ algorithm and data structure solutions, organised by topic and difficulty. Each solution focuses on writing clean, efficient code while applying optimal time and space complexity techniques across a broad range of interview-style problems.",
+      "I solve problems regularly and commit each solution to a structured repository, grouped by the technique or data structure it exercises. Rather than keeping only the final answer, each file explains the reasoning line by line, and some problems keep more than one attempt so I can compare approaches when revising.",
+
+    architecture: {
+      title: "Repository Structure",
+      summary:
+        "Solutions are split into two top-level areas, then grouped by topic. My overall progress is tracked live from LeetCode and shown on this site.",
+      layers: [
+        {
+          name: "algorithms/",
+          description:
+            "Technique-focused problems: greedy, dynamic programming, two pointers, recursion and sorting.",
+          items: [
+            "Dynamic programming — house-robber, climbing-stairs",
+            "Greedy — jump-game, gas-station, candy",
+            "Two pointers — trapping-rain-water",
+            "Recursion/ — delete-node-in-a-bst",
+            "merge sort/ — merge-k-sorted-lists",
+          ],
+        },
+        {
+          name: "data_structures/",
+          description:
+            "Problems built around a specific structure, including several implemented from scratch.",
+          items: [
+            "arrays/ — 22 solutions",
+            "Linked-Lists/ — design-linked-list, design-browser-history",
+            "Binary-Search/ — insert-into-a-binary-search-tree",
+            "Stacks, queues and hash maps",
+          ],
+        },
+        {
+          name: "Live progress",
+          description:
+            "Accepted submissions pulled from LeetCode's API and shown on the Algorithms page.",
+          items: [
+            "Solved count by difficulty",
+            "Topics covered",
+            "Active days of practice",
+          ],
+        },
+      ],
+    },
+
+    decisions: [
+      {
+        title: "Comment the reasoning, not just the code",
+        detail:
+          "Each solution explains why every step exists — for example, why trapping-rain-water moves the pointer on the side with the smaller maximum. Months later, the comments are what make a solution useful for revision.",
+      },
+      {
+        title: "Keep more than one attempt",
+        detail:
+          "Problems like climbing stairs, maximum subarray and happy number have a second version. Keeping both shows how an approach improved, such as moving from recursion to an iterative dynamic programming solution.",
+      },
+      {
+        title: "Organise by technique",
+        detail:
+          "Grouping by data structure and technique, rather than by difficulty or date, makes it easy to revise a whole pattern — all the linked list problems, say — before an interview.",
+      },
+    ],
 
     features: [
-      "75+ algorithm solutions",
-      "Multiple data structure implementations",
-      "Topic-based organisation",
-      "Well-documented problem solutions",
+      "90+ commented Python solutions",
+      "Data structures implemented from scratch (linked lists, browser history)",
+      "Grouped by technique and data structure",
+      "Multiple approaches kept for comparison",
+      "Progress tracked live from LeetCode",
     ],
 
     challenges: [
       "Optimising time and space complexity",
-      "Solving advanced algorithmic problems",
+      "Recognising which pattern a new problem needs",
       "Maintaining long-term consistency",
     ],
 
     lessons: [
-      "Advanced problem-solving techniques",
-      "Algorithm optimisation",
-      "Data structure mastery",
-      "Technical interview preparation",
+      "Recognising common problem-solving patterns",
+      "Two pointers, sliding window and binary search",
+      "Dynamic programming from recursion to iteration",
+      "Explaining solutions clearly, as in an interview",
+    ],
+
+    improvements: [
+      "Add time and space complexity to the top of every solution, not just in the comments.",
+      "Add pytest tests with edge cases so each solution can be checked automatically.",
+      "Use one naming convention throughout — the repository currently mixes kebab-case, snake_case and a folder name with a space.",
+      "Keep the README's folder structure in sync with the actual repository.",
     ],
   },
   "calorie-compass": {
@@ -371,36 +456,126 @@ export const projectMetadata: Record<
     featured: true,
     demo: "https://calorie-compass-kappa.vercel.app/",
     technologies: [
-      "React",
+      "Next.js",
       "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Clerk",
+      "Gemini API",
+      "Tailwind CSS",
+      "Vitest",
     ],
     overview:
-      "A nutrition and calorie tracking application designed to help users monitor their daily food intake, manage calorie goals, and build healthier eating habits through a clean and intuitive user experience.",
+      "A full-stack calorie and macro tracker with AI-assisted meal logging. Describe a meal in plain English and Gemini estimates its calories and macros; the dashboard then tracks progress against personal goals, logging streaks and weight over time.",
 
     problem:
-      "Many nutrition tracking applications can feel cluttered or difficult to use, making it harder for users to consistently monitor their calorie intake and eating habits. I wanted to create a simple, responsive application that focused on usability and fast data entry.",
+      "Many nutrition tracking applications feel cluttered, and the slowest part is always entering what you ate. I wanted an app that made logging fast enough to do every day, and that rewarded consistency rather than just counting numbers.",
 
     solution:
-      "I developed Calorie Compass using React, TypeScript, and Firebase, providing a responsive interface for logging meals, tracking calorie goals, and securely storing user data in real time. The application emphasises clean design, maintainable code, and an intuitive user experience.",
+      "I built Calorie Compass with Next.js, Prisma and PostgreSQL, using Clerk for authentication. Meals can be logged manually, re-logged from suggestions based on what you eat most often, or estimated by AI from a short description. Progress is shown through goal tracking, streaks and a mascot that grows from a seed into a golden tree as you approach your daily goal.",
+
+    architecture: {
+      summary:
+        "A Next.js App Router application where Server Components read directly from the database and Server Actions handle every change. Authentication and AI estimation are handled by external services.",
+      layers: [
+        {
+          name: "Interface",
+          description: "React Server and Client Components.",
+          items: [
+            "shadcn/ui and Tailwind CSS",
+            "Recharts calorie and weight charts",
+            "react-hook-form with zod validation",
+          ],
+        },
+        {
+          name: "Next.js server",
+          description: "Protected routes and mutations.",
+          items: [
+            "Clerk middleware guards dashboard, meals and settings",
+            "Server Actions for meals, weight and settings",
+            "Ownership check on every change",
+            "/api/estimate-meal route",
+          ],
+        },
+        {
+          name: "Services",
+          description: "External APIs.",
+          items: [
+            "Gemini 2.5 Flash — meal estimation",
+            "Clerk — sign-in with Google or email",
+          ],
+        },
+        {
+          name: "Data",
+          description: "Type-safe persistence.",
+          items: [
+            "Prisma ORM",
+            "PostgreSQL on Neon",
+            "User, Meal and WeightEntry models",
+          ],
+        },
+      ],
+    },
+
+    decisions: [
+      {
+        title: "Store the timezone with every entry",
+        detail:
+          "Each meal and weight entry records the timezone it was logged in. Days, streaks and history stay correct even if the user travels or changes their timezone setting later.",
+      },
+      {
+        title: "Server Actions instead of a separate REST API",
+        detail:
+          "Creating, editing and deleting meals are Server Actions that check the signed-in user owns the record, then revalidate the page. There's no client-side data-fetching layer to maintain.",
+      },
+      {
+        title: "Use the Clerk user ID as the primary key",
+        detail:
+          "The User table is keyed directly by Clerk's ID, so there's no mapping table between the auth provider and the database.",
+      },
+      {
+        title: "One unit for storage, any unit for display",
+        detail:
+          "Weight is always stored in kilograms and converted for display, so switching between kg and lb never changes or rounds the underlying data.",
+      },
+      {
+        title: "Suggest meals from real habits",
+        detail:
+          "Suggestions come from a grouped count of the meals a user logs most often, prefilled with the values from the most recent log rather than an average.",
+      },
+    ],
 
     features: [
-      "Daily calorie tracking",
-      "Food logging and management",
-      "Responsive user interface",
-      "Real-time data storage with Firebase",
+      "AI meal estimation with a confidence score",
+      "Calorie, protein, carb and fat goals",
+      "Current and longest logging streaks",
+      "Mascot that grows as you near your daily goal",
+      "Recurring meal suggestions",
+      "Weight tracking in kg or lb",
+      "Meal history with date navigation and charts",
+      "Daily logging reminders",
+      "Timezone, week-start and date-format settings",
     ],
 
     challenges: [
-      "Managing application state",
-      "Designing a scalable data model",
-      "Integrating Firebase services",
+      "Getting day boundaries and streaks right across timezones",
+      "Turning free-form AI output into reliable structured data",
+      "Handling AI rate limits gracefully",
+      "Designing charts that work on both desktop and mobile",
     ],
 
     lessons: [
-      "React state management",
-      "Building with TypeScript",
-      "Working with Firebase",
-      "Designing user-focused applications",
+      "Full-stack development with the Next.js App Router",
+      "Data modelling and migrations with Prisma",
+      "Integrating third-party authentication",
+      "Working with LLM APIs in production",
+      "Unit and component testing with Vitest",
+    ],
+
+    improvements: [
+      "Validate AI responses against a zod schema, or use Gemini's structured output, instead of cleaning up the text before parsing it.",
+      "Add per-user rate limiting to AI meal estimation to keep API costs predictable.",
+      "Combine the ownership check and the update into a single database query for each change.",
     ],
   },
 
@@ -416,50 +591,125 @@ export const projectMetadata: Record<
       "GitHub REST API",
       "GitHub GraphQL API",
       "shadcn/ui",
+      "MDX",
+      "Vitest",
+      "Playwright",
     ],
 
     overview:
-      "A modern developer portfolio built with Next.js 16, TypeScript, and Tailwind CSS to showcase my software engineering projects, technical skills, and continuous learning. The application integrates live GitHub and LeetCode data, providing a dynamic portfolio that automatically updates as I build new projects and solve coding challenges.",
+      "The site you're on: a Next.js 16 portfolio that keeps itself up to date. Project counts, GitHub contributions and LeetCode progress are pulled live, the contribution graph is drawn from GitHub's own data, and every project and blog post is statically generated.",
 
     problem:
-      "Traditional portfolio websites quickly become outdated because they rely on manually updated content. I wanted to build a portfolio that could automatically showcase my latest projects, coding activity, and technical growth while also demonstrating modern frontend architecture.",
+      "Traditional portfolio websites quickly become outdated because they rely on manually updated content. I wanted a portfolio that updates itself as I build and practise, while also demonstrating the engineering practices I'd bring to a team.",
 
     solution:
-      "I designed and developed a dynamic portfolio using Next.js App Router, TypeScript, and Tailwind CSS. The application integrates GitHub APIs, reusable project metadata, local projects, and responsive component architecture to create a maintainable portfolio that evolves alongside my software engineering journey.",
+      "I built the site with the Next.js App Router, TypeScript and Tailwind CSS. Live data comes from GitHub's REST and GraphQL APIs and LeetCode's GraphQL API, refreshed every five minutes with Incremental Static Regeneration. Projects and blog posts are type-checked content in the repository, and the whole site is covered by unit tests, end-to-end tests and CI.",
+
+    architecture: {
+      summary:
+        "Pages are rendered on the server and cached, so visitors always get a pre-built page while the data behind it refreshes in the background.",
+      layers: [
+        {
+          name: "Sources",
+          description: "Where the content comes from.",
+          items: [
+            "GitHub REST API — repositories and commits",
+            "GitHub GraphQL API — contribution calendar",
+            "LeetCode GraphQL API — solved problems",
+            "Projects and MDX posts in the repo",
+          ],
+        },
+        {
+          name: "Data layer",
+          description: "Fetch, combine and fail safely.",
+          items: [
+            "Five-minute revalidation on every fetch",
+            "Failures become null instead of errors",
+            "React cache() removes duplicate requests",
+          ],
+        },
+        {
+          name: "Rendering",
+          description: "Next.js App Router.",
+          items: [
+            "Server Components",
+            "Incremental Static Regeneration",
+            "Static project and blog pages",
+            "Generated social preview images",
+          ],
+        },
+        {
+          name: "Delivery",
+          description: "Hosting and APIs.",
+          items: [
+            "Vercel with Analytics and Speed Insights",
+            "Contact API: validation, honeypot and rate limit",
+            "Email delivery with Resend",
+          ],
+        },
+      ],
+    },
+
+    decisions: [
+      {
+        title: "Cache on the server instead of fetching in the browser",
+        detail:
+          "Incremental Static Regeneration means visitors never wait on GitHub or LeetCode, API tokens never reach the browser, and the site stays well within API rate limits.",
+      },
+      {
+        title: "Let any data source fail on its own",
+        detail:
+          "Each API call resolves to null on failure, so an outage shows a dash instead of taking the page down. Sentences fall back to a known minimum solved count, which is always true because it only ever increases.",
+      },
+      {
+        title: "Keep content as code",
+        detail:
+          "Projects, write-ups and blog posts live in TypeScript and MDX files, so they're type-checked and reviewed like code. Tests fail if a project and its write-up ever get out of sync.",
+      },
+      {
+        title: "Draw the contribution graph from my own data",
+        detail:
+          "Instead of embedding an image from a third-party service, the graph is rendered from GitHub's contribution calendar. It matches the site's theme, including dark mode, and doesn't depend on another service staying online.",
+      },
+    ],
 
     features: [
-      "Dynamic Featured Projects powered by the GitHub API",
-      "Live GitHub repository and recent commit activity",
-      "Real-time developer statistics and contribution tracking",
-      "Responsive design for desktop, tablet, and mobile",
-      "Dark and light mode support",
-      "Dynamic project pages with reusable metadata",
-      "Modern component-based architecture using Server Components",
-      "Reusable UI built with shadcn/ui and Tailwind CSS",
+      "Live project, contribution and LeetCode statistics",
+      "Contribution graph drawn from GitHub data",
+      "Current project and recent commits from GitHub",
+      "Static project pages with architecture write-ups",
+      "MDX blog with drafts",
+      "Generated social preview image for every project",
+      "Spam-protected contact form",
+      "Dark and light mode",
     ],
 
     challenges: [
-      "Designing a scalable and reusable component architecture",
-      "Integrating GitHub REST and GraphQL APIs",
-      "Creating a dynamic metadata system for projects",
+      "Keeping pages fast while showing live data",
+      "Summing GitHub contributions across multiple years",
+      "Handling slow or failing third-party APIs",
       "Building responsive layouts that work across all screen sizes",
-      "Managing server-side data fetching with Next.js App Router",
     ],
 
     lessons: [
-      "Building scalable Next.js applications",
+      "Caching and revalidation in the Next.js App Router",
       "Working with REST and GraphQL APIs",
-      "Designing reusable React components",
-      "Structuring large TypeScript projects",
-      "Improving UI/UX through iterative design",
-      "Managing dynamic content with Server Components",
+      "Designing for failure in systems that depend on external services",
+      "Testing server components and API routes",
+      "Setting up CI for linting, type checks, tests and builds",
+    ],
+
+    improvements: [
+      "Use a shared store such as Redis for rate limiting, so the limit applies across every server instance rather than per instance.",
+      "Move each project's write-up into its own MDX file instead of one large TypeScript file.",
+      "Add visual regression tests so layout changes are caught automatically.",
     ],
   },
 
   "unity-visual-novel": {
     title: "Unity Visual Novel",
     featured: false,
-    image: "/images/projects/unity.png",
+    image: "/images/projects/unity-visual-novel-code.png",
     technologies: [
       "Unity",
       "C#",

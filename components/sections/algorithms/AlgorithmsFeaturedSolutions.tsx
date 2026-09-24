@@ -5,7 +5,8 @@ import {
   Code2,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   formatCount,
   getAlgorithmStats,
@@ -136,22 +137,19 @@ export async function AlgorithmsFeaturedSolutions() {
       </div>
 
       <div className="flex justify-center pt-4">
-        <Button
-          size="lg"
-          className="group rounded-xl px-7"
-          nativeButton={false}
-          render={
-            <Link
-              href={siteConfig.repos.algorithms}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          }
+        <Link
+          href={siteConfig.repos.algorithms}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(
+            buttonVariants({ size: "lg" }),
+            "group rounded-xl px-7"
+          )}
         >
           Explore All {solved} Solutions
 
           <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </Button>
+        </Link>
       </div>
     </section>
   );

@@ -9,6 +9,9 @@ import { projectMetadata } from "@/content/projectMetadata";
 import { ProjectChallengeGrid } from "@/components/sections/projects/ProjectChallengeGrid";
 import { ProjectLessonsGrid } from "@/components/sections/projects/ProjectLessonsGrid";
 import { ProjectTechStack } from "@/components/sections/projects/ProjectTechStack";
+import { ProjectArchitecture } from "@/components/sections/projects/ProjectArchitecture";
+import { ProjectDecisions } from "@/components/sections/projects/ProjectDecisions";
+import { ProjectImprovements } from "@/components/sections/projects/ProjectImprovements";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -102,6 +105,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </section>
           )}
 
+          {/* Architecture */}
+          {metadata.architecture && (
+            <ProjectArchitecture architecture={metadata.architecture} />
+          )}
+
+          {/* Key Decisions */}
+          {metadata.decisions && (
+            <ProjectDecisions decisions={metadata.decisions} />
+          )}
+
           {/* Features */}
           <ProjectFeatureGrid features={metadata.features} />
 
@@ -110,6 +123,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           {/* Lessons */}
           <ProjectLessonsGrid lessons={metadata.lessons} />
+
+          {/* What I'd Do Differently */}
+          {metadata.improvements && (
+            <ProjectImprovements improvements={metadata.improvements} />
+          )}
 
           {/* Technology Stack */}
           <ProjectTechStack slug={slug} />

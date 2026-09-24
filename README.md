@@ -154,6 +154,15 @@ pnpm test        # run once
 pnpm test:watch  # re-run on file changes
 ```
 
+### End-to-End Tests
+
+```bash
+pnpm build
+pnpm test:e2e
+```
+
+Runs the [Playwright](https://playwright.dev) tests in `tests/e2e/` against the production build, on desktop and mobile viewports. They cover navigation, the theme toggle, project filtering and write-ups, the blog, resume and report downloads, the contact form (with the API mocked, so no emails are sent) and horizontal overflow on mobile. Locally they use your installed Microsoft Edge; CI installs Chromium.
+
 Runs the [Vitest](https://vitest.dev) suite in `tests/`. It covers the GitHub and LeetCode stat parsing and fallbacks, the contact form API (validation and HTML escaping), the site URL, the sitemap and robots.txt, and checks that every listed project has a detail page. Lint, type checks, tests and a production build also run on every push and pull request via GitHub Actions.
 
 ---
@@ -174,6 +183,18 @@ Write the post in Markdown here.
 ```
 
 Drafts are visible in `pnpm dev` but hidden in production. Set `draft: false` to publish. The Blog link in the navigation and footer appears automatically once at least one post is published.
+
+### Sharing LinkedIn Posts
+
+LinkedIn doesn't let other sites read a personal profile's posts automatically, so posts are added by hand. On LinkedIn, open a post's **⋯** menu, choose **Copy link to post** (or **Embed this post** and copy the `src` URL), then add it to `content/linkedin-posts.ts`:
+
+```ts
+export const linkedInPosts = [
+  { url: "https://www.linkedin.com/posts/…-activity-7234567890123456789-…", date: "2026-09-24" },
+];
+```
+
+Posts appear on the blog page as official LinkedIn embeds, newest first.
 
 ---
 

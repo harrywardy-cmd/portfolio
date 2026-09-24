@@ -1,6 +1,13 @@
 import { Sparkles } from "lucide-react";
 
-export function ProjectsHeader() {
+interface ProjectsHeaderProps {
+  /** h1 on the projects page, h2 where it's a section of another page. */
+  headingLevel?: "h1" | "h2";
+}
+
+export function ProjectsHeader({ headingLevel = "h2" }: ProjectsHeaderProps) {
+  const Heading = headingLevel;
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -17,9 +24,9 @@ export function ProjectsHeader() {
 
       {/* Section Heading */}
       <div className="max-w-3xl">
-        <h2 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+        <Heading className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
           Software I&apos;ve Built
-        </h2>
+        </Heading>
 
         <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">
           Production-ready web applications, AI-powered tools, and

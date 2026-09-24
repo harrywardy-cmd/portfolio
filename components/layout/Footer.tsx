@@ -3,11 +3,13 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 import { Container } from "./Container";
+import { linkedInPosts } from "@/content/linkedin-posts";
 import { getPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/site";
 
 export async function Footer() {
-  const hasPosts = (await getPosts()).length > 0;
+  const hasPosts =
+    (await getPosts()).length > 0 || linkedInPosts.length > 0;
 
   return (
     <footer className="border-t border-border/60 bg-background">

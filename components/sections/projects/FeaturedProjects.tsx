@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 import { ProjectCard } from "./ProjectCard";
 import { ProjectsHeader } from "./ProjectsHeader";
@@ -43,11 +44,12 @@ export async function FeaturedProjects() {
 
           {/* View All Projects */}
           <div className="flex justify-center pt-6">
-            <Button
-              size="lg"
-              className="group gap-2"
-              nativeButton={false}
-              render={<Link href="/projects" />}
+            <Link
+              href="/projects"
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "group gap-2"
+              )}
             >
               View All Projects
 
@@ -60,7 +62,7 @@ export async function FeaturedProjects() {
                   group-hover:translate-x-1
                 "
               />
-            </Button>
+            </Link>
           </div>
         </div>
 
