@@ -46,7 +46,7 @@ export function ExperienceAchievements() {
         </h2>
 
         <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-          Throughout my career I've focused on delivering reliable technical
+          Throughout my career I&apos;ve focused on delivering reliable technical
           support while continuously developing my software engineering
           knowledge. These achievements reflect both my professional experience
           and my commitment to continuous improvement.
@@ -130,7 +130,7 @@ export function ExperienceAchievements() {
         <p className="mx-auto mt-4 max-w-3xl leading-8 text-muted-foreground">
           My professional experience has taught me the importance of reliable
           support, effective communication, and problem solving. Combined with
-          my passion for software engineering and continuous learning, I'm
+          my passion for software engineering and continuous learning, I&apos;m
           committed to building solutions that create real value for users and
           businesses.
         </p>

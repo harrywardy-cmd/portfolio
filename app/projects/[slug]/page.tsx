@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BackButton } from "@/components/ui/BackButton";
 import { ProjectFeatureGrid } from "@/components/sections/projects/ProjectFeatureGrid";
@@ -8,10 +9,37 @@ import { projectMetadata } from "@/content/projectMetadata";
 import { ProjectChallengeGrid } from "@/components/sections/projects/ProjectChallengeGrid";
 import { ProjectLessonsGrid } from "@/components/sections/projects/ProjectLessonsGrid";
 import { ProjectTechStack } from "@/components/sections/projects/ProjectTechStack";
+
 interface ProjectPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+// Only projects with detail content get a page; everything else 404s.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return projects
+    .filter((project) => projectMetadata[project.slug])
+    .map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+
+  const project = projects.find((project) => project.slug === slug);
+
+  if (!project) {
+    return {};
+  }
+
+  return {
+    title: project.title,
+    description: project.description,
+  };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -29,10 +57,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const image = metadata.image ?? "/images/projects/project-placeholder.png";
-
   return (
-    <main className="py-20 lg:py-24">
+    <div className="py-20 lg:py-24">
       <Container>
         <BackButton />
         <ProjectHero project={project} />
@@ -89,6 +115,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <ProjectTechStack slug={slug} />
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

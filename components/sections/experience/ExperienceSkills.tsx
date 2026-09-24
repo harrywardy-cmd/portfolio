@@ -1,5 +1,4 @@
 import {
-  Cloud,
   Code2,
   Database,
   Laptop,

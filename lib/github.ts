@@ -5,9 +5,6 @@ import type {
 
 import { siteConfig } from "./site";
 
-import { projects } from "@/content/projects";
-import type { PortfolioProject } from "@/types/projects";
-
 const GITHUB_API = "https://api.github.com";
 const USERNAME = siteConfig.github.username;
 
@@ -17,12 +14,10 @@ const headers: HeadersInit = {
   Accept: "application/vnd.github+json",
 };
 
-// Optional GitHub Personal Access Token
+// Optional GitHub Personal Access Token (raises the rate limit from 60 to 5000 req/hr)
 if (process.env.GITHUB_TOKEN) {
   headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 }
-
-
 
 const fetchOptions: RequestInit & {
   next: { revalidate: number };
@@ -32,16 +27,6 @@ const fetchOptions: RequestInit & {
     revalidate: REVALIDATE_TIME,
   },
 };
-
-/**
- * Repository names that should appear in the featured
- * projects section.
- */
-export const FEATURED_PROJECTS = [
-  "lazuli-web",
-  "calorie-compass",
-  "algorithms-datastructures",
-];
 
 /**
  * Fetches every public repository for the configured user.
@@ -60,10 +45,7 @@ export async function getRepositories(): Promise<
     );
   }
 
-  const repositories: GitHubRepository[] =
-    await response.json();
-
-  return repositories;
+  return response.json();
 }
 
 /**
@@ -82,46 +64,6 @@ export async function getProjects(): Promise<
         new Date(b.updated_at).getTime() -
         new Date(a.updated_at).getTime()
     );
-}
-
-/**
- * Returns the repositories marked as featured.
- */
-export async function getFeaturedProjects(): Promise<PortfolioProject[]> {
-  return projects.filter((project) => project.featured);
-}
-
-/**
- * Returns a single repository by slug.
- */
-export async function getProject(
-  slug: string
-): Promise<GitHubRepository | undefined> {
-  const projects = await getProjects();
-
-  return projects.find(
-    (repository) =>
-      repository.name.toLowerCase() ===
-      slug.toLowerCase()
-  );
-}
-
-/**
- * Returns the total number of projects.
- */
-export async function getProjectCount(): Promise<number> {
-  const projects = await getProjects();
-
-  return projects.length;
-}
-
-/**
- * Returns the total number of public repositories.
- */
-export async function getRepositoryCount(): Promise<number> {
-  const repositories = await getRepositories();
-
-  return repositories.length;
 }
 
 /**
@@ -157,50 +99,3 @@ export async function getRecentCommits(
 
   return response.json();
 }
-
-/**
- * Converts a GitHub commit date into a readable relative time.
- */
-export function getRelativeTime(date: string): string {
-  const now = Date.now();
-  const then = new Date(date).getTime();
-
-  const seconds = Math.floor((now - then) / 1000);
-
-  if (seconds < 60) {
-    return "Just now";
-  }
-
-  const minutes = Math.floor(seconds / 60);
-
-  if (minutes < 60) {
-    return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
-  }
-
-  const hours = Math.floor(minutes / 60);
-
-  if (hours < 24) {
-    return `${hours} hour${hours === 1 ? "" : "s"} ago`;
-  }
-
-  const days = Math.floor(hours / 24);
-
-  if (days === 1) {
-    return "Yesterday";
-  }
-
-  if (days < 7) {
-    return `${days} days ago`;
-  }
-
-  
-
-  return new Date(date).toLocaleDateString("en-AU", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-
-  
-}
-

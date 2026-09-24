@@ -7,9 +7,10 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/navbar/Navbar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Footer } from "@/components/layout/Footer";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://harryward.dev"), // Update when your domain is live
+  metadataBase: new URL(siteConfig.url),
 
   title: {
     default: "Harry Ward | Software Engineer",
@@ -35,34 +36,20 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Harry Ward",
-      url: "https://harryward.dev",
+      url: siteConfig.url,
     },
   ],
 
   creator: "Harry Ward",
 
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-
   openGraph: {
     type: "website",
     locale: "en_AU",
-    url: "https://harryward.dev",
+    url: siteConfig.url,
     title: "Harry Ward | Software Engineer",
     description:
       "Software Engineer building scalable web applications, AI-powered tools, and modern developer experiences.",
     siteName: "Harry Ward",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Harry Ward Portfolio",
-      },
-    ],
   },
 
   twitter: {
@@ -70,7 +57,6 @@ export const metadata: Metadata = {
     title: "Harry Ward | Software Engineer",
     description:
       "Software Engineer building scalable web applications, AI-powered tools, and modern developer experiences.",
-    images: ["/og-image.png"],
   },
 };
 

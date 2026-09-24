@@ -128,16 +128,18 @@ export function AlgorithmsFeaturedSolutions() {
         <Button
           size="lg"
           className="group rounded-xl px-7"
+          nativeButton={false}
+          render={
+            <Link
+              href="https://github.com/harrywardy-cmd/algorithms-datastructures"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+          }
         >
-          <Link
-            href="https://github.com/harrywardy-cmd/algorithms-datastructures"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Explore All 75+ Solutions
+          Explore All 75+ Solutions
 
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+          <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </Button>
       </div>
     </section>

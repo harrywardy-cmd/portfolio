@@ -1,6 +1,9 @@
 export const siteConfig = {
   name: "Harry Ward",
 
+  // Update when the domain is live
+  url: "https://harryward.dev",
+
   github: {
     username: "harrywardy-cmd",
 

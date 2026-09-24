@@ -7,28 +7,31 @@ import {
 
 import { getHeroStats } from "@/lib/dashboard";
 
+const formatCount = (value: number | null) =>
+  value === null ? "—" : `${value}+`;
+
 export async function HeroStats() {
   const dashboard = await getHeroStats();
 
   const stats = [
     {
       icon: Code2,
-      value: `${dashboard.projects}+`,
+      value: formatCount(dashboard.projects),
       label: "Projects Built",
     },
     {
       icon: GitBranch,
-      value: `${dashboard.contributions}+`,
+      value: formatCount(dashboard.contributions),
       label: "GitHub Contributions",
     },
     {
       icon: Brain,
-      value: `${dashboard.algorithms}+`,
+      value: formatCount(dashboard.algorithms),
       label: "Algorithms Solved",
     },
     {
       icon: GraduationCap,
-      value: "B.CompSci",
+      value: dashboard.degree,
       label: "Graduate",
     },
   ];

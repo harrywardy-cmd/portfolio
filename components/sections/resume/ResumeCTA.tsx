@@ -38,11 +38,11 @@ export function ResumeCTA() {
           </div>
 
           <h2 className="mt-6 text-4xl font-bold tracking-tight lg:text-5xl">
-            Let's Build Something Great Together
+            Let&apos;s Build Something Great Together
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            I'm currently seeking graduate and junior software engineering
+            I&apos;m currently seeking graduate and junior software engineering
             opportunities where I can contribute, continue learning, and help
             build meaningful products alongside talented teams.
           </p>
@@ -53,85 +53,50 @@ export function ResumeCTA() {
           {/* Resume */}
           <Button
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              px-7
-              font-semibold
-              shadow-lg
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-            "
+            className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
+            nativeButton={false}
+            render={
+              <a
+                href="/documents/Harry_Ward_Updated_Resume2026.pdf"
+                download
+              />
+            }
           >
-            <a
-              href="/documents/Harry_Ward_Updated_Resume2026.pdf"
-              download
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <Download className="h-4 w-4" />
+            <Download className="h-4 w-4" />
 
-              <span>Download Resume</span>
+            <span>Download Resume</span>
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
 
           {/* Contact */}
           <Button
             variant="outline"
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              border-border
-              px-7
-              font-semibold
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-              hover:border-primary/40
-            "
+            className="group h-12 rounded-xl border-border px-7 font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 gap-2"
+            nativeButton={false}
+            render={<Link href="/contact" />}
           >
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <Mail className="h-4 w-4" />
+            <Mail className="h-4 w-4" />
 
-              <span>Get In Touch</span>
+            <span>Get In Touch</span>
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
 
           {/* Projects */}
           <Button
             variant="secondary"
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              px-7
-              font-semibold
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-            "
+            className="group h-12 rounded-xl px-7 font-semibold transition-all duration-300 hover:-translate-y-0.5 gap-2"
+            nativeButton={false}
+            render={<Link href="/projects" />}
           >
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <FolderOpen className="h-4 w-4" />
+            <FolderOpen className="h-4 w-4" />
 
-              <span>View Projects</span>
+            <span>View Projects</span>
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </div>
       </div>

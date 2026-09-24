@@ -1,17 +1,24 @@
+import { siteConfig } from "./site";
+
 const GITHUB_GRAPHQL = "https://api.github.com/graphql";
 
-export async function getContributionCount(): Promise<number> {
-  const query = `
-    query {
-      user(login: "harrywardy-cmd") {
-        contributionsCollection {
-          contributionCalendar {
-            totalContributions
-          }
+const QUERY = `
+  query getContributions($login: String!) {
+    user(login: $login) {
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
         }
       }
     }
-  `;
+  }
+`;
+
+export async function getContributionCount(): Promise<number> {
+  // The GraphQL API rejects unauthenticated requests.
+  if (!process.env.GITHUB_TOKEN) {
+    throw new Error("GITHUB_TOKEN is not set.");
+  }
 
   const response = await fetch(GITHUB_GRAPHQL, {
     method: "POST",
@@ -19,7 +26,10 @@ export async function getContributionCount(): Promise<number> {
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({
+      query: QUERY,
+      variables: { login: siteConfig.github.username },
+    }),
 
     next: {
       revalidate: 300,
@@ -27,13 +37,20 @@ export async function getContributionCount(): Promise<number> {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to fetch GitHub contributions.");
+    throw new Error(
+      `Failed to fetch GitHub contributions (${response.status})`
+    );
   }
 
   const data = await response.json();
 
-  return (
-    data.data.user.contributionsCollection.contributionCalendar
-      .totalContributions
-  );
+  const total =
+    data?.data?.user?.contributionsCollection?.contributionCalendar
+      ?.totalContributions;
+
+  if (typeof total !== "number") {
+    throw new Error("Unexpected GitHub contributions response.");
+  }
+
+  return total;
 }

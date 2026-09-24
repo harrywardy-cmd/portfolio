@@ -34,7 +34,7 @@ export function ContactCTA() {
         {/* Content */}
         <div className="max-w-2xl">
           <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-            🚀 Let's Work Together
+            🚀 Let&apos;s Work Together
           </div>
 
           <h2 className="mt-6 text-4xl font-bold tracking-tight lg:text-5xl">
@@ -42,8 +42,8 @@ export function ContactCTA() {
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            Whether you're hiring, looking for a collaborator, or simply want to
-            connect, I'd love to hear from you. Feel free to reach out or explore
+            Whether you&apos;re hiring, looking for a collaborator, or simply want to
+            connect, I&apos;d love to hear from you. Feel free to reach out or explore
             more of my work below.
           </p>
         </div>
@@ -53,87 +53,56 @@ export function ContactCTA() {
           {/* Email */}
           <Button
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              px-7
-              font-semibold
-              shadow-lg
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-            "
+            className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
+            nativeButton={false}
+            render={<a href="mailto:harrywardy303@gmail.com" />}
           >
-            <a
-              href="mailto:harrywardy303@gmail.com"
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <Mail className="h-4 w-4" />
+            <Mail className="h-4 w-4" />
 
-              <span>Email Me</span>
+            <span>Email Me</span>
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
 
           {/* Resume */}
           <Button
             variant="outline"
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              border-border
-              px-7
-              font-semibold
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-              hover:border-primary/40
-            "
+            className="group h-12 rounded-xl border-border px-7 font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 gap-2"
+            nativeButton={false}
+            render={
+              <a
+                href="/documents/Harry_Ward_Updated_Resume2026.pdf"
+                download
+              />
+            }
           >
-            <a
-              href="/documents/Harry_Ward_Updated_Resume2026.pdf"
-              download
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <Download className="h-4 w-4" />
+            <Download className="h-4 w-4" />
 
-              <span>Download Resume</span>
+            <span>Download Resume</span>
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
 
           {/* GitHub */}
           <Button
             variant="secondary"
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              px-7
-              font-semibold
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-            "
+            className="group h-12 rounded-xl px-7 font-semibold transition-all duration-300 hover:-translate-y-0.5 gap-2"
+            nativeButton={false}
+            render={
+              <Link
+                href="https://github.com/harrywardy-cmd"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
           >
-            <Link
-              href="https://github.com/harrywardy-cmd"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <FaGithub className="h-4 w-4" />
+            <FaGithub className="h-4 w-4" />
 
-              <span>View GitHub</span>
+            <span>View GitHub</span>
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </div>
       </div>

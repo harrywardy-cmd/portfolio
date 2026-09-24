@@ -6,10 +6,29 @@ import { FaGithub } from "react-icons/fa";
 
 import { Badge } from "@/components/ui/badge";
 import { getLatestRepository, getRecentCommits } from "@/lib/github";
+import { siteConfig } from "@/lib/site";
+
+async function getCurrentlyBuilding() {
+  try {
+    const repo = await getLatestRepository();
+    const commits = await getRecentCommits(repo.name);
+
+    return { repo, commits };
+  } catch (error) {
+    console.error("[CurrentlyBuildingCard]", error);
+
+    return null;
+  }
+}
 
 export async function CurrentlyBuildingCard() {
-  const repo = await getLatestRepository();
-  const commits = await getRecentCommits(repo.name);
+  const data = await getCurrentlyBuilding();
+
+  if (!data) {
+    return <CurrentlyBuildingFallback />;
+  }
+
+  const { repo, commits } = data;
 
   return (
     <div className="group w-full overflow-hidden rounded-3xl border border-border/60 bg-card p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-2xl lg:p-8">
@@ -24,7 +43,7 @@ export async function CurrentlyBuildingCard() {
         </div>
 
         <Link
-          href="https://github.com/harrywardy-cmd"
+          href={siteConfig.links.github}
           target="_blank"
           rel="noopener noreferrer"
           className="flex w-fit items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-primary"
@@ -101,7 +120,7 @@ export async function CurrentlyBuildingCard() {
                 <GitCommitHorizontal className="mt-1 h-4 w-4 shrink-0 text-emerald-500" />
 
                 <p className="break-words text-sm leading-6 text-foreground">
-                  {commit.commit.message}
+                  {commit.commit.message.split("\n")[0]}
                 </p>
               </div>
 
@@ -117,6 +136,32 @@ export async function CurrentlyBuildingCard() {
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+function CurrentlyBuildingFallback() {
+  return (
+    <div className="w-full rounded-3xl border border-border/60 bg-card p-6 shadow-xl lg:p-8">
+      <h3 className="text-lg font-semibold text-foreground">
+        Currently Building
+      </h3>
+
+      <p className="mt-4 text-base leading-8 text-muted-foreground">
+        Live GitHub activity is temporarily unavailable. You can still
+        browse my latest work directly on GitHub.
+      </p>
+
+      <Link
+        href={siteConfig.links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 inline-flex items-center gap-2 text-sm text-primary transition-colors hover:text-primary/80"
+      >
+        <FaGithub className="text-base" />
+        View GitHub profile
+        <ArrowUpRight className="h-4 w-4" />
+      </Link>
     </div>
   );
 }

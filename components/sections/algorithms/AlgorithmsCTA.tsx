@@ -71,58 +71,33 @@ export function AlgorithmsCTA() {
         <div className="flex flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row">
           <Button
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              px-7
-              font-semibold
-              shadow-lg
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-            "
+            className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
+            nativeButton={false}
+            render={
+              <Link
+                href="https://github.com/harrywardy-cmd/algorithms-datastructures"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
           >
-            <Link
-              href="https://github.com/harrywardy-cmd/algorithms-datastructures"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2"
-            >
-              <FaGithub className="h-5 w-5" />
+            <FaGithub className="h-5 w-5" />
 
-              View GitHub Repository
+            View GitHub Repository
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
 
           <Button
             variant="outline"
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              border-border
-              bg-background/80
-              px-7
-              font-semibold
-              backdrop-blur
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-              hover:border-primary/40
-            "
+            className="group h-12 rounded-xl border-border bg-background/80 px-7 font-semibold backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 gap-2"
+            nativeButton={false}
+            render={<Link href="/projects/algorithms-datastructures" />}
           >
-            <Link
-              href="/projects/algorithms-datastructures"
-              className="inline-flex items-center gap-2"
-            >
-              View Project Case Study
+            View Project Case Study
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </div>
       </div>

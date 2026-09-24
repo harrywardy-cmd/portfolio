@@ -1,52 +1,124 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const CONTACT_EMAIL = "harrywardy303@gmail.com";
+
+const MAX_LENGTHS = {
+  name: 100,
+  email: 254,
+  company: 100,
+  subject: 200,
+  message: 5000,
+} as const;
+
+type Field = keyof typeof MAX_LENGTHS;
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function badRequest(error: string) {
+  return NextResponse.json({ error }, { status: 400 });
+}
 
 export async function POST(request: Request) {
-  try {
-    const { name, email, company, subject, message } = await request.json();
+  const apiKey = process.env.RESEND_API_KEY;
 
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { error: "Please fill in all required fields." },
-        { status: 400 }
-      );
-    }
-
-    await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: "harrywardy303@gmail.com",
-      replyTo: email,
-      subject: `[Portfolio] ${subject}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px;">
-          <h2>New Portfolio Contact</h2>
-
-          <p><strong>Name:</strong> ${name}</p>
-
-          <p><strong>Email:</strong> ${email}</p>
-
-          <p><strong>Company:</strong> ${company || "Not provided"}</p>
-
-          <p><strong>Subject:</strong> ${subject}</p>
-
-          <hr />
-
-          <h3>Message</h3>
-
-          <p style="white-space: pre-wrap;">${message}</p>
-        </div>
-      `,
-    });
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error(error);
+  if (!apiKey) {
+    console.error("[contact] RESEND_API_KEY is not set.");
 
     return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
+      { error: "The contact form is currently unavailable." },
+      { status: 503 }
     );
   }
+
+  let body: Record<string, unknown>;
+
+  try {
+    body = await request.json();
+  } catch {
+    return badRequest("Invalid request body.");
+  }
+
+  // Normalise every field to a trimmed string.
+  const fields = Object.fromEntries(
+    (Object.keys(MAX_LENGTHS) as Field[]).map((key) => [
+      key,
+      typeof body[key] === "string" ? body[key].trim() : "",
+    ])
+  ) as Record<Field, string>;
+
+  const { name, email, company, subject, message } = fields;
+
+  if (!name || !email || !subject || !message) {
+    return badRequest("Please fill in all required fields.");
+  }
+
+  if (!EMAIL_PATTERN.test(email)) {
+    return badRequest("Please enter a valid email address.");
+  }
+
+  const tooLong = (Object.keys(MAX_LENGTHS) as Field[]).find(
+    (key) => fields[key].length > MAX_LENGTHS[key]
+  );
+
+  if (tooLong) {
+    return badRequest(`The ${tooLong} field is too long.`);
+  }
+
+  const resend = new Resend(apiKey);
+
+  const { error } = await resend.emails.send({
+    from: "Portfolio Contact <onboarding@resend.dev>",
+    to: CONTACT_EMAIL,
+    replyTo: email,
+    // Strip newlines so the subject can't inject extra headers.
+    subject: `[Portfolio] ${subject.replace(/[\r\n]+/g, " ")}`,
+    text: [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Company: ${company || "Not provided"}`,
+      `Subject: ${subject}`,
+      "",
+      message,
+    ].join("\n"),
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px;">
+        <h2>New Portfolio Contact</h2>
+
+        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+
+        <p><strong>Company:</strong> ${escapeHtml(company || "Not provided")}</p>
+
+        <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
+
+        <hr />
+
+        <h3>Message</h3>
+
+        <p style="white-space: pre-wrap;">${escapeHtml(message)}</p>
+      </div>
+    `,
+  });
+
+  if (error) {
+    console.error("[contact] Resend error:", error);
+
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again." },
+      { status: 502 }
+    );
+  }
+
+  return NextResponse.json({ success: true });
 }

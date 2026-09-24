@@ -102,29 +102,34 @@ export function ResumeHero() {
 
         {/* Buttons */}
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <Button size="lg" className="group rounded-xl px-7">
-            <a
-              href="/documents/Harry_Ward_Updated_Resume2026.pdf"
-              download
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <Download className="h-4 w-4" />
+          <Button
+            size="lg"
+            className="group rounded-xl px-7 gap-2"
+            nativeButton={false}
+            render={
+              <a
+                href="/documents/Harry_Ward_Updated_Resume2026.pdf"
+                download
+              />
+            }
+          >
+            <Download className="h-4 w-4" />
 
-              <span>Download PDF</span>
+            <span>Download PDF</span>
 
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </a>
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </Button>
 
-          <Button variant="outline" size="lg" className="group rounded-xl px-7">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <span>Contact Me</span>
+          <Button
+            variant="outline"
+            size="lg"
+            className="group rounded-xl px-7 gap-2"
+            nativeButton={false}
+            render={<Link href="/contact" />}
+          >
+            <span>Contact Me</span>
 
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </Button>
         </div>
       </div>

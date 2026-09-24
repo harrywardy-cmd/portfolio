@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Briefcase, Mail, MapPin } from "lucide-react";
+import { Briefcase, Mail, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 const stats = [
   {
@@ -46,13 +45,13 @@ export function ContactHero() {
         </div>
 
         <h1 className="mt-6 text-5xl font-bold tracking-tight lg:text-6xl">
-          Let's Connect
+          Let&apos;s Connect
         </h1>
 
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
           Thanks for stopping by! Whether you have a software engineering
           opportunity, want to collaborate on a project, or simply want to chat
-          about technology, I'd love to hear from you.
+          about technology, I&apos;d love to hear from you.
         </p>
 
         {/* Skills */}

@@ -42,7 +42,13 @@ export function ContactForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message.");
+        const result = await response.json().catch(() => null);
+
+        setError(
+          result?.error ?? "Something went wrong. Please try again."
+        );
+
+        return;
       }
 
       setSuccess(true);
@@ -63,13 +69,13 @@ export function ContactForm() {
         </p>
 
         <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-          I'd Love to Hear From You
+          I&apos;d Love to Hear From You
         </h2>
 
         <p className="mt-4 text-lg leading-8 text-muted-foreground">
-          Whether you're reaching out about a software engineering opportunity,
+          Whether you&apos;re reaching out about a software engineering opportunity,
           collaboration, or simply want to connect, feel free to send me a
-          message. I'll get back to you as soon as possible.
+          message. I&apos;ll get back to you as soon as possible.
         </p>
       </div>
 
@@ -80,7 +86,14 @@ export function ContactForm() {
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
 
-              <Input id="name" name="name" placeholder="John Smith" />
+              <Input
+                id="name"
+                name="name"
+                placeholder="John Smith"
+                autoComplete="name"
+                maxLength={100}
+                required
+              />
             </div>
 
             <div className="space-y-2">
@@ -91,6 +104,9 @@ export function ContactForm() {
                 type="email"
                 name="email"
                 placeholder="john@example.com"
+                autoComplete="email"
+                maxLength={254}
+                required
               />
             </div>
           </div>
@@ -102,7 +118,13 @@ export function ContactForm() {
               <span className="ml-1 text-muted-foreground">(Optional)</span>
             </Label>
 
-            <Input id="company" name="company" placeholder="Company Name" />
+            <Input
+              id="company"
+              name="company"
+              placeholder="Company Name"
+              autoComplete="organization"
+              maxLength={100}
+            />
           </div>
 
           {/* Subject */}
@@ -113,6 +135,8 @@ export function ContactForm() {
               id="subject"
               name="subject"
               placeholder="Graduate Software Engineer Opportunity"
+              maxLength={200}
+              required
             />
           </div>
 
@@ -128,13 +152,15 @@ export function ContactForm() {
 
 I'd love to discuss a software engineering opportunity with you..."
               className="resize-none"
+              maxLength={5000}
+              required
             />
           </div>
 
           {/* Submit */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-muted-foreground">
-              I'll aim to respond within 24 hours.
+              I&apos;ll aim to respond within 24 hours.
             </p>
 
             <Button
@@ -147,7 +173,7 @@ I'd love to discuss a software engineering opportunity with you..."
 
               {loading ? "Sending..." : "Send Message"}
             </Button>
-            <div className="mt-4">
+            <div className="mt-4" aria-live="polite">
               {success && (
                 <p className="text-sm font-medium text-green-600">
                   ✅ Your message has been sent successfully!

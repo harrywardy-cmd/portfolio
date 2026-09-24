@@ -8,7 +8,7 @@ import { ContactCTA } from "./ContactCTA";
 
 export function ContactPage() {
   return (
-    <main className="py-20 lg:py-24">
+    <div className="py-20 lg:py-24">
       <Container>
         <div className="space-y-24">
           {/* Hero */}
@@ -27,6 +27,6 @@ export function ContactPage() {
           <ContactCTA />
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

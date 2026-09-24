@@ -125,16 +125,13 @@ export function ResumeProjects() {
 
             <Button
               variant="ghost"
-              className="mt-8 w-fit px-0 hover:bg-transparent"
+              className="mt-8 w-fit px-0 hover:bg-transparent gap-2"
+              nativeButton={false}
+              render={<Link href={project.href} />}
             >
-              <Link
-                href={project.href}
-                className="inline-flex items-center gap-2"
-              >
-                View Project
+              View Project
 
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </article>
         ))}
@@ -144,16 +141,13 @@ export function ResumeProjects() {
       <div className="flex justify-center pt-4">
         <Button
           size="lg"
-          className="group rounded-xl px-8"
+          className="group rounded-xl px-8 gap-2"
+          nativeButton={false}
+          render={<Link href="/projects" />}
         >
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2"
-          >
-            View All Projects
+          View All Projects
 
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </Button>
       </div>
     </section>

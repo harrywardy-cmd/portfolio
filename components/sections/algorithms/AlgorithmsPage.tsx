@@ -9,7 +9,7 @@ import { AlgorithmsCTA } from "./AlgorithmsCTA";
 
 export function AlgorithmsPage() {
   return (
-    <main className="py-20 lg:py-24">
+    <div className="py-20 lg:py-24">
       <Container>
         <div className="space-y-24">
           {/* Hero */}
@@ -31,6 +31,6 @@ export function AlgorithmsPage() {
           <AlgorithmsCTA />
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

@@ -128,35 +128,33 @@ export function AlgorithmsHero() {
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Button
             size="lg"
-            className="group rounded-xl px-6"
+            className="group rounded-xl px-6 gap-2"
+            nativeButton={false}
+            render={
+              <Link
+                href="https://github.com/harrywardy-cmd/algorithms-datastructures"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
           >
-            <Link
-              href="https://github.com/harrywardy-cmd/algorithms-datastructures"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <FaGithub className="h-4 w-4" />
+            <FaGithub className="h-4 w-4" />
 
-              <span>View Repository</span>
+            <span>View Repository</span>
 
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </Button>
 
           <Button
             variant="outline"
             size="lg"
-            className="group rounded-xl px-6"
+            className="group rounded-xl px-6 gap-2"
+            nativeButton={false}
+            render={<Link href="/projects/algorithms-datastructures" />}
           >
-            <Link
-              href="/projects/algorithms-datastructures"
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <span>View Case Study</span>
+            <span>View Case Study</span>
 
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </Button>
         </div>
       </div>

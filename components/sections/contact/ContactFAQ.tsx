@@ -1,12 +1,3 @@
-"use client";
-
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
 const faqs = [
   {
     question: "Are you currently looking for opportunities?",

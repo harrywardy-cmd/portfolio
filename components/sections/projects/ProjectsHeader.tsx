@@ -1,8 +1,4 @@
-import Link from "next/link";
-import {
-  ArrowRight,
-  Sparkles,
-} from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export function ProjectsHeader() {
   return (
@@ -22,7 +18,7 @@ export function ProjectsHeader() {
       {/* Section Heading */}
       <div className="max-w-3xl">
         <h2 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-          Software I've Built
+          Software I&apos;ve Built
         </h2>
 
         <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">

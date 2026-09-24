@@ -8,7 +8,7 @@ import { ExperienceCTA } from "./ExperienceCTA";
 
 export function ExperiencePage() {
   return (
-    <main className="py-20 lg:py-24">
+    <div className="py-20 lg:py-24">
       <Container>
         <div className="space-y-24">
           {/* Hero */}
@@ -27,6 +27,6 @@ export function ExperiencePage() {
           <ExperienceCTA />
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

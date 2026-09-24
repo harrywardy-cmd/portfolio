@@ -26,17 +26,18 @@ export function ProjectButtons({
       {demoUrl && (
         <Button
           size="lg"
-          className="h-12"
+          className="h-12 gap-2"
+          nativeButton={false}
+          render={
+            <Link
+              href={demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+          }
         >
-          <Link
-            href={demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2"
-          >
-            Live Demo
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          Live Demo
+          <ArrowUpRight className="h-4 w-4" />
         </Button>
       )}
 
@@ -45,18 +46,19 @@ export function ProjectButtons({
         <Button
           size="lg"
           variant="outline"
-          className="h-12"
+          className="h-12 gap-2"
+          nativeButton={false}
+          render={
+            <Link
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+          }
         >
-          <Link
-            href={githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2"
-          >
-            <FaGithub className="h-4 w-4" />
-            GitHub
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          <FaGithub className="h-4 w-4" />
+          GitHub
+          <ArrowUpRight className="h-4 w-4" />
         </Button>
       )}
 
@@ -65,18 +67,19 @@ export function ProjectButtons({
         <Button
           size="lg"
           variant="outline"
-          className="h-12"
+          className="h-12 gap-2"
+          nativeButton={false}
+          render={
+            <Link
+              href={pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+          }
         >
-          <Link
-            href={pdfUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2"
-          >
-            <FileText className="h-4 w-4" />
-            View Report
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          <FileText className="h-4 w-4" />
+          View Report
+          <ArrowUpRight className="h-4 w-4" />
         </Button>
       )}
     </section>

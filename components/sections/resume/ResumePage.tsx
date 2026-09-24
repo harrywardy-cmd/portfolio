@@ -9,7 +9,7 @@ import { ResumeCTA } from "./ResumeCTA";
 
 export function ResumePage() {
   return (
-    <main className="py-20 lg:py-24">
+    <div className="py-20 lg:py-24">
       <Container>
         <div className="space-y-24">
           {/* Hero */}
@@ -31,6 +31,6 @@ export function ResumePage() {
           <ResumeCTA />
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

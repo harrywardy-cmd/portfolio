@@ -8,7 +8,7 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
-import { FaGithub, FaLinkedinIn, FaDownload } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 export function Navbar() {
   return (
@@ -28,14 +28,16 @@ export function Navbar() {
               variant="ghost"
               size="icon"
               className="hidden h-10 w-10 rounded-full text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent hover:text-foreground md:flex"
+              nativeButton={false}
+              render={
+                <Link
+                  href="https://github.com/harrywardy-cmd"
+                  target="_blank"
+                  aria-label="GitHub"
+                />
+              }
             >
-              <Link
-                href="https://github.com/harrywardy-cmd"
-                target="_blank"
-                aria-label="GitHub"
-              >
-                <FaGithub className="text-[18px]" />
-              </Link>
+              <FaGithub className="text-[18px]" />
             </Button>
 
             {/* LinkedIn */}
@@ -43,24 +45,25 @@ export function Navbar() {
               variant="ghost"
               size="icon"
               className="hidden h-10 w-10 rounded-full text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent hover:text-[#0A66C2] md:flex"
+              nativeButton={false}
+              render={
+                <Link
+                  href="https://www.linkedin.com/in/harry-ward-b2b9b4319"
+                  target="_blank"
+                  aria-label="LinkedIn"
+                />
+              }
             >
-              <Link
-                href="https://www.linkedin.com/in/harry-ward-b2b9b4319"
-                target="_blank"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedinIn className="text-[17px]" />
-              </Link>
+              <FaLinkedinIn className="text-[17px]" />
             </Button>
 
             {/* Resume */}
-            <Button className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5">
-              <Link
-                href="/resume"
-                className="inline-flex items-center gap-2 whitespace-nowrap"
-              >
-                <span>Resume</span>
-              </Link>
+            <Button
+              className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
+              nativeButton={false}
+              render={<Link href="/resume" />}
+            >
+              <span>Resume</span>
             </Button>
 
             {/* Theme Toggle */}

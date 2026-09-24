@@ -1,12 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Construction } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 
+export const metadata: Metadata = {
+  title: "Blog",
+};
+
 export default function BlogPage() {
   return (
-    <main className="py-24">
+    <div className="py-24">
       <Container>
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary/10 text-primary">
@@ -18,42 +23,35 @@ export default function BlogPage() {
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            I'm currently working on a technical blog where I'll share
+            I&apos;m currently working on a technical blog where I&apos;ll share
             software engineering projects, algorithms, system design, and
             lessons learned throughout my development journey.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Button
-
-              className="group rounded-xl px-6"
+              className="group rounded-xl px-6 gap-2"
+              nativeButton={false}
+              render={<Link href="/projects" />}
             >
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 whitespace-nowrap"
-              >
-                <span>View Projects</span>
+              <span>View Projects</span>
 
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
 
             <Button
               variant="outline"
-              className="group rounded-xl px-6"
+              className="group rounded-xl px-6 gap-2"
+              nativeButton={false}
+              render={<Link href="/" />}
             >
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 whitespace-nowrap"
-              >
-                <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+              <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
 
-                <span>Back Home</span>
-              </Link>
+              <span>Back Home</span>
             </Button>
           </div>
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

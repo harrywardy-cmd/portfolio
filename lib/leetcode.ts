@@ -57,12 +57,14 @@ export async function getAlgorithmCount(): Promise<number> {
 
   const data: LeetCodeResponse = await response.json();
 
-  if (!data.data.matchedUser) {
+  const user = data.data?.matchedUser;
+
+  if (!user) {
     throw new Error("LeetCode user not found.");
   }
 
   const totalSolved =
-    data.data.matchedUser.submitStats.acSubmissionNum.find(
+    user.submitStats.acSubmissionNum.find(
       (item) => item.difficulty === "All"
     );
 

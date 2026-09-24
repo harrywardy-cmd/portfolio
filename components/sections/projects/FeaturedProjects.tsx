@@ -45,24 +45,21 @@ export async function FeaturedProjects() {
           <div className="flex justify-center pt-6">
             <Button
               size="lg"
-              className="group"
+              className="group gap-2"
+              nativeButton={false}
+              render={<Link href="/projects" />}
             >
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2"
-              >
-                View All Projects
+              View All Projects
 
-                <ArrowRight
-                  className="
-                    h-4
-                    w-4
-                    transition-transform
-                    duration-300
-                    group-hover:translate-x-1
-                  "
-                />
-              </Link>
+              <ArrowRight
+                className="
+                  h-4
+                  w-4
+                  transition-transform
+                  duration-300
+                  group-hover:translate-x-1
+                "
+              />
             </Button>
           </div>
         </div>

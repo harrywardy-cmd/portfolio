@@ -44,7 +44,7 @@ export function ExperienceCTA() {
               text-primary
             "
           >
-            💼 Let's Connect
+            💼 Let&apos;s Connect
           </div>
 
           <h2 className="mt-6 text-4xl font-bold tracking-tight lg:text-5xl">
@@ -52,7 +52,7 @@ export function ExperienceCTA() {
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            I'm currently seeking graduate and junior software engineering
+            I&apos;m currently seeking graduate and junior software engineering
             opportunities where I can contribute to meaningful products,
             collaborate with talented teams, and continue growing as an
             engineer.
@@ -63,59 +63,34 @@ export function ExperienceCTA() {
         <div className="flex flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row">
           <Button
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              px-7
-              font-semibold
-              shadow-lg
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-            "
+            className="group h-12 rounded-xl px-7 font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 gap-2"
+            nativeButton={false}
+            render={
+              <a
+                href="/documents/Harry_Ward_Updated_Resume2026.pdf"
+                download
+              />
+            }
           >
-            <a
-              href="/documents/Harry_Ward_Updated_Resume2026.pdf"
-              download
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <Download className="h-4 w-4" />
+            <Download className="h-4 w-4" />
 
-              <span>Download Resume</span>
+            <span>Download Resume</span>
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
 
           <Button
             variant="outline"
             size="lg"
-            className="
-              group
-              h-12
-              rounded-xl
-              border-border
-              bg-background/80
-              px-7
-              font-semibold
-              backdrop-blur
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-              hover:border-primary/40
-            "
+            className="group h-12 rounded-xl border-border bg-background/80 px-7 font-semibold backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 gap-2"
+            nativeButton={false}
+            render={<Link href="/contact" />}
           >
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 whitespace-nowrap"
-            >
-              <Mail className="h-4 w-4" />
+            <Mail className="h-4 w-4" />
 
-              <span>Get In Touch</span>
+            <span>Get In Touch</span>
 
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </div>
       </div>

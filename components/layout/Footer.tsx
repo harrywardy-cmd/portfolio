@@ -100,7 +100,7 @@ export function Footer() {
             {/* Connect */}
             <div>
               <h4 className="font-semibold">
-                Let's Connect
+                Let&apos;s Connect
               </h4>
 
               <div className="mt-5 flex gap-3">

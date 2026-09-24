@@ -1,27 +1,6 @@
-export interface Project {
-  slug: string;
+import type { PortfolioProject } from "@/types/projects";
 
-  title: string;
-
-  description: string;
-
-  technologies: string[];
-
-  githubUrl?: string;
-
-  demo?: string;
-
-  pdf?: string;
-
-  image?: string;
-
-  featured: boolean;
-
-  source: "github" | "local";
-
-  categories: string[];
-}
-export const projects: Project[] = [
+export const projects: PortfolioProject[] = [
   {
     slug: "portfolio",
     title: "Developer Portfolio",

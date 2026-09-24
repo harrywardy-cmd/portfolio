@@ -48,12 +48,12 @@ export function ContactMethods() {
         </p>
 
         <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-          Let's Connect
+          Let&apos;s Connect
         </h2>
 
         <p className="mt-4 text-lg leading-8 text-muted-foreground">
           Whether you have a software engineering opportunity, project idea, or
-          simply want to connect, I'd love to hear from you.
+          simply want to connect, I&apos;d love to hear from you.
         </p>
       </div>
 
