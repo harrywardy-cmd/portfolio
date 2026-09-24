@@ -147,6 +147,15 @@ pnpm lint
 
 Runs ESLint to identify code quality and style issues.
 
+### Tests
+
+```bash
+pnpm test        # run once
+pnpm test:watch  # re-run on file changes
+```
+
+Runs the [Vitest](https://vitest.dev) suite in `tests/`. It covers the GitHub and LeetCode stat parsing and fallbacks, the contact form API (validation and HTML escaping), the site URL, the sitemap and robots.txt, and checks that every listed project has a detail page. Lint, type checks, tests and a production build also run on every push and pull request via GitHub Actions.
+
 ---
 
 ## ☁️ Deployment

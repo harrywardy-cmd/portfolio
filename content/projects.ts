@@ -179,6 +179,22 @@ export const projects: PortfolioProject[] = [
       "Interview Prep",
     ],
   },
+  {
+    slug: "neetcode-submissions-h7zt2hks",
+    title: "NeetCode Submissions II",
+    description:
+      "A continuation of my NeetCode and LeetCode practice in Python, expanding the solution library with more advanced algorithms and topic-based organisation.",
+    technologies: ["Python"],
+    githubUrl:
+      "https://github.com/harrywardy-cmd/neetcode-submissions-h7zt2hks",
+    featured: false,
+    source: "github",
+    categories: [
+      "Algorithms",
+      "Python",
+      "Interview Prep",
+    ],
+  },
 
   {
     slug: "serverless-event-driven-architecture",
@@ -243,5 +259,49 @@ export const projects: PortfolioProject[] = [
     ],
   },
 
+  {
+    slug: "unity-visual-novel",
+    title: "Unity Visual Novel",
+    description:
+      "A narrative-driven visual novel built with Unity, featuring interactive dialogue, branching story paths, and player choice mechanics.",
+    technologies: ["Unity", "C#"],
+    githubUrl: "https://github.com/harrywardy-cmd/Unity-Visual-Novel",
+    featured: false,
+    source: "github",
+    categories: [
+      "Game",
+    ],
+  },
 
+  {
+    slug: "music-app",
+    title: "Music App",
+    description:
+      "A music streaming application focused on music discovery, playlist management, and a responsive, interactive user interface.",
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    githubUrl: "https://github.com/harrywardy-cmd/music-app",
+    featured: false,
+    source: "github",
+    categories: [
+      "Web",
+      "Frontend",
+      "React",
+    ],
+  },
+
+  {
+    slug: "jeffls-connect",
+    title: "JeffLS Connect",
+    description:
+      "A full-stack social media platform with user profiles, posts, likes and comments, built with React, Node.js, Express and MongoDB.",
+    technologies: ["React", "Node.js", "Express", "MongoDB"],
+    githubUrl: "https://github.com/harrywardy-cmd/jeffLS-Connect",
+    featured: false,
+    source: "github",
+    categories: [
+      "Web",
+      "Full Stack",
+      "React",
+    ],
+  },
 ];
