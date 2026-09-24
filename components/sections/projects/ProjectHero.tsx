@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { ProjectButtons } from "@/components/sections/projects/ProjectButtons";
 import { projectMetadata } from "@/content/projectMetadata";
+import { getProjectImage } from "@/lib/projects";
 import type { PortfolioProject } from "@/types/projects";
 
 interface Props {
@@ -16,15 +17,23 @@ export function ProjectHero({ project }: Props) {
     return null;
   }
 
-  const image = metadata.image ?? "/images/projects/project-placeholder.png";
+  const image = getProjectImage(project.slug);
 
   return (
     <section className="grid gap-12 lg:grid-cols-2 lg:items-center">
       {/* Content */}
       <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-          Project
-        </p>
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+            Project
+          </p>
+
+          {project.inProgress && (
+            <Badge className="rounded-full bg-amber-500 text-amber-950">
+              In Progress
+            </Badge>
+          )}
+        </div>
 
         <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
           {metadata.title}

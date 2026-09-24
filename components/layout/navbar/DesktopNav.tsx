@@ -4,14 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { navLinks } from "./nav-links";
+import type { NavLink } from "./nav-links";
 
-export function DesktopNav() {
+export function DesktopNav({ links }: { links: NavLink[] }) {
   const pathname = usePathname();
 
   return (
     <nav className="hidden items-center gap-10 lg:flex">
-      {navLinks.map((link) => {
+      {links.map((link) => {
         const isActive = pathname === link.href;
 
         return (

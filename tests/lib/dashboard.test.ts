@@ -3,13 +3,17 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   formatCount,
   getHeroStats,
+  getLatestProject,
   nextMilestone,
 } from "@/lib/dashboard";
-import { getProjects } from "@/lib/github";
+import { getLatestRepository, getProjects } from "@/lib/github";
 import { getContributionStats } from "@/lib/github-graphql";
 import { getLeetCodeStats } from "@/lib/leetcode";
 
-vi.mock("@/lib/github", () => ({ getProjects: vi.fn() }));
+vi.mock("@/lib/github", () => ({
+  getProjects: vi.fn(),
+  getLatestRepository: vi.fn(),
+}));
 vi.mock("@/lib/github-graphql", () => ({ getContributionStats: vi.fn() }));
 vi.mock("@/lib/leetcode", () => ({ getLeetCodeStats: vi.fn() }));
 
@@ -57,6 +61,7 @@ describe("getHeroStats", () => {
       total: 802,
       lastYear: 670,
       longestStreak: 25,
+      weeks: [],
     });
     vi.mocked(getLeetCodeStats).mockResolvedValue({
       solved: 85,
@@ -88,5 +93,44 @@ describe("getHeroStats", () => {
       degree: "B.CompSci",
     });
     expect(console.error).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe("getLatestProject", () => {
+  const repository = (name: string, description: string | null = null) =>
+    ({
+      name,
+      description,
+      html_url: `https://github.com/harrywardy-cmd/${name}`,
+    }) as Awaited<ReturnType<typeof getLatestRepository>>;
+
+  it("links to the portfolio page when the repo is a listed project", async () => {
+    vi.mocked(getLatestRepository).mockResolvedValue(
+      repository("Python-Calculator")
+    );
+
+    await expect(getLatestProject()).resolves.toMatchObject({
+      title: "Python Calculator",
+      href: "/projects/python-calculator",
+    });
+  });
+
+  it("links to GitHub for repos that aren't listed", async () => {
+    vi.mocked(getLatestRepository).mockResolvedValue(
+      repository("scratch-repo", "Experiments")
+    );
+
+    await expect(getLatestProject()).resolves.toEqual({
+      title: "scratch-repo",
+      description: "Experiments",
+      href: "https://github.com/harrywardy-cmd/scratch-repo",
+    });
+  });
+
+  it("returns null when GitHub is unavailable", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.mocked(getLatestRepository).mockRejectedValue(new Error("down"));
+
+    await expect(getLatestProject()).resolves.toBeNull();
   });
 });

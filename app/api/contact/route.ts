@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+import { createRateLimiter, getClientIp } from "@/lib/rate-limit";
 import { siteConfig } from "@/lib/site";
 
 const MAX_LENGTHS = {
@@ -12,6 +13,12 @@ const MAX_LENGTHS = {
 } as const;
 
 type Field = keyof typeof MAX_LENGTHS;
+
+// Hidden form field that real visitors never fill in; bots usually do.
+const HONEYPOT_FIELD = "website";
+
+// At most 5 messages per IP every 10 minutes.
+const isRateLimited = createRateLimiter({ limit: 5, windowMs: 10 * 60_000 });
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -40,12 +47,24 @@ export async function POST(request: Request) {
     );
   }
 
+  if (isRateLimited(getClientIp(request))) {
+    return NextResponse.json(
+      { error: "Too many messages. Please try again in a few minutes." },
+      { status: 429 }
+    );
+  }
+
   let body: Record<string, unknown>;
 
   try {
     body = await request.json();
   } catch {
     return badRequest("Invalid request body.");
+  }
+
+  // Pretend to succeed so bots don't learn they were caught.
+  if (body[HONEYPOT_FIELD]) {
+    return NextResponse.json({ success: true });
   }
 
   // Normalise every field to a trimmed string.

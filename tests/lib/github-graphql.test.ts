@@ -5,7 +5,11 @@ import { getContributionStats } from "@/lib/github-graphql";
 import { jsonResponse, mockFetch, requestBody } from "../helpers";
 
 const days = (...counts: number[]) =>
-  counts.map((contributionCount) => ({ contributionCount }));
+  counts.map((contributionCount, index) => ({
+    date: `2026-01-${String(index + 1).padStart(2, "0")}`,
+    contributionCount,
+    contributionLevel: contributionCount > 0 ? "FIRST_QUARTILE" : "NONE",
+  }));
 
 function calendarResponse() {
   return jsonResponse({
@@ -46,10 +50,20 @@ describe("getContributionStats", () => {
   it("sums every year and finds the longest streak", async () => {
     const fetchMock = mockFetch(calendarResponse(), yearlyTotalsResponse());
 
-    await expect(getContributionStats()).resolves.toEqual({
+    const stats = await getContributionStats();
+
+    expect(stats).toMatchObject({
       total: 791,
       lastYear: 670,
       longestStreak: 5,
+    });
+
+    // Calendar weeks are passed through for the contribution graph.
+    expect(stats.weeks).toHaveLength(2);
+    expect(stats.weeks[0][0]).toEqual({
+      date: "2026-01-01",
+      count: 1,
+      level: "FIRST_QUARTILE",
     });
 
     // The second query asks for one aliased collection per year.

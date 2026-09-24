@@ -10,22 +10,26 @@ import {
   formatCount,
   getAlgorithmStats,
   getGitHubStats,
+  getLatestProject,
 } from "@/lib/dashboard";
 import { siteConfig } from "@/lib/site";
 
 export async function GitHubStats() {
-  const [github, algorithms] = await Promise.all([
+  const [github, algorithms, latest] = await Promise.all([
     getGitHubStats(),
     getAlgorithmStats(),
+    getLatestProject(),
   ]);
 
   return (
     <div className="grid gap-5 md:grid-cols-2">
       <GitHubStatCard
         title="Current Project"
-        value="AI Resume Analyzer"
-        description="Building an AI-powered resume analysis platform."
-        href="/projects"
+        value={latest?.title ?? "—"}
+        description={
+          latest?.description ?? "Live GitHub activity is unavailable."
+        }
+        href={latest?.href ?? siteConfig.links.github}
         linkLabel="View Project"
         icon={<Activity className="h-5 w-5 text-primary" />}
       />

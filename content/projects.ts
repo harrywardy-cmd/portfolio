@@ -209,7 +209,7 @@ export const projects: PortfolioProject[] = [
       "DynamoDB",
       "CloudFront",
     ],
-    pdf: "/documents/Serverless_Event-driven Architectural Design Report.pdf",
+    pdf: "/documents/serverless-event-driven-architecture-report.pdf",
     featured: false,
     source: "local",
     categories: [
@@ -231,7 +231,7 @@ export const projects: PortfolioProject[] = [
       "Propositional Logic",
     ],
     source: "local",
-    pdf: "/documents/Assignment 2 – Inference Engine for Propositional Logicnt.pdf",
+    pdf: "/documents/inference-engine-propositional-logic.pdf",
     featured: false,
     categories: [
       "AI",
@@ -251,7 +251,7 @@ export const projects: PortfolioProject[] = [
       "Prototyping",
     ],
     source: "local",
-    pdf: "/documents/Apollo's Gamble Game Design Document.pdf",
+    pdf: "/documents/apollos-gamble-game-design-document.pdf",
     featured: false,
     categories: [
       "Game Design",
@@ -281,6 +281,7 @@ export const projects: PortfolioProject[] = [
     technologies: ["React", "TypeScript", "Tailwind CSS"],
     githubUrl: "https://github.com/harrywardy-cmd/music-app",
     featured: false,
+    inProgress: true,
     source: "github",
     categories: [
       "Web",
@@ -291,12 +292,13 @@ export const projects: PortfolioProject[] = [
 
   {
     slug: "jeffls-connect",
-    title: "JeffLS Connect",
+    title: "jeffLS Connect",
     description:
-      "A full-stack social media platform with user profiles, posts, likes and comments, built with React, Node.js, Express and MongoDB.",
-    technologies: ["React", "Node.js", "Express", "MongoDB"],
+      "A full-stack social platform built on the T3 stack, with authentication, a type-safe tRPC API and a Prisma database layer.",
+    technologies: ["Next.js", "TypeScript", "tRPC", "Prisma"],
     githubUrl: "https://github.com/harrywardy-cmd/jeffLS-Connect",
     featured: false,
+    inProgress: true,
     source: "github",
     categories: [
       "Web",

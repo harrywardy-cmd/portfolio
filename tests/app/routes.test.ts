@@ -1,16 +1,28 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { generateStaticParams } from "@/app/projects/[slug]/page";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
 import { projectMetadata } from "@/content/projectMetadata";
 import { projects } from "@/content/projects";
+import { getPosts } from "@/lib/blog";
+
+vi.mock("@/lib/blog", () => ({ getPosts: vi.fn(async () => []) }));
 
 describe("content", () => {
   it("has unique project slugs", () => {
     const slugs = projects.map((project) => project.slug);
 
     expect(new Set(slugs).size).toBe(slugs.length);
+  });
+
+  it("never marks a project both featured and in progress", () => {
+    // Both badges sit in the card's top-right corner.
+    const both = projects.filter(
+      (project) => project.featured && project.inProgress
+    );
+
+    expect(both.map((project) => project.slug)).toEqual([]);
   });
 
   it("has detail metadata for every listed project (cards link to it)", () => {
@@ -43,8 +55,11 @@ describe("generateStaticParams", () => {
 });
 
 describe("sitemap", () => {
-  it("lists the main pages and every project page once", () => {
-    const urls = sitemap().map((entry) => new URL(entry.url).pathname);
+  const paths = async () =>
+    (await sitemap()).map((entry) => new URL(entry.url).pathname);
+
+  it("lists the main pages and every project page once", async () => {
+    const urls = await paths();
 
     expect(urls).toEqual(
       expect.arrayContaining(["/", "/projects", "/resume", "/contact"])
@@ -55,6 +70,18 @@ describe("sitemap", () => {
     }
 
     expect(new Set(urls).size).toBe(urls.length);
+  });
+
+  it("leaves out the blog until there are posts", async () => {
+    expect(await paths()).not.toContain("/blog");
+
+    vi.mocked(getPosts).mockResolvedValueOnce([
+      { slug: "hello", title: "Hello", description: "", date: "2026-09-24" },
+    ]);
+
+    expect(await paths()).toEqual(
+      expect.arrayContaining(["/blog", "/blog/hello"])
+    );
   });
 });
 

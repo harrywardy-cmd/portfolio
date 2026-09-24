@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { projects } from "@/content/projects";
 import { projectMetadata } from "@/content/projectMetadata";
+import { getPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/site";
 
 const routes = [
@@ -11,15 +12,21 @@ const routes = [
   "/algorithms",
   "/resume",
   "/contact",
-  "/blog",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await getPosts();
+
   const projectRoutes = projects
     .filter((project) => projectMetadata[project.slug])
     .map((project) => `/projects/${project.slug}`);
 
-  return [...routes, ...projectRoutes].map((route) => ({
+  const blogRoutes =
+    posts.length > 0
+      ? ["/blog", ...posts.map((post) => `/blog/${post.slug}`)]
+      : [];
+
+  return [...routes, ...projectRoutes, ...blogRoutes].map((route) => ({
     url: `${siteConfig.url}${route}`,
   }));
 }

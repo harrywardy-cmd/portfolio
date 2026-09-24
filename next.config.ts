@@ -1,16 +1,12 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
 
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "ghchart.rshah.org",
-      },
-    ],
-  },
+  pageExtensions: ["ts", "tsx", "md", "mdx"],
 };
 
-export default nextConfig;
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);

@@ -519,13 +519,14 @@ export const projectMetadata: Record<
 
 
   "jeffls-connect": {
-    title: "JeffLS Connect",
+    title: "jeffLS Connect",
     featured: false,
     technologies: [
-      "React",
-      "Node.js",
-      "MongoDB",
-      "Express",
+      "Next.js",
+      "TypeScript",
+      "tRPC",
+      "Prisma",
+      "NextAuth",
     ],
     overview:
       "A full-stack social media platform built to connect users through posts, profiles, and real-time interactions while exploring modern web application development and scalable full-stack architecture.",
@@ -550,6 +551,7 @@ export const projectMetadata: Record<
 
   "serverless-event-driven-architecture": {
     title: "Serverless Event-Driven Architecture",
+    image: "/images/projects/serverless-architecture.png",
     featured: false,
     technologies: [
       "AWS",
@@ -600,8 +602,8 @@ export const projectMetadata: Record<
 
   "inference-engine": {
     title: "AI Inference Engine",
+    image: "/images/projects/inference-engine.png",
     featured: false,
-    image: "/images/projects/project-placeholder.png",
 
     technologies: [
       "Python",
@@ -651,7 +653,7 @@ export const projectMetadata: Record<
   "apollos-gamble": {
     title: "Apollo's Gamble",
     featured: false,
-    image: "/images/projects/project-placeholder.png",
+    image: "/images/projects/apollos-gamble.jpg",
     technologies: [
       "Game Design",
       "Tabletop Games",

@@ -3,9 +3,12 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 import { Container } from "./Container";
+import { getPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/site";
 
-export function Footer() {
+export async function Footer() {
+  const hasPosts = (await getPosts()).length > 0;
+
   return (
     <footer className="border-t border-border/60 bg-background">
       <Container>
@@ -92,9 +95,18 @@ export function Footer() {
                   Algorithms
                 </Link>
 
-                <span className="text-muted-foreground/60">
-                  Blog (Coming Soon)
-                </span>
+                {hasPosts ? (
+                  <Link
+                    href="/blog"
+                    className="text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    Blog
+                  </Link>
+                ) : (
+                  <span className="text-muted-foreground/60">
+                    Blog (Coming Soon)
+                  </span>
+                )}
               </nav>
             </div>
 

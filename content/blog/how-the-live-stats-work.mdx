@@ -1,0 +1,101 @@
+export const metadata = {
+  title: "How the Live Stats on This Site Work",
+  description:
+    "Pulling GitHub contributions, LeetCode progress and project counts into a static Next.js site — without letting a flaky API take the page down.",
+  date: "2026-09-24",
+  tags: ["Next.js", "GitHub API", "Architecture"],
+  draft: true,
+};
+
+The numbers on my homepage — projects built, GitHub contributions and
+algorithms solved — aren't typed in by hand. They come straight from GitHub
+and LeetCode and update on their own. Here's how that works, and the few
+problems I had to solve along the way.
+
+## Three sources, one dashboard
+
+Each stat comes from a different API:
+
+- **Projects built** — GitHub's REST API lists my public repositories. Forks
+  and archived repos are filtered out before counting.
+- **GitHub contributions** — GitHub's GraphQL API exposes the same
+  contribution calendar you see on a profile page.
+- **Algorithms solved** — LeetCode has a public GraphQL endpoint that returns
+  accepted submissions by difficulty, active days and topic tags.
+
+## Static pages that stay fresh
+
+I didn't want every visitor to wait on three API calls, so the pages are
+statically generated and use **Incremental Static Regeneration**. Each fetch
+is tagged with a five-minute revalidation window:
+
+```ts
+const response = await fetch(url, {
+  next: { revalidate: 300 },
+});
+```
+
+Visitors always get a pre-rendered page instantly. When the cached data is
+more than five minutes old, the next request triggers a rebuild in the
+background, so the numbers keep up without anyone waiting for them.
+
+## Counting contributions across every year
+
+GitHub's contribution calendar only covers one year at a time. To get an
+all-time total, the site first asks which years I've been active, then
+requests every year in a single query using GraphQL aliases:
+
+```graphql
+query {
+  user(login: "harrywardy-cmd") {
+    y2025: contributionsCollection(from: "2025-01-01T00:00:00Z", to: "2025-12-31T23:59:59Z") {
+      contributionCalendar { totalContributions }
+    }
+    y2026: contributionsCollection(from: "2026-01-01T00:00:00Z", to: "2026-12-31T23:59:59Z") {
+      contributionCalendar { totalContributions }
+    }
+  }
+}
+```
+
+The same calendar data also powers the contribution graph and the longest
+streak, which is just the longest run of consecutive days with at least one
+contribution.
+
+## Never letting an API break the page
+
+Relying on three external services means one of them will eventually fail —
+a rate limit, an outage or an expired token. Originally, any of those would
+throw an error and take the whole homepage down with it.
+
+Now every source goes through a small wrapper that turns failures into
+`null`:
+
+```ts
+async function settle<T>(label: string, promise: Promise<T>) {
+  try {
+    return await promise;
+  } catch (error) {
+    console.error(`[dashboard] ${label}:`, error);
+    return null;
+  }
+}
+```
+
+The UI shows a dash for a missing number, and sentences like "Solved 85+
+problems" fall back to a known minimum. That's safe because a solved count
+only ever goes up.
+
+## Avoiding duplicate requests
+
+Several components on a page need the same data. Next.js automatically
+de-duplicates `GET` requests during a render, but GraphQL uses `POST`, which
+isn't memoised. Wrapping each loader in React's `cache` means every component
+can ask for the stats, and the API is still only called once per render.
+
+## Testing it
+
+The parsing and fallback logic is covered by Vitest with a mocked `fetch`,
+so the tests never depend on GitHub or LeetCode being up. They check things
+like the streak calculation across week boundaries, and that a failing API
+returns `null` instead of throwing.

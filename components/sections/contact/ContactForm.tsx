@@ -30,6 +30,7 @@ export function ContactForm() {
       company: formData.get("company"),
       subject: formData.get("subject"),
       message: formData.get("message"),
+      website: formData.get("website"),
     };
 
     try {
@@ -81,6 +82,18 @@ export function ContactForm() {
 
       <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-sm lg:p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Honeypot: hidden from people, but bots fill it in */}
+          <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+            <label htmlFor="website">Website</label>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
           {/* Name & Email */}
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">

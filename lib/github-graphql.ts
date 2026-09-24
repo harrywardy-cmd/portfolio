@@ -2,6 +2,20 @@ import { siteConfig } from "./site";
 
 const GITHUB_GRAPHQL = "https://api.github.com/graphql";
 
+export type ContributionLevel =
+  | "NONE"
+  | "FIRST_QUARTILE"
+  | "SECOND_QUARTILE"
+  | "THIRD_QUARTILE"
+  | "FOURTH_QUARTILE";
+
+export interface ContributionDay {
+  /** ISO date, e.g. "2026-09-24". */
+  date: string;
+  count: number;
+  level: ContributionLevel;
+}
+
 export interface ContributionStats {
   /** All-time contributions across every year of activity. */
   total: number;
@@ -9,6 +23,8 @@ export interface ContributionStats {
   lastYear: number;
   /** Longest run of consecutive days with contributions in the last 12 months. */
   longestStreak: number;
+  /** The last 12 months as weeks (Sunday first), for the contribution graph. */
+  weeks: ContributionDay[][];
 }
 
 async function query<T>(
@@ -54,7 +70,11 @@ interface CalendarResponse {
     contributionCalendar: {
       totalContributions: number;
       weeks: {
-        contributionDays: { contributionCount: number }[];
+        contributionDays: {
+          date: string;
+          contributionCount: number;
+          contributionLevel: ContributionLevel;
+        }[];
       }[];
     };
   };
@@ -78,7 +98,9 @@ export async function getContributionStats(): Promise<ContributionStats> {
               totalContributions
               weeks {
                 contributionDays {
+                  date
                   contributionCount
+                  contributionLevel
                 }
               }
             }
@@ -136,5 +158,12 @@ export async function getContributionStats(): Promise<ContributionStats> {
     total,
     lastYear: contributionCalendar.totalContributions,
     longestStreak,
+    weeks: contributionCalendar.weeks.map((week) =>
+      week.contributionDays.map((day) => ({
+        date: day.date,
+        count: day.contributionCount,
+        level: day.contributionLevel,
+      }))
+    ),
   };
 }

@@ -158,9 +158,28 @@ Runs the [Vitest](https://vitest.dev) suite in `tests/`. It covers the GitHub an
 
 ---
 
+## ✍️ Writing a Blog Post
+
+Add an MDX file to `content/blog/`, e.g. `content/blog/my-post.mdx`:
+
+```mdx
+export const metadata = {
+  title: "My Post",
+  description: "One-sentence summary shown in the post list.",
+  date: "2026-09-24",
+  draft: true,
+};
+
+Write the post in Markdown here.
+```
+
+Drafts are visible in `pnpm dev` but hidden in production. Set `draft: false` to publish. The Blog link in the navigation and footer appears automatically once at least one post is published.
+
+---
+
 ## ☁️ Deployment
 
-The site is built for [Vercel](https://vercel.com). Import the repository, then add `GITHUB_TOKEN`, `RESEND_API_KEY` and (once the domain is live) `NEXT_PUBLIC_SITE_URL` under **Project → Settings → Environment Variables**. Vercel detects pnpm from `pnpm-lock.yaml`.
+The site is built for [Vercel](https://vercel.com). Import the repository, then add `GITHUB_TOKEN`, `RESEND_API_KEY` and (once the domain is live) `NEXT_PUBLIC_SITE_URL` under **Project → Settings → Environment Variables**. Vercel detects pnpm from `pnpm-lock.yaml`. Turn on **Analytics** and **Speed Insights** in the Vercel project to start collecting visitor and performance data; both are already wired into the layout.
 
 If GitHub or LeetCode are unreachable, the homepage falls back gracefully instead of failing the build.
 

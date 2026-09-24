@@ -18,11 +18,17 @@ const validBody = {
   message: "Hi Harry!",
 };
 
-function post(body: unknown) {
+// The route rate-limits per IP, so give each request its own by default.
+let requestCount = 0;
+
+function post(body: unknown, ip = `203.0.113.${++requestCount}`) {
   return POST(
     new Request("http://localhost/api/contact", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-Forwarded-For": ip,
+      },
       body: typeof body === "string" ? body : JSON.stringify(body),
     })
   );
@@ -109,6 +115,30 @@ describe("POST /api/contact", () => {
 
     expect(response.status).toBe(503);
     expect(send).not.toHaveBeenCalled();
+  });
+
+  it("silently drops submissions that fill in the honeypot", async () => {
+    const response = await post({ ...validBody, website: "https://spam.example" });
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ success: true });
+    expect(send).not.toHaveBeenCalled();
+  });
+
+  it("rate-limits repeated messages from one IP", async () => {
+    const ip = "198.51.100.7";
+
+    for (let i = 0; i < 5; i++) {
+      expect((await post(validBody, ip)).status).toBe(200);
+    }
+
+    const response = await post(validBody, ip);
+
+    expect(response.status).toBe(429);
+    expect(send).toHaveBeenCalledTimes(5);
+
+    // Other visitors are unaffected.
+    expect((await post(validBody)).status).toBe(200);
   });
 
   it("returns 502 when Resend reports an error", async () => {

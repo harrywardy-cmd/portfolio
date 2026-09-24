@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 
@@ -90,6 +92,10 @@ export default function RootLayout({
           <main>{children}</main>
         </ThemeProvider>
         <Footer />
+
+        {/* No-ops outside Vercel; enable both in the Vercel dashboard. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

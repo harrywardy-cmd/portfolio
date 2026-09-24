@@ -4,11 +4,13 @@ import {
   ArrowUpRight,
   FileText,
   Sparkles,
+  Hammer,
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 import { Badge } from "@/components/ui/badge";
 import { projectMetadata } from "@/content/projectMetadata";
+import { getProjectImage } from "@/lib/projects";
 import type { PortfolioProject } from "@/types/projects";
 
 interface ProjectCardProps {
@@ -20,10 +22,7 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const metadata = projectMetadata[project.slug];
 
-  const image =
-    metadata?.image ??
-    project.image ??
-    "/images/projects/project-placeholder.png";
+  const image = getProjectImage(project.slug);
 
   const liveDemo =
     project.demo ??
@@ -100,6 +99,13 @@ export function ProjectCard({
               >
                 <Sparkles className="mr-1 h-3 w-3" />
                 Featured
+              </Badge>
+            )}
+
+            {project.inProgress && (
+              <Badge className="absolute right-3 top-3 rounded-full bg-amber-500 px-2.5 py-1 text-[10px] font-semibold text-amber-950 shadow-md">
+                <Hammer className="mr-1 h-3 w-3" />
+                In Progress
               </Badge>
             )}
           </div>

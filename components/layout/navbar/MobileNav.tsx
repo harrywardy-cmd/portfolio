@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/sheet";
 
 import { cn } from "@/lib/utils";
-import { navLinks } from "./nav-links";
+import type { NavLink } from "./nav-links";
 
-export function MobileNav() {
+export function MobileNav({ links }: { links: NavLink[] }) {
   const pathname = usePathname();
 
   return (
@@ -67,7 +67,7 @@ export function MobileNav() {
           aria-label="Mobile navigation"
           className="flex flex-col gap-1 px-4 py-6"
         >
-          {navLinks.map((link) => {
+          {links.map((link) => {
             const isActive = pathname === link.href;
 
             return (

@@ -17,6 +17,9 @@ export interface PortfolioProject {
 
   featured: boolean;
 
+  /** Still being built — shown with an "In Progress" badge. */
+  inProgress?: boolean;
+
   source: "github" | "local";
 
   categories: string[];

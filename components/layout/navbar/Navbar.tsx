@@ -4,14 +4,23 @@ import { Container } from "../Container";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
 import { Logo } from "./Logo";
+import { navLinks } from "./nav-links";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { getPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/site";
 
-export function Navbar() {
+export async function Navbar() {
+  // Only link to the blog once there is something to read.
+  const hasPosts = (await getPosts()).length > 0;
+
+  const links = hasPosts
+    ? navLinks
+    : navLinks.filter((link) => link.href !== "/blog");
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-2xl transition-all duration-300">
       <Container>
@@ -20,7 +29,7 @@ export function Navbar() {
           <Logo />
 
           {/* Desktop Navigation */}
-          <DesktopNav />
+          <DesktopNav links={links} />
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
@@ -71,7 +80,7 @@ export function Navbar() {
             <ThemeToggle />
 
             {/* Mobile Menu */}
-            <MobileNav />
+            <MobileNav links={links} />
           </div>
         </div>
       </Container>

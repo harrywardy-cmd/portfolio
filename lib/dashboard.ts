@@ -1,11 +1,12 @@
 import { cache } from "react";
 
-import { getProjects } from "./github";
+import { getLatestRepository, getProjects } from "./github";
 import {
   getContributionStats,
   type ContributionStats,
 } from "./github-graphql";
 import { getLeetCodeStats, type LeetCodeStats } from "./leetcode";
+import { findProjectByRepository } from "./projects";
 
 /*
  * Live stats shared across the site. Every fetch is cached for 5 minutes
@@ -56,6 +57,38 @@ export const getGitHubStats = cache(
 export const getAlgorithmStats = cache(
   (): Promise<LeetCodeStats | null> =>
     settle("algorithms", getLeetCodeStats())
+);
+
+export interface LatestProject {
+  title: string;
+  description: string;
+  /** Portfolio project page when one exists, otherwise the GitHub repo. */
+  href: string;
+}
+
+/** The most recently updated GitHub repository, as shown on the site. */
+export const getLatestProject = cache(
+  async (): Promise<LatestProject | null> => {
+    const repository = await settle(
+      "latest repository",
+      getLatestRepository()
+    );
+
+    if (!repository) {
+      return null;
+    }
+
+    const project = findProjectByRepository(repository.name);
+
+    return {
+      title: project?.title ?? repository.name,
+      description:
+        project?.description ??
+        repository.description ??
+        "Recently updated on GitHub.",
+      href: project ? `/projects/${project.slug}` : repository.html_url,
+    };
+  }
 );
 
 export async function getHeroStats(): Promise<HeroStatsData> {

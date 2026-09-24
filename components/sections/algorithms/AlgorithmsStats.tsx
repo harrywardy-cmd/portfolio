@@ -13,6 +13,8 @@ import {
 } from "@/lib/dashboard";
 import type { LeetCodeStats } from "@/lib/leetcode";
 
+import { AlgorithmsDifficulty } from "./AlgorithmsDifficulty";
+
 const getStats = (algorithms: LeetCodeStats | null) => [
   {
     title: "Problems Solved",
@@ -43,7 +45,9 @@ const getStats = (algorithms: LeetCodeStats | null) => [
 ];
 
 export async function AlgorithmsStats() {
-  const stats = getStats(await getAlgorithmStats());
+  const algorithms = await getAlgorithmStats();
+
+  const stats = getStats(algorithms);
 
   return (
     <section className="space-y-10">
@@ -110,6 +114,9 @@ export async function AlgorithmsStats() {
           </div>
         ))}
       </div>
+
+      {/* Difficulty breakdown */}
+      {algorithms && <AlgorithmsDifficulty stats={algorithms} />}
     </section>
   );
 }
