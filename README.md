@@ -161,9 +161,9 @@ pnpm build
 pnpm test:e2e
 ```
 
-Runs the [Playwright](https://playwright.dev) tests in `tests/e2e/` against the production build, on desktop and mobile viewports. They cover navigation, the theme toggle, project filtering and write-ups, the blog, resume and report downloads, the contact form (with the API mocked, so no emails are sent) and horizontal overflow on mobile. Locally they use your installed Microsoft Edge; CI installs Chromium.
+Runs the [Playwright](https://playwright.dev) tests in `tests/e2e/` against the production build, on desktop and mobile viewports. They cover navigation, the theme toggle, project filtering and write-ups, the blog, resume and report downloads, the contact form (with the API mocked, so no emails are sent), project search, the RSS feed and horizontal overflow on mobile. Every main page is also scanned with [axe](https://github.com/dequelabs/axe-core) for WCAG 2.1 AA issues in both light and dark mode. Locally they use your installed Microsoft Edge; CI installs Chromium.
 
-Runs the [Vitest](https://vitest.dev) suite in `tests/`. It covers the GitHub and LeetCode stat parsing and fallbacks, the contact form API (validation and HTML escaping), the site URL, the sitemap and robots.txt, and checks that every listed project has a detail page. Lint, type checks, tests and a production build also run on every push and pull request via GitHub Actions.
+Runs the [Vitest](https://vitest.dev) suite in `tests/`. It covers the GitHub and LeetCode stat parsing and fallbacks, the contact form API (validation and HTML escaping), the site URL, the sitemap and robots.txt, and checks that every listed project has a detail page. Lint, type checks, unit tests, a production build and the end-to-end and accessibility suites run on every push and pull request via GitHub Actions. Dependabot opens weekly pull requests for dependency updates.
 
 ---
 

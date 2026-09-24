@@ -84,7 +84,7 @@
   --popover-foreground: var(--foreground);
 
   /* Brand */
-  --primary: oklch(0.62 0.21 258);
+  --primary: oklch(0.5 0.21 258);
   --primary-foreground: oklch(1 0 0);
 
   /* Secondary */
@@ -147,7 +147,8 @@
 
   /* Brand */
   --primary: oklch(0.68 0.22 258);
-  --primary-foreground: oklch(1 0 0);
+  /* Dark text: white on this bright blue fails WCAG contrast. */
+  --primary-foreground: oklch(0.17 0.015 260);
 
   /* Secondary */
   --secondary: oklch(0.26 0.015 260);

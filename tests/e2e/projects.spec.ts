@@ -22,6 +22,34 @@ test.describe("projects", () => {
     ).toBeVisible();
   });
 
+  test("searches and filters by technology", async ({ page }) => {
+    await page.goto("/projects");
+
+    const count = page.getByText(/^Showing \d+ of \d+ projects$/);
+
+    await page.getByLabel("Search projects").fill("gemini");
+
+    await expect(count).toHaveText(/^Showing 1 of/);
+    await expect(
+      page.getByRole("heading", { name: "Calorie Compass" })
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "Clear filters" }).first().click();
+    await expect(page.getByLabel("Search projects")).toHaveValue("");
+
+    await page.getByLabel("Filter by technology").selectOption("Prisma");
+
+    await expect(
+      page.getByRole("heading", { name: "Calorie Compass" })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Python Calculator" })
+    ).toHaveCount(0);
+
+    await page.getByLabel("Search projects").fill("zzz-no-match");
+    await expect(page.getByText("No projects found")).toBeVisible();
+  });
+
   test("marks work-in-progress projects", async ({ page }) => {
     await page.goto("/projects");
 

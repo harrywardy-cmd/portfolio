@@ -44,6 +44,12 @@ export const metadata: Metadata = {
 
   creator: "Harry Ward",
 
+  alternates: {
+    types: {
+      "application/rss+xml": [{ url: "/rss.xml", title: "Harry Ward — Blog" }],
+    },
+  },
+
   openGraph: {
     type: "website",
     locale: "en_AU",

@@ -1,0 +1,121 @@
+export const metadata = {
+  title: "What Testing My Portfolio Actually Caught",
+  description:
+    "Unit tests, Playwright and automated accessibility checks on a site that already looked finished — and the real bugs each one found.",
+  date: "2026-09-24",
+  tags: ["Testing", "Playwright", "Accessibility"],
+  draft: false,
+};
+
+It's easy to skip tests on a portfolio. It's "just a website", it looks
+fine in the browser, and nobody's paying for it. But this site pulls live
+data from three APIs, sends email, and has twenty-odd pages generated from
+content files — plenty of places for things to quietly break.
+
+So I added three layers of testing. Each one found real problems in a site
+I'd have called finished.
+
+## Layer 1: unit tests with Vitest
+
+The first layer covers the logic: parsing GitHub and LeetCode responses,
+the streak calculation, the contact form's validation and HTML escaping, and
+what happens when an API fails. `fetch` is mocked, so the tests never depend
+on GitHub being up.
+
+The most useful test turned out to be the simplest. Projects on this site
+come from two files: a list of project cards, and a separate file of
+detailed write-ups. One test checks they match:
+
+```ts
+it("only has detail metadata for projects that are listed", () => {
+  const slugs = new Set(projects.map((project) => project.slug));
+
+  for (const slug of Object.keys(projectMetadata)) {
+    expect(slugs).toContain(slug);
+  }
+});
+```
+
+It failed immediately. **Four finished projects had full write-ups but no
+card**, so no visitor could ever see them. They're on the site now, and the
+test stops it happening again.
+
+## Layer 2: end-to-end tests with Playwright
+
+Unit tests can't tell you whether a button works. Playwright drives a real
+browser against the production build, on desktop and a mobile viewport, and
+clicks through the site the way a visitor would: navigation, the mobile
+menu, project filters, the blog, PDF downloads, and the contact form (with
+the API mocked, so no emails get sent).
+
+It found three bugs on its first run.
+
+**Links that announced themselves as buttons.** My button component rendered
+links as `<a role="button">`. They looked and worked like links, but screen
+readers announced every one as a *button* — and Playwright couldn't find
+them by the "link" role either. Thirty-three of them are now plain links
+styled as buttons.
+
+**A "Download Resume" button that didn't download.** One of them pointed at
+the resume *page*. The test now checks that every "Download Resume" link
+serves an actual PDF:
+
+```ts
+for (const href of hrefs) {
+  expect(href).toMatch(/\.pdf$/);
+
+  const response = await request.get(href!);
+
+  expect(response.headers()["content-type"]).toContain("application/pdf");
+}
+```
+
+**A page with no main heading.** The projects page used an `<h2>` where its
+title should have been an `<h1>`, which hurts both screen reader navigation
+and search.
+
+I also added a check that no page scrolls sideways on a phone, because that's
+the kind of layout bug that's easy to miss on a desktop monitor.
+
+## Layer 3: automated accessibility checks
+
+The last layer runs [axe](https://github.com/dequelabs/axe-core) on every
+page, in light and dark mode, on desktop and mobile, against the WCAG 2.1 AA
+rules. It flagged three kinds of problem across the site.
+
+**Colour contrast.** White text on my blue buttons measured about 3.75:1 in
+light mode, below the 4.5:1 minimum for normal text. Darkening the blue
+fixed light mode.
+
+Dark mode was more interesting: the same blue was used for button
+backgrounds under white text *and* for blue text on the near-black page.
+White text needs a darker blue; blue text on black needs a lighter one. I
+worked out the ratios, and no single shade passes both. The fix is the
+common dark-mode pattern: keep the bright blue, and use dark text on the
+buttons instead of white.
+
+**Icon links with no name.** The GitHub, LinkedIn and email icons in the
+footer had no text, so a screen reader would just say "link". Each one now
+has a label.
+
+**Scrollable areas you couldn't reach by keyboard.** Wide code blocks and the
+contribution graph scroll sideways on small screens, but keyboard users
+couldn't focus them to scroll. They're focusable now.
+
+## Keeping it that way
+
+All of this runs in GitHub Actions on every push: lint, type checks, unit
+tests, a production build, then the Playwright and accessibility suites.
+Dependabot opens a pull request when packages update, so each update gets
+tested before it's merged.
+
+## What I'd tell myself earlier
+
+- **Test the seams between data.** The most valuable test was a two-line
+  check that two content files agree.
+- **Query by role, not by class.** Writing Playwright tests the way assistive
+  technology sees the page surfaced problems no visual check would.
+- **Automated accessibility checks are cheap.** They don't catch everything,
+  but they catch a lot, and they run on every change for free.
+- **"Looks fine" isn't a test.** Every bug here was invisible in a normal
+  browser.

@@ -1,0 +1,136 @@
+export const metadata = {
+  title: "Estimating Meals with AI in Calorie Compass",
+  description:
+    "How Calorie Compass turns \"large chicken schnitzel burger and medium chips\" into calories and macros with Gemini — and why the AI only ever suggests, never saves.",
+  date: "2026-09-24",
+  tags: ["AI", "Next.js", "Gemini"],
+  draft: false,
+};
+
+The hardest part of any calorie tracker isn't the maths — it's typing in what
+you ate. Search a food database for a homemade meal and you get fifty near
+matches and no right answer. In [Calorie Compass](/projects/calorie-compass),
+I wanted logging to be as quick as describing the meal to a friend.
+
+So there's a "Describe with AI" option: type something like _"large chicken
+schnitzel burger and medium chips"_, and the form fills itself in with a
+name, calories, protein, carbs and fat.
+
+## The flow
+
+1. The meal form sends the description to a Next.js route,
+   `/api/estimate-meal`.
+2. The route asks Gemini 2.5 Flash for a nutrition estimate.
+3. The estimate comes back as JSON and pre-fills the form.
+4. The user checks the numbers, adjusts anything that looks off, and saves.
+
+That last step matters most, so I'll come back to it.
+
+## Asking for JSON
+
+The prompt gives the model a role, the meal, and the exact shape of the
+answer:
+
+```ts
+const response = await ai.models.generateContent({
+  model: "gemini-2.5-flash",
+  contents: `
+You are a nutrition expert.
+
+Estimate the nutritional values for:
+
+"${mealDescription}"
+
+Return ONLY valid JSON.
+
+No markdown.
+No explanations.
+No code fences.
+
+{
+  "mealName": "",
+  "calories": 0,
+  "protein": 0,
+  "carbs": 0,
+  "fat": 0,
+  "confidence": 0
+}
+`,
+});
+```
+
+Showing the model an empty template works better than describing the fields
+in words — it copies the structure, including the field names the form
+expects.
+
+The `confidence` field is a score from 0 to 100. A plain "chicken breast"
+is easy; "mum's lasagne" is a guess. The score is shown next to the
+estimate so the user knows how much to trust it.
+
+## Models don't always listen
+
+Even with "no code fences" in capitals, the model sometimes wraps its answer
+in a Markdown code block anyway. So before parsing, the route strips them:
+
+```ts
+const cleanedText = text
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
+
+const nutrition = JSON.parse(cleanedText);
+```
+
+It works, but it's defensive string handling around a model's habits. If I
+built it again, I'd use Gemini's structured output mode to request a schema
+directly, and validate the result with zod — which the project already uses
+for its forms — so a malformed answer fails clearly instead of halfway.
+
+## Rate limits are part of the design
+
+Free AI tiers have tight rate limits, and hitting one isn't a bug — it's
+normal traffic. Gemini's SDK reports errors as plain objects with a numeric
+`status`, so the route narrows the error safely and turns a `429` into a
+message a person can act on:
+
+```ts
+if (status === 429) {
+  return NextResponse.json(
+    {
+      error:
+        "AI requests are temporarily unavailable. Please wait a minute and try again.",
+    },
+    { status: 429 }
+  );
+}
+```
+
+The form shows that message as-is, and manual entry still works, so the app
+never depends on the AI being available.
+
+## The AI suggests; the user decides
+
+The estimate never goes straight into the database. It pre-fills the form,
+and nothing is saved until the user presses save. When it is, the meal is
+stored with two extra fields:
+
+- `aiGenerated` — whether the values came from an AI estimate
+- `confidence` — the model's score at the time
+
+Picking a suggestion from your own history instead clears both, because
+those values came from you, not the model.
+
+Keeping a human in the loop is the right default for anything that affects
+someone's health, even something as low-stakes as a lunch log. It also
+keeps the data honest: I can always tell which entries were estimated.
+
+## What I learned
+
+- **Give models a template, not a description.** The output shape follows
+  much more reliably.
+- **Treat AI output as untrusted input.** Parse it, check it, and have a
+  plan for when it's wrong.
+- **Design for the failure path.** Rate limits and bad answers are normal;
+  the app should stay useful when they happen.
+- **Make the AI's role visible.** A confidence score and an "AI" label tell
+  the user exactly what they're looking at.

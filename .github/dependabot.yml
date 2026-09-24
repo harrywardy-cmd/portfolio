@@ -1,0 +1,27 @@
+# Opens pull requests for dependency updates; CI tests each one.
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Australia/Melbourne
+    open-pull-requests-limit: 5
+    # An update joins the first group it matches.
+    groups:
+      # Keep Next.js and its companion packages on the same version.
+      nextjs:
+        patterns: [next, "@next/*", eslint-config-next]
+      # One PR for everything else's minor and patch updates.
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]

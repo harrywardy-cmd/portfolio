@@ -122,20 +122,24 @@ export async function Footer() {
                 {[
                   {
                     href: siteConfig.links.github,
+                    label: "GitHub",
                     icon: <FaGithub className="h-5 w-5" />,
                   },
                   {
                     href: siteConfig.links.linkedin,
+                    label: "LinkedIn",
                     icon: <FaLinkedinIn className="h-5 w-5" />,
                   },
                   {
                     href: siteConfig.links.email,
+                    label: "Email",
                     icon: <Mail className="h-5 w-5" />,
                   },
-                ].map(({ href, icon }) => (
+                ].map(({ href, label, icon }) => (
                   <Link
                     key={href}
                     href={href}
+                    aria-label={label}
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel={
                       href.startsWith("http")

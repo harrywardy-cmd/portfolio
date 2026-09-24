@@ -18,6 +18,7 @@ vi.mock("node:fs", async (importOriginal) => {
     default: {
       ...actual,
       existsSync: () => true,
+      readFileSync: () => "word ".repeat(450),
       readdirSync: vi.fn(() =>
         Object.keys(posts).map((slug) => `${slug}.mdx`)
       ),
@@ -88,7 +89,11 @@ describe("blog", () => {
 
     const post = await getPost("newer");
 
-    expect(post).toMatchObject({ slug: "newer", title: "Newer" });
+    expect(post).toMatchObject({
+      slug: "newer",
+      title: "Newer",
+      readingTime: 2,
+    });
     expect(post?.Content).toBeTypeOf("function");
   });
 
@@ -97,6 +102,22 @@ describe("blog", () => {
 
     await expect(getPost("unfinished")).resolves.toBeUndefined();
     await expect(getPost("missing")).resolves.toBeUndefined();
+  });
+
+  it("estimates reading time from prose only", async () => {
+    const { getReadingTime } = await loadBlog();
+
+    const metadata = [
+      "export const metadata = {",
+      `  title: "${"skip ".repeat(500)}",`,
+      "};",
+      "",
+    ].join("\n");
+
+    const code = ["```ts", "code ".repeat(1000), "```", ""].join("\n");
+
+    expect(getReadingTime(metadata + "word ".repeat(600) + code)).toBe(3);
+    expect(getReadingTime("Just a few words.")).toBe(1);
   });
 
   it("formats dates without timezone drift", async () => {

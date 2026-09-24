@@ -76,7 +76,13 @@ describe("sitemap", () => {
     expect(await paths()).not.toContain("/blog");
 
     vi.mocked(getPosts).mockResolvedValueOnce([
-      { slug: "hello", title: "Hello", description: "", date: "2026-09-24" },
+      {
+        slug: "hello",
+        title: "Hello",
+        description: "",
+        date: "2026-09-24",
+        readingTime: 1,
+      },
     ]);
 
     expect(await paths()).toEqual(

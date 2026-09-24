@@ -118,7 +118,13 @@ function ContributionCalendar({ weeks }: { weeks: ContributionDay[][] }) {
   // stretch to fill the card and fall back to scrolling on small screens.
   return (
     <>
-      <div className="overflow-x-auto pb-2">
+      {/* Scrolls sideways on small screens, so it must be keyboard-focusable. */}
+      <div
+        tabIndex={0}
+        role="region"
+        aria-label="Contribution graph"
+        className="overflow-x-auto rounded-md pb-2 outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
         <div
           role="img"
           aria-label="GitHub contributions over the last year"

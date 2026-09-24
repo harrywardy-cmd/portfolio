@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Construction } from "lucide-react";
+import { ArrowLeft, ArrowRight, Construction, Rss } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
 import { buttonVariants } from "@/components/ui/button";
@@ -39,6 +39,14 @@ export default async function BlogPage() {
             learn along the way.
           </p>
 
+          <a
+            href="/rss.xml"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80"
+          >
+            <Rss className="h-4 w-4" />
+            Subscribe via RSS
+          </a>
+
           <div className="mt-12 space-y-6">
             {posts.map((post) => (
               <Link
@@ -48,6 +56,10 @@ export default async function BlogPage() {
               >
                 <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                   <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+
+                  <span aria-hidden="true">·</span>
+
+                  <span>{post.readingTime} min read</span>
 
                   {post.draft && (
                     <span className="rounded-full bg-amber-500/15 px-2.5 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">

@@ -58,12 +58,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <BackButton />
 
           <header className="mt-8">
-            <time
-              dateTime={post.date}
-              className="text-sm text-muted-foreground"
-            >
-              {formatPostDate(post.date)}
-            </time>
+            <p className="text-sm text-muted-foreground">
+              <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+              {" · "}
+              {post.readingTime} min read
+            </p>
 
             <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
               {post.title}

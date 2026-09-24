@@ -3,23 +3,17 @@ import { ProjectCard } from "./ProjectCard";
 import type { PortfolioProject } from "@/types/projects";
 
 interface ProjectsGridProps {
+  /** Already filtered by ProjectsView. */
   projects: PortfolioProject[];
-  filter: string;
+  onClearFilters: () => void;
 }
 
 export function ProjectsGrid({
   projects,
-  filter,
+  onClearFilters,
 }: ProjectsGridProps) {
-  const filteredProjects =
-    filter === "All"
-      ? projects
-      : projects.filter((project) =>
-          project.categories.includes(filter)
-        );
-
   // Empty state
-  if (filteredProjects.length === 0) {
+  if (projects.length === 0) {
     return (
       <div className="py-20 text-center">
         <h3 className="text-2xl font-semibold">
@@ -27,8 +21,16 @@ export function ProjectsGrid({
         </h3>
 
         <p className="mt-3 text-muted-foreground">
-          Try selecting another category.
+          Try a different search, technology or category.
         </p>
+
+        <button
+          type="button"
+          onClick={onClearFilters}
+          className="mt-6 text-sm font-semibold text-primary hover:text-primary/80"
+        >
+          Clear filters
+        </button>
       </div>
     );
   }
@@ -47,7 +49,7 @@ export function ProjectsGrid({
           items-stretch
         "
       >
-        {filteredProjects.map((project) => (
+        {projects.map((project) => (
           <div
             key={project.slug}
             className="

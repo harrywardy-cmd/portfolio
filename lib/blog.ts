@@ -26,12 +26,34 @@ export interface PostMetadata {
 
 export interface Post extends PostMetadata {
   slug: string;
+  /** Estimated minutes to read. */
+  readingTime: number;
 }
 
 const POSTS_DIRECTORY = path.join(process.cwd(), "content", "blog");
 
 // Drafts are visible while developing so they can be previewed.
 const SHOW_DRAFTS = process.env.NODE_ENV === "development";
+
+const WORDS_PER_MINUTE = 200;
+
+/**
+ * Estimated reading time for an MDX source, counting prose only: the
+ * metadata export and fenced code blocks are left out.
+ */
+export function getReadingTime(source: string): number {
+  const prose = source
+    .replace(/^export const metadata = \{[\s\S]*?\n\};?/m, "")
+    .replace(/```[\s\S]*?```/g, "");
+
+  const words = prose.split(/\s+/).filter((word) => /\w/.test(word)).length;
+
+  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+}
+
+function readSource(slug: string): string {
+  return fs.readFileSync(path.join(POSTS_DIRECTORY, `${slug}.mdx`), "utf8");
+}
 
 function getSlugs(): string[] {
   if (!fs.existsSync(POSTS_DIRECTORY)) {
@@ -50,6 +72,7 @@ export async function getPosts(): Promise<Post[]> {
     getSlugs().map(async (slug) => ({
       slug,
       ...(await loadPost(slug)).metadata,
+      readingTime: getReadingTime(readSource(slug)),
     }))
   );
 
@@ -72,7 +95,12 @@ export async function getPost(
     return undefined;
   }
 
-  return { slug, ...metadata, Content };
+  return {
+    slug,
+    ...metadata,
+    readingTime: getReadingTime(readSource(slug)),
+    Content,
+  };
 }
 
 export function formatPostDate(date: string): string {
